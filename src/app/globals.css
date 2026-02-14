@@ -1,15 +1,16 @@
 @import "tailwindcss";
 
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --medical-blue: #004a99;
+  --medical-light-blue: #e6f0ff;
+  --medical-accent: #a6c7e7; /* Matching Regent St Blue from memory */
 }
 
 @media (prefers-color-scheme: dark) {
