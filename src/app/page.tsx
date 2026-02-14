@@ -8,7 +8,7 @@ export default function Home() {
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-2 text-2xl font-bold tracking-tight text-slate-900">
-            <span className="text-blue-600">Sola</span> Infusion
+            <span className="text-blue-600">Soleil</span> Infusion
           </div>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
             <a href="#services" className="hover:text-blue-600 transition-colors">Services</a>
@@ -30,7 +30,7 @@ export default function Home() {
                   Expert Infusion & <span className="text-blue-600 text-glow">Personalized Care</span>
                 </h1>
                 <p className="text-xl text-slate-600 mb-10 leading-relaxed max-w-lg">
-                  At Sola Infusion, we specialize in delivering safe, comfortable, and clinically expert IV infusion therapy tailored to your unique wellness needs.
+                  At Soleil Infusion, we specialize in delivering safe, comfortable, and clinically expert IV infusion therapy tailored to your unique wellness needs.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a href="#contact" className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-200 text-center">
@@ -94,15 +94,15 @@ export default function Home() {
             <h2 className="text-4xl font-bold mb-6">Book Your Appointment</h2>
             <p className="text-slate-600 mb-12">Complete the form below to connect with our care team and schedule your clinical assessment.</p>
             
-            <GHLForm formId="SOLA-INTAKE-01" />
+            <GHLForm formId="SOLEIL-INTAKE-01" />
           </div>
         </section>
       </main>
 
       <footer className="py-12 border-t border-slate-100 bg-white">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:row items-center justify-between gap-6">
-          <div className="text-slate-900 font-bold">Sola Infusion</div>
-          <p className="text-slate-400 text-sm">© 2026 Sola Infusion. All rights reserved. HIPAA Compliant Care.</p>
+          <div className="text-slate-900 font-bold">Soleil Infusion</div>
+          <p className="text-slate-400 text-sm">© 2026 Soleil Infusion. All rights reserved. HIPAA Compliant Care.</p>
         </div>
       </footer>
     </div>

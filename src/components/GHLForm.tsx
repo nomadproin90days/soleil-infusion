@@ -58,10 +58,10 @@ export default function GHLForm({
             data-activation-value=""
             data-deactivation-type="neverDeactivate"
             data-deactivation-value=""
-            data-form-name="Sola Intake"
+            data-form-name="Soleil Intake"
             data-scrollbar="yes"
             data-contact-events="yes"
-            title="Sola Intake"
+            title="Soleil Intake"
           ></iframe>
       */}
     </div>
