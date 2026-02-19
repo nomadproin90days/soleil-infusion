@@ -7,16 +7,16 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --medical-blue: #004a99;
-  --medical-light-blue: #e6f0ff;
-  --medical-accent: #a6c7e7; /* Matching Regent St Blue from memory */
+  --foreground: #646464; /* Dove Gray */
+  --medical-blue: #A6C7E7; /* Regent St Blue */
+  --medical-dark-blue: #5b8bb0; /* Darker shade of Regent St Blue for text/contrast */
+  --medical-light-blue: #f0f7ff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #ffffff; /* Force light mode for medical aesthetic consistency for now */
+    --foreground: #646464;
   }
 }
 
