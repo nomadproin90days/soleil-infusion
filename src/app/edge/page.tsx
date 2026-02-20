@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { Roboto } from "next/font/google";
 import { useState, useEffect, useRef } from "react";
-import StatsHighlight from "@/components/StatsHighlight";
 import { animate, animateMini, scroll, inView, stagger } from "motion";
 
 const roboto = Roboto({
@@ -107,11 +106,23 @@ const platformTimeframes = [
   "Out of stock: same-day order, next-day ready",
 ];
 
+// ── CountUp helpers (module-level, no re-creation on render) ──
+const COUNTUP_MS = 1800;
+function cubeOut(t: number) { return 1 - Math.pow(1 - t, 3); }
+function fmtStat(v: number, pre: string, suf: string) { return `${pre}${Math.round(v)}${suf}`; }
+
+const introStats = [
+  { label: "Blue Ocean Confirmed", target: 0,   prefix: "",  suffix: "",  initial: "0",   detail: "local competitors with White\u00a0Jade (백옥주사) positioning", big: true  },
+  { label: "Price Sweet Spot",     target: 225,  prefix: "$", suffix: "",  initial: "$0",  detail: "validated vs. 5 local providers + NJ benchmark",              big: false },
+  { label: "Pre-Sale Target",      target: 15,   prefix: "$", suffix: "K", initial: "$0K", detail: "by Day\u00a028 · 33 packages at $450 each",                   big: false },
+];
+
 export default function EdgeDesign() {
   const [activeSection, setActiveSection] = useState("");
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [cursorHover, setCursorHover] = useState(false);
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+  const statNumRefs = useRef<(HTMLSpanElement | null)[]>([null, null, null]);
 
   useEffect(() => {
     // animateMini: single unambiguous overload (ElementOrSelector, DOMKeyframesDefinition, options)
@@ -160,13 +171,33 @@ export default function EdgeDesign() {
       animateMini(".b2b-card", { opacity: [0, 1], scale: [0.93, 1] }, { delay: stagger(0.06), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
     }, { amount: 0.3 });
 
+    // ── 7. Intro stat CountUp — starts after fade-in completes (~1.1 s)
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const countUpTimer = setTimeout(() => {
+      introStats.forEach((stat, i) => {
+        const el = statNumRefs.current[i];
+        if (!el) return;
+        const final = fmtStat(stat.target, stat.prefix, stat.suffix);
+        if (stat.target === 0 || reducedMotion) { el.textContent = final; return; }
+        let t0: number | null = null;
+        const tick = (now: number) => {
+          if (t0 === null) t0 = now;
+          const p = Math.min((now - t0) / COUNTUP_MS, 1);
+          if (el) el.textContent = fmtStat(cubeOut(p) * stat.target, stat.prefix, stat.suffix);
+          if (p < 1) requestAnimationFrame(tick);
+          else if (el) el.textContent = final;
+        };
+        requestAnimationFrame(tick);
+      });
+    }, 1100); // synced with intro fade-in: 0.5 s delay + 0.6 s duration
+
     // ── Section tracker (drives header + cursor color inversion)
     const observer = new IntersectionObserver(
       (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setActiveSection(entry.target.id); }); },
       { threshold: 0.5 }
     );
     Object.values(observerRefs.current).forEach((el) => { if (el) observer.observe(el); });
-    return () => observer.disconnect();
+    return () => { observer.disconnect(); clearTimeout(countUpTimer); };
   }, []);
 
   useEffect(() => {
@@ -277,18 +308,14 @@ export default function EdgeDesign() {
               </p>
 
               <div className="flex flex-col gap-3 md:gap-0 md:space-y-8">
-                {[
-                  { label: "Blue Ocean Confirmed", value: "0", detail: "local competitors with White Jade (백옥주사) positioning", big: true },
-                  { label: "Price Sweet Spot", value: "$225", detail: "validated vs. 5 local providers + NJ benchmark", big: false },
-                  { label: "Pre-Sale Target", value: "$15K", detail: "by Day 28 · 33 packages at $450 each", big: false },
-                ].map((stat, i) => (
+                {introStats.map((stat, i) => (
                   <div
                     key={i}
                     className="intro-stat border border-[#D0D0D0] md:border-0 md:border-t md:border-[#D0D0D0] p-3 md:p-0 md:pt-6 bg-white/60 md:bg-transparent"
                   >
                     <div className="text-[9px] uppercase tracking-[0.2em] text-[#999999] mb-1">{stat.label}</div>
                     <div className={`font-bold font-mono text-[#004a99] leading-none ${stat.big ? "text-[48px] md:text-[64px]" : "text-2xl md:text-3xl"}`}>
-                      {stat.value}
+                      <span ref={el => { statNumRefs.current[i] = el; }}>{stat.initial}</span>
                     </div>
                     <div className="text-[11px] text-[#666666] mt-1 leading-snug">{stat.detail}</div>
                   </div>
@@ -306,9 +333,6 @@ export default function EdgeDesign() {
           </div>
         </div>
       </section>
-
-      {/* ─── STATS HIGHLIGHT ────────────────────────────────────────── */}
-      <StatsHighlight />
 
       {/* ─── SECTION 2: THE OFFERINGS ──────────────────────────── z-20 */}
       <section
