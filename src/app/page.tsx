@@ -30,8 +30,9 @@ export default function Home() {
                   Now Open in Glen Burnie
                 </div>
                 <h1 className="text-5xl lg:text-7xl font-bold leading-[1.1] mb-6 tracking-tight text-slate-900">
-                  Medical Integrity. <br/>
-                  <span className="text-[var(--medical-dark-blue)]">Lifestyle Wellness.</span>
+                  MEDICAL <br/>
+                  INTEGRITY <br/>
+                  <span className="text-[var(--medical-dark-blue)]">REDEFINED.</span>
                 </h1>
                 <p className="text-xl text-slate-600 mb-8 leading-relaxed max-w-lg">
                   Experience clinically expert IV infusion therapy tailored to your unique biology. Bridging the gap between medical necessity and daily vitality.

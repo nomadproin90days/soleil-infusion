@@ -68,6 +68,44 @@ const pillars = [
   },
 ];
 
+const platformStages = [
+  { step: "1", title: "Channel Policy", detail: "Primary: eRX + Prescriber Portal. Legacy phone/fax/paper become exceptions only.", tag: "Intake standardization" },
+  { step: "2", title: "AI Intake Bridge", detail: "For paperwork offices, OCR pulls handwriting — technicians verify the final 20%.", tag: "Less burden, less errors" },
+  { step: "3", title: "Formula-ID Ordering", detail: "Provider selects exact formulary; formula ID drops directly to production labeling.", tag: "Translation risk reduced" },
+  { step: "4", title: "Pioneer Execution", detail: "Orders flow into Pioneer queue for controlled verification and fulfillment.", tag: "Operational source of truth" },
+  { step: "5", title: "Payment + Close Loop", detail: "Capture payment early. Reconcile Pioneer + GHL for true conversion reporting.", tag: "Cash flow + measurable wins" },
+];
+
+const platformCompoundingPath = [
+  "Decision point: sterile vs non-sterile",
+  "Sterile (24–72h): GIPS, Trimix, injectables",
+  "Non-sterile (24–72h): creams, troches, capsules",
+  "Includes payment check, prep, label, pull, accuracy verification",
+];
+
+const platformFallbackOps = [
+  "Use fax/paper only as migration bridge for low-tech offices",
+  "OCR extraction → move office to portal onboarding",
+  "SDR identifies bottleneck and key assistant contact",
+  "Target state: every account on standardized channels",
+];
+
+const platformMetrics = [
+  "Portal signup → first prescription sent (true close)",
+  "Pioneer order volume by provider and formula",
+  "Intake channel mix: portal/eRX vs legacy",
+  "Error rate and cycle time by channel",
+];
+
+const platformTimeframes = [
+  "Electronic RX: 30–45 min",
+  "Fax RX: 15–30 min",
+  "Regular fill: 15–30 min",
+  "Insurance issues: +1–2 hours",
+  "Compounding: 1–3 days",
+  "Out of stock: same-day order, next-day ready",
+];
+
 export default function EdgeDesign() {
   const [activeSection, setActiveSection] = useState("");
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -90,7 +128,16 @@ export default function EdgeDesign() {
       animateMini(".pillar-card", { opacity: [0, 1], y: [40, 0] }, { delay: stagger(0.12), duration: 0.7, ease: [0.22, 1, 0.36, 1] });
     }, { amount: 0.3 });
 
-    // ── 4. Market: competitor rows slide in from left with stagger
+    // ── 4. Platform Engine: staged reveal with workflow line
+    inView("#platform", () => {
+      animateMini(".platform-quote", { opacity: [0, 1], y: [14, 0] }, { duration: 0.45, ease: [0.22, 1, 0.36, 1] });
+      animateMini(".platform-stage", { opacity: [0, 1], y: [20, 0] }, { delay: stagger(0.08, { startDelay: 0.05 }), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      animateMini(".platform-block", { opacity: [0, 1], y: [16, 0] }, { delay: stagger(0.1, { startDelay: 0.18 }), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+      animateMini(".platform-kpi", { opacity: [0, 1], x: [14, 0] }, { delay: stagger(0.08, { startDelay: 0.12 }), duration: 0.5, ease: [0.22, 1, 0.36, 1] });
+      animateMini(".workflow-line", { scaleX: [0, 1] }, { duration: 1.2, ease: [0.22, 1, 0.36, 1] });
+    }, { amount: 0.3 });
+
+    // ── 5. Market: competitor rows slide in from left with stagger
     inView("#market", () => {
       animateMini(".competitor-row", { opacity: [0, 1], x: [-24, 0] }, { delay: stagger(0.09), duration: 0.5, ease: [0.22, 1, 0.36, 1] });
     }, { amount: 0.3 });
@@ -172,6 +219,7 @@ export default function EdgeDesign() {
           </div>
           <nav className="flex items-center gap-3 md:gap-6 text-[10px] md:text-[11px] font-medium uppercase tracking-widest">
             <a href="#offerings" className={`hidden md:block transition-colors duration-300 ${activeSection === 'market' ? 'text-[#AAAAAA] hover:text-white' : 'text-[#666666] hover:text-[#222222]'}`}>Offerings</a>
+            <a href="#platform"  className={`hidden md:block transition-colors duration-300 ${activeSection === 'market' ? 'text-[#AAAAAA] hover:text-white' : 'text-[#666666] hover:text-[#222222]'}`}>System</a>
             <a href="#market"    className={`hidden md:block transition-colors duration-300 ${activeSection === 'market' ? 'text-white font-bold' : 'text-[#666666] hover:text-[#222222]'}`}>Market</a>
             <a href="#economics" className={`hidden md:block transition-colors duration-300 ${activeSection === 'market' ? 'text-[#AAAAAA] hover:text-white' : 'text-[#666666] hover:text-[#222222]'}`}>Economics</a>
             <a href="#b2b"       className={`hidden md:block transition-colors duration-300 ${activeSection === 'market' ? 'text-[#AAAAAA] hover:text-white' : 'text-[#666666] hover:text-[#222222]'}`}>B2B</a>
@@ -269,7 +317,7 @@ export default function EdgeDesign() {
           {/* Header row */}
           <div className="flex justify-between items-start border-b border-[#EEEEEE] pb-3 md:pb-5 mb-4 md:mb-8 flex-shrink-0 gap-4">
             <div className="flex items-baseline gap-3 min-w-0">
-              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em] flex-shrink-0">01 / 04</span>
+              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em] flex-shrink-0">01 / 05</span>
               <h2 className="text-base md:text-[32px] font-bold tracking-tight leading-snug">
                 The 3 Products That Answer Thuy&apos;s Question: How Do We Scale?
               </h2>
@@ -323,18 +371,97 @@ export default function EdgeDesign() {
         </div>
       </section>
 
-      {/* ─── SECTION 3: MARKET GAP ─────────────────────────────── z-30 */}
+      {/* ─── SECTION 3: PLATFORM ENGINE (Prescription Journey OS) ─ z-30 */}
+      <section
+        id="platform"
+        ref={(el) => { observerRefs.current["platform"] = el; }}
+        className="sticky top-14 md:top-16 h-[100dvh] bg-[#FAFAFA] z-30 overflow-hidden"
+        style={{ boxShadow: "0 -6px 40px rgba(0,0,0,0.10)" }}
+      >
+        <div className="h-full max-w-[1440px] mx-auto px-4 md:px-10 flex flex-col py-4 md:py-10">
+          {/* Header */}
+          <div className="flex justify-between items-start border-b border-[#E0E0E0] pb-3 md:pb-5 mb-4 md:mb-6 flex-shrink-0 gap-4">
+            <div className="flex items-baseline gap-3 min-w-0">
+              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em] flex-shrink-0">02 / 05</span>
+              <h2 className="text-base md:text-[32px] font-bold tracking-tight leading-snug">
+                The Scaling Engine: Automated Pharmacy OS
+              </h2>
+            </div>
+            <span className="text-[9px] uppercase tracking-widest text-[#999999] flex-shrink-0 hidden sm:block">The 15-State Infrastructure</span>
+          </div>
+
+          {/* Thuy's Feb 19 verbatim context */}
+          <div className="platform-quote opacity-0 bg-[#F3F9FF] border border-[#D5E8F8] p-3 md:p-4 text-[10px] md:text-[11px] leading-relaxed text-[#3C607F] mb-4 md:mb-5 flex-shrink-0">
+            <strong className="text-[#004a99]">Thuy, Feb 19:</strong> &ldquo;I cannot scale the business if all the doctors were calling.&rdquo; &nbsp;·&nbsp; &ldquo;They are doing old fashioned way with paperwork.&rdquo; &nbsp;·&nbsp; &ldquo;Rana used AI — decoding the handwriting.&rdquo; &nbsp;·&nbsp; &ldquo;The prescriber portal here that we made is free.&rdquo;
+          </div>
+
+          <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar md:overflow-visible">
+            {/* 5-step workflow with animated connecting line */}
+            <div className="relative mb-4 md:mb-5">
+              <div className="absolute left-[28px] right-[28px] top-[28px] h-[5px] rounded-full bg-gradient-to-r from-[#B9D4EC] via-[#6DA4D0] to-[#004a99] workflow-line origin-left" style={{ transform: "scaleX(0)" }} />
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-2 relative z-10">
+                {platformStages.map((stage) => (
+                  <div key={stage.step} className="platform-stage opacity-0 bg-white border border-[#DCEBFA] p-3 md:p-3.5">
+                    <div className="w-9 h-9 rounded-full border-2 border-[#9DC4E6] bg-[#F3F8FE] flex items-center justify-center font-mono font-bold text-[#5B8BB0] mb-2 text-sm">
+                      {stage.step}
+                    </div>
+                    <h4 className="text-[13px] md:text-[15px] font-bold leading-tight mb-1">{stage.title}</h4>
+                    <p className="text-[10px] md:text-[11px] text-[#4F7190] leading-snug mb-2">{stage.detail}</p>
+                    <div className="inline-block text-[9px] uppercase tracking-widest text-[#2E628E] border border-[#CAE0F3] bg-[#EEF6FD] px-2 py-1">
+                      {stage.tag}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Detail panels */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div className="platform-block opacity-0 bg-white border border-[#DCEBFA] p-3 md:p-4">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[#4F7596] mb-2">Compounding Path</div>
+                <ul className="space-y-1.5 text-[11px] text-[#3A5E7D]">
+                  {platformCompoundingPath.map((item, i) => <li key={i}>— {item}</li>)}
+                </ul>
+              </div>
+              <div className="platform-block opacity-0 bg-white border border-[#DCEBFA] p-3 md:p-4">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[#4F7596] mb-2">Operational Fallbacks</div>
+                <ul className="space-y-1.5 text-[11px] text-[#3A5E7D]">
+                  {platformFallbackOps.map((item, i) => <li key={i}>— {item}</li>)}
+                </ul>
+              </div>
+              <div className="platform-block opacity-0 bg-white border border-[#DCEBFA] p-3 md:p-4">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[#4F7596] mb-2">Control Tower Metrics</div>
+                <ul className="space-y-1.5 text-[11px] text-[#3A5E7D]">
+                  {platformMetrics.map((item, i) => <li key={i}>— {item}</li>)}
+                </ul>
+              </div>
+              <div className="platform-kpi opacity-0 bg-[#ECF5FF] border border-[#CDE2F6] p-3 md:p-4">
+                <div className="text-[9px] uppercase tracking-[0.2em] text-[#4F7596] mb-2">Typical Timeframes</div>
+                <ul className="space-y-1.5 text-[11px] text-[#2F587A]">
+                  {platformTimeframes.map((item, i) => <li key={i}>— {item}</li>)}
+                </ul>
+              </div>
+            </div>
+
+            <div className="platform-block opacity-0 mt-3 bg-[#F0F7FF] border border-[#DCEBFA] p-3 md:p-4 text-[11px] md:text-[12px] text-[#375C7C] leading-relaxed">
+              <strong className="text-[#1A4C74]">Thuy&apos;s ideal model:</strong> Portal-first intake. AI as a bridge for legacy paperwork. Formula-ID standardization to eliminate translation errors. Pioneer as operational source of truth. GHL reconciliation for commercial visibility. This is the repeatable engine for 15-state scale.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SECTION 4: MARKET GAP ─────────────────────────────── z-40 */}
       <section
         id="market"
         ref={(el) => { observerRefs.current["market"] = el; }}
-        className="sticky top-14 md:top-16 h-[100dvh] bg-[#0D0D0D] text-white z-30 overflow-hidden"
+        className="sticky top-14 md:top-16 h-[100dvh] bg-[#0D0D0D] text-white z-40 overflow-hidden"
         style={{ boxShadow: "0 -6px 40px rgba(0,0,0,0.30)" }}
       >
         <div className="h-full max-w-[1440px] mx-auto px-4 md:px-10 flex flex-col py-4 md:py-10">
           {/* Header */}
           <div className="flex justify-between items-end border-b border-[#2A2A2A] pb-3 md:pb-5 mb-4 md:mb-8 flex-shrink-0">
             <div className="flex items-baseline gap-3">
-              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">02 / 04</span>
+              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">03 / 05</span>
               <h2 className="text-xl md:text-[32px] font-bold tracking-tight">The Market Gap</h2>
             </div>
             <span className="text-[9px] uppercase tracking-widest text-[#555555]">Andres: &ldquo;No conversions at all.&rdquo; — Feb 13</span>
@@ -395,18 +522,18 @@ export default function EdgeDesign() {
         </div>
       </section>
 
-      {/* ─── SECTION 4: LAUNCH ECONOMICS ──────────────────────── z-40 */}
+      {/* ─── SECTION 5: LAUNCH ECONOMICS ──────────────────────── z-50 */}
       <section
         id="economics"
         ref={(el) => { observerRefs.current["economics"] = el; }}
-        className="sticky top-14 md:top-16 h-[100dvh] bg-white z-40 overflow-hidden"
+        className="sticky top-14 md:top-16 h-[100dvh] bg-white z-50 overflow-hidden"
         style={{ boxShadow: "0 -6px 40px rgba(0,0,0,0.12)" }}
       >
         <div className="h-full max-w-[1440px] mx-auto px-4 md:px-10 flex flex-col py-4 md:py-10">
           {/* Header */}
           <div className="flex justify-between items-end border-b border-[#EEEEEE] pb-3 md:pb-5 mb-4 md:mb-8 flex-shrink-0">
             <div className="flex items-baseline gap-3">
-              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">03 / 04</span>
+              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">04 / 05</span>
               <h2 className="text-xl md:text-[32px] font-bold tracking-tight">Launch Economics</h2>
             </div>
             <span className="text-[9px] uppercase tracking-widest text-[#999999]">Thuy: &ldquo;Take off problems off my plate, and convert.&rdquo;</span>
@@ -508,18 +635,18 @@ export default function EdgeDesign() {
         </div>
       </section>
 
-      {/* ─── SECTION 5: B2B TARGETS + DECISION ────────────────── z-50 */}
+      {/* ─── SECTION 6: B2B TARGETS + DECISION ────────────────── z-60 */}
       <section
         id="b2b"
         ref={(el) => { observerRefs.current["b2b"] = el; }}
-        className="sticky top-14 md:top-16 h-[100dvh] bg-[#F5F5F5] z-50 overflow-hidden"
+        className="sticky top-14 md:top-16 h-[100dvh] bg-[#F5F5F5] z-[60] overflow-hidden"
         style={{ boxShadow: "0 -6px 40px rgba(0,0,0,0.10)" }}
       >
         <div className="h-full max-w-[1440px] mx-auto px-4 md:px-10 flex flex-col py-4 md:py-10">
           {/* Header */}
           <div className="flex justify-between items-end border-b border-[#E0E0E0] pb-3 md:pb-5 mb-4 md:mb-8 flex-shrink-0">
             <div className="flex items-baseline gap-3">
-              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">04 / 04</span>
+              <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">05 / 05</span>
               <h2 className="text-xl md:text-[32px] font-bold tracking-tight">That Is Your B2B Outreach</h2>
             </div>
             <span className="text-[9px] uppercase tracking-widest text-[#999999]">Partners With the Same Cultural Mindset</span>
@@ -609,7 +736,7 @@ export default function EdgeDesign() {
         @keyframes tickL { 0% { transform: translateX(0) } 100% { transform: translateX(-50%) } }
         @keyframes tickR { 0% { transform: translateX(-50%) } 100% { transform: translateX(0) } }
         @media (prefers-reduced-motion: reduce) {
-          .pillar-card, .competitor-row, .b2b-card, .intro-stat { opacity: 1 !important; }
+          .pillar-card, .competitor-row, .b2b-card, .intro-stat, .platform-stage, .platform-block, .platform-kpi, .platform-quote { opacity: 1 !important; }
         }
         /* Hide scrollbars on inner-scrollable panes */
         .no-scrollbar::-webkit-scrollbar { display: none; }
