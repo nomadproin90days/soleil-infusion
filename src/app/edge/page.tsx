@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Roboto } from "next/font/google";
 import { useState, useEffect, useRef } from "react";
+import { animate, animateMini, scroll, inView, stagger } from "motion";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -69,31 +70,96 @@ const pillars = [
 
 export default function EdgeDesign() {
   const [activeSection, setActiveSection] = useState("");
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+  const [cursorHover, setCursorHover] = useState(false);
   const observerRefs = useRef<{ [key: string]: HTMLElement | null }>({});
 
   useEffect(() => {
+    // animateMini: single unambiguous overload (ElementOrSelector, DOMKeyframesDefinition, options)
+    // — no overload confusion with transform shorthands (x, y, scale) unlike animate()
+
+    // ── 1. Scroll progress bar (scroll-linked)
+    scroll(animateMini(".scroll-progress", { scaleX: [0, 1] }));
+
+    // ── 2. Intro: headline + stats slide in on load (above fold)
+    animateMini("#intro h1", { opacity: [0, 1], y: [32, 0] }, { duration: 0.9, ease: [0.22, 1, 0.36, 1] });
+    animateMini(".intro-stat", { opacity: [0, 1], x: [20, 0] }, { delay: stagger(0.1, { startDelay: 0.5 }), duration: 0.6, ease: [0.22, 1, 0.36, 1] });
+
+    // ── 3. Offerings: all cards stagger up when section slides into view
+    inView("#offerings", () => {
+      animateMini(".pillar-card", { opacity: [0, 1], y: [40, 0] }, { delay: stagger(0.12), duration: 0.7, ease: [0.22, 1, 0.36, 1] });
+    }, { amount: 0.3 });
+
+    // ── 4. Market: competitor rows slide in from left with stagger
+    inView("#market", () => {
+      animateMini(".competitor-row", { opacity: [0, 1], x: [-24, 0] }, { delay: stagger(0.09), duration: 0.5, ease: [0.22, 1, 0.36, 1] });
+    }, { amount: 0.3 });
+
+    // ── 5. Market: "0" counts DOWN from 5 → 0 (scan eliminating competitors one by one)
+    inView(".stat-number", () => {
+      const el = document.querySelector(".stat-number") as HTMLElement;
+      if (!el) return;
+      const from: number = 5;
+      animate(from, 0, {
+        duration: 2.2,
+        ease: [0.22, 1, 0.36, 1],
+        onUpdate: (v) => { el.textContent = Math.round(v).toString(); },
+      });
+    }, { amount: 0.5 });
+
+    // ── 6. B2B: cards scale + fade in with stagger
+    inView("#b2b", () => {
+      animateMini(".b2b-card", { opacity: [0, 1], scale: [0.93, 1] }, { delay: stagger(0.06), duration: 0.55, ease: [0.22, 1, 0.36, 1] });
+    }, { amount: 0.3 });
+
+    // ── Section tracker (drives header color inversion)
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setActiveSection(entry.target.id); }); },
       { threshold: 0.5 }
     );
-
-    Object.values(observerRefs.current).forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
+    Object.values(observerRefs.current).forEach((el) => { if (el) observer.observe(el); });
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const isTouch = window.matchMedia("(hover: none)").matches;
+    if (isTouch) return;
+    const moveCursor = (e: MouseEvent) => {
+      setCursorPos({ x: e.clientX, y: e.clientY });
+      const t = e.target as HTMLElement;
+      setCursorHover(t.tagName === "A" || t.tagName === "BUTTON" || t.closest("a") !== null || t.closest("button") !== null || t.closest(".group") !== null);
+    };
+    window.addEventListener("mousemove", moveCursor);
+    return () => window.removeEventListener("mousemove", moveCursor);
+  }, []); // no deps — stable event listener, state setters are stable
+
   return (
     <div
-      className={`${roboto.variable} font-sans text-[#222222] selection:bg-[#222222] selection:text-white overflow-x-hidden`}
+      className={`${roboto.variable} font-sans text-[#222222] selection:bg-[#222222] selection:text-white overflow-x-hidden cursor-none`}
     >
+      {/* Scroll progress — 3px bar, Motion scroll-links scaleX 0→1 */}
+      <div className="scroll-progress fixed top-0 left-0 h-[3px] bg-[#004a99] z-[300] w-full" style={{ transformOrigin: "left", transform: "scaleX(0)" }} />
+
+      {/* Cursor: outer div tracks mouse with NO transition (instant).
+          Inner div transitions size+color only — zero position lag.  */}
+      <div
+        className="fixed top-0 left-0 pointer-events-none z-[9999] hidden md:block"
+        style={{ transform: `translate(${cursorPos.x}px, ${cursorPos.y}px)`, willChange: "transform" }}
+      >
+        <div style={{
+          position: "absolute",
+          width: cursorHover ? 36 : 8,
+          height: cursorHover ? 36 : 8,
+          top: cursorHover ? -18 : -4,
+          left: cursorHover ? -18 : -4,
+          borderRadius: "50%",
+          background: cursorHover ? "transparent" : (activeSection === "market" ? "#ffffff" : "#004a99"),
+          border: cursorHover ? `1.5px solid ${activeSection === "market" ? "rgba(255,255,255,0.5)" : "#004a99"}` : "none",
+          opacity: cursorHover ? 0.55 : 1,
+          transition: "width 0.22s cubic-bezier(0.25,0.46,0.45,0.94), height 0.22s cubic-bezier(0.25,0.46,0.45,0.94), top 0.22s cubic-bezier(0.25,0.46,0.45,0.94), left 0.22s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.15s, background 0.3s",
+        }} />
+      </div>
+
       {/* ─── FIXED HEADER ──────────────────────────────────────── */}
       <header className={`fixed top-0 left-0 w-full z-[200] backdrop-blur-md transition-all duration-500 border-b ${activeSection === 'market' ? 'bg-[#0D0D0D]/95 border-[#2A2A2A]' : 'bg-white/95 border-[#E0E0E0]'}`}>
         <div className="flex justify-between items-center px-4 md:px-10 h-14 md:h-16 max-w-[1440px] mx-auto">
@@ -172,7 +238,7 @@ export default function EdgeDesign() {
                 ].map((stat, i) => (
                   <div
                     key={i}
-                    className="flex-shrink-0 min-w-[140px] md:min-w-0 border border-[#D0D0D0] md:border-0 md:border-t md:border-[#D0D0D0] p-3 md:p-0 md:pt-6 bg-white/60 md:bg-transparent"
+                    className="intro-stat flex-shrink-0 min-w-[140px] md:min-w-0 border border-[#D0D0D0] md:border-0 md:border-t md:border-[#D0D0D0] p-3 md:p-0 md:pt-6 bg-white/60 md:bg-transparent"
                   >
                     <div className="text-[9px] uppercase tracking-[0.2em] text-[#999999] mb-1">{stat.label}</div>
                     <div className={`font-bold font-mono text-[#004a99] leading-none ${stat.big ? "text-[48px] md:text-[64px]" : "text-2xl md:text-3xl"}`}>
@@ -217,7 +283,7 @@ export default function EdgeDesign() {
               {pillars.map((p) => (
                 <div
                   key={p.id}
-                  className="group relative flex flex-col flex-shrink-0 snap-start w-[82vw] sm:w-[60vw] md:w-auto md:flex-1 border border-[#E0E0E0] hover:border-[#004a99] bg-[#FAFAFA] hover:bg-white transition-all duration-500 ease-out md:hover:-translate-y-2 md:hover:shadow-2xl overflow-hidden"
+                  className="pillar-card group relative flex flex-col flex-shrink-0 snap-start w-[82vw] sm:w-[60vw] md:w-auto md:flex-1 border border-[#E0E0E0] hover:border-[#004a99] bg-[#FAFAFA] hover:bg-white transition-all duration-500 ease-out md:hover:-translate-y-2 md:hover:shadow-2xl overflow-hidden opacity-0"
                 >
                   <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-[#004a99] scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-bottom" />
                   <div className="p-5 md:p-7 flex flex-col h-full">
@@ -281,7 +347,7 @@ export default function EdgeDesign() {
               {competitors.map((c, i) => (
                 <div
                   key={i}
-                  className={`pb-3 md:pb-5 border-b ${c.korean ? "border-[#004a99]" : "border-[#222222]"}`}
+                  className={`competitor-row pb-3 md:pb-5 border-b ${c.korean ? "border-[#004a99]" : "border-[#222222]"} opacity-0`}
                 >
                   <div className="flex justify-between items-start mb-1">
                     <div>
@@ -310,7 +376,7 @@ export default function EdgeDesign() {
             {/* Big stat */}
             <div className="flex items-center justify-center md:pl-10 mt-4 md:mt-0">
               <div className="text-center">
-                <div className="text-[100px] sm:text-[130px] md:text-[180px] font-bold font-mono text-[#004a99] leading-none select-none">
+                <div className="stat-number text-[100px] sm:text-[130px] md:text-[180px] font-bold font-mono text-[#004a99] leading-none select-none" data-val="0">
                   0
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.15em] text-[#555555] mt-2 max-w-[200px] mx-auto leading-relaxed">
@@ -463,7 +529,7 @@ export default function EdgeDesign() {
                 {b2bTargets.map((t, i) => (
                   <div
                     key={i}
-                    className={`bg-white border ${t.korean ? "border-[#A6C7E7]" : "border-[#E0E0E0]"} hover:border-[#004a99] transition-colors p-3 md:p-4 flex flex-col`}
+                    className={`b2b-card bg-white border ${t.korean ? "border-[#A6C7E7]" : "border-[#E0E0E0]"} hover:border-[#004a99] transition-colors p-3 md:p-4 flex flex-col opacity-0`}
                   >
                     <div className="flex justify-between items-start mb-1">
                       <div className="text-[11px] md:text-[13px] font-bold text-[#222222] leading-tight pr-1">{t.name}</div>
@@ -528,6 +594,37 @@ export default function EdgeDesign() {
 
       {/* Scroll spacer — lets the sticky deck fully unwind */}
       <div style={{ height: "400vh" }} aria-hidden="true" />
+
+      {/* ─── FIXED BOTTOM TICKER ────────────────────────────────────
+           Two strips: top scrolls left, bottom scrolls right.
+           Section-aware colors. z-[150]: above sections, below header. */}
+      <style>{`
+        @keyframes tickL { 0% { transform: translateX(0) } 100% { transform: translateX(-50%) } }
+        @keyframes tickR { 0% { transform: translateX(-50%) } 100% { transform: translateX(0) } }
+        @media (prefers-reduced-motion: reduce) {
+          .pillar-card, .competitor-row, .b2b-card, .intro-stat { opacity: 1 !important; }
+        }
+      `}</style>
+      <div className="fixed bottom-0 left-0 w-full z-[150] pointer-events-none hidden md:block">
+        <div className={`overflow-hidden h-[26px] flex items-center border-t transition-colors duration-500 ${activeSection === "market" ? "bg-[#111111] border-[#2A2A2A]" : "bg-[#F0F0F0] border-[#E0E0E0]"}`}>
+          <div className="flex whitespace-nowrap" style={{ animation: "tickL 28s linear infinite" }}>
+            {Array(6).fill(null).map((_, i) => (
+              <span key={i} className={`text-[8px] uppercase tracking-[0.28em] font-bold px-10 transition-colors duration-500 ${activeSection === "market" ? "text-[#444444]" : "text-[#BBBBBB]"}`}>
+                WHITE JADE · 백옥주사 · BLUE OCEAN CONFIRMED · ZERO LOCAL COMPETITORS · $225 VALIDATED · GLEN BURNIE MD · SOLEIL INFUSION ·
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className={`overflow-hidden h-[26px] flex items-center transition-colors duration-500 ${activeSection === "market" ? "bg-[#1A1A1A]" : "bg-[#004a99]"}`}>
+          <div className="flex whitespace-nowrap" style={{ animation: "tickR 35s linear infinite" }}>
+            {Array(6).fill(null).map((_, i) => (
+              <span key={i} className="text-[8px] uppercase tracking-[0.28em] font-bold px-10 text-white/35">
+                60 DAYS TO LAUNCH · PRE-SALE TARGET $15K · BUY 2 GET 1 FREE · 801 LANDMARK DR · MEDICAL INTEGRITY · LIFESTYLE WELLNESS ·
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
