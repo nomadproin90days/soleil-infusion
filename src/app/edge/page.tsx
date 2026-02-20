@@ -135,7 +135,7 @@ export default function EdgeDesign() {
 
   return (
     <div
-      className={`${roboto.variable} font-sans text-[#222222] selection:bg-[#222222] selection:text-white overflow-x-hidden cursor-none`}
+      className={`${roboto.variable} font-sans text-[#222222] selection:bg-[#222222] selection:text-white overflow-x-hidden md:cursor-none`}
     >
       {/* Scroll progress — 3px bar, Motion scroll-links scaleX 0→1 */}
       <div className="scroll-progress fixed top-0 left-0 h-[3px] bg-[#004a99] z-[300] w-full" style={{ transformOrigin: "left", transform: "scaleX(0)" }} />
@@ -230,7 +230,7 @@ export default function EdgeDesign() {
               </p>
 
               {/* Stats */}
-              <div className="flex flex-row md:flex-col gap-4 md:gap-0 overflow-x-auto md:overflow-visible pb-2 md:pb-0 md:space-y-8">
+              <div className="no-scrollbar snap-carousel flex flex-row md:flex-col gap-4 md:gap-0 overflow-x-auto md:overflow-visible pb-2 md:pb-0 md:space-y-8">
                 {[
                   { label: "Blue Ocean Confirmed", value: "0", detail: "local competitors with White Jade (백옥주사) positioning", big: true },
                   { label: "Price Sweet Spot", value: "$225", detail: "validated vs. 5 local providers + NJ benchmark", big: false },
@@ -279,7 +279,7 @@ export default function EdgeDesign() {
           </div>
 
           <div className="flex-1 min-h-0 flex flex-col">
-            <div className="flex flex-row gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:flex-none md:flex-1" style={{ scrollbarWidth: "none" }}>
+            <div className="no-scrollbar snap-carousel flex flex-row gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:flex-none md:flex-1">
               {pillars.map((p) => (
                 <div
                   key={p.id}
@@ -341,7 +341,7 @@ export default function EdgeDesign() {
             <span className="text-[9px] uppercase tracking-widest text-[#555555]">5 Providers Audited</span>
           </div>
 
-          <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-2 md:gap-0">
+          <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-2 md:gap-0 overflow-y-auto md:overflow-visible no-scrollbar">
             {/* Competitor list */}
             <div className="md:border-r md:border-[#222222] md:pr-10 overflow-y-auto space-y-3 md:space-y-6 md:flex md:flex-col md:justify-center md:overflow-visible pr-0">
               {competitors.map((c, i) => (
@@ -376,7 +376,7 @@ export default function EdgeDesign() {
             {/* Big stat */}
             <div className="flex items-center justify-center md:pl-10 mt-4 md:mt-0">
               <div className="text-center">
-                <div className="stat-number text-[100px] sm:text-[130px] md:text-[180px] font-bold font-mono text-[#004a99] leading-none select-none" data-val="0">
+                <div className="stat-number text-[80px] sm:text-[120px] md:text-[180px] font-bold font-mono text-[#004a99] leading-none select-none" data-val="0">
                   0
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.15em] text-[#555555] mt-2 max-w-[200px] mx-auto leading-relaxed">
@@ -409,7 +409,7 @@ export default function EdgeDesign() {
           </div>
 
           <div className="flex-1 min-h-0">
-            <div className="h-full flex flex-row gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible" style={{ scrollbarWidth: "none" }}>
+            <div className="no-scrollbar snap-carousel h-full flex flex-row gap-4 overflow-x-auto snap-x snap-mandatory pb-2 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible">
               {/* Panel 1: Offer Math */}
               <div className="flex-shrink-0 snap-start w-[82vw] sm:w-[60vw] md:w-auto flex flex-col border border-[#EEEEEE] overflow-hidden">
                 <div className="bg-[#FAFAFA] border-b border-[#EEEEEE] px-4 md:px-6 py-2.5">
@@ -522,7 +522,7 @@ export default function EdgeDesign() {
             <span className="text-[9px] uppercase tracking-widest text-[#999999]">Verified — EC / Columbia</span>
           </div>
 
-          <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:gap-8">
+          <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:gap-8 overflow-y-auto md:overflow-visible no-scrollbar">
             {/* B2B grid */}
             <div className="md:col-span-7 overflow-y-auto">
               <div className="grid grid-cols-2 gap-2 md:gap-3">
@@ -553,23 +553,23 @@ export default function EdgeDesign() {
                 <div className="text-[9px] uppercase tracking-[0.15em] text-[#999999] mb-3 md:mb-6 border-b border-[#E0E0E0] pb-3 md:pb-4">
                   Strategic Recommendation
                 </div>
-                <h3 className="text-[36px] md:text-[52px] font-bold tracking-tight leading-[0.9] mb-4 md:mb-6">
+                <h3 className="text-[30px] md:text-[52px] font-bold tracking-tight leading-[0.9] mb-3 md:mb-6">
                   LOCK IN<br />
                   <span className="text-[#004a99]">$225.</span>
                 </h3>
                 <p className="text-[#666666] text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
                   Undercuts VitaFusion ($250) while sitting well above mobile add-ons ($140). Matches KARA Med Spa NJ — the Korean-market proof point.
                 </p>
-                <div className="space-y-3 hidden md:block">
+                <div className="space-y-2 md:space-y-3">
                   {[
                     { label: "Approve White Jade launch at", value: "$225" },
                     { label: "Approve pre-sale package", value: "$450 / 3 sessions" },
                     { label: "Medical Director by", value: "Day 15" },
                     { label: "GHL HIPAA BAA by", value: "Day 10" },
                   ].map((item, i) => (
-                    <div key={i} className="flex justify-between items-center border-b border-[#EEEEEE] pb-3">
-                      <span className="text-[12px] text-[#666666]">{item.label}</span>
-                      <span className="font-mono text-[13px] font-bold">{item.value}</span>
+                    <div key={i} className="flex justify-between items-center border-b border-[#EEEEEE] pb-2 md:pb-3">
+                      <span className="text-[11px] md:text-[12px] text-[#666666]">{item.label}</span>
+                      <span className="font-mono text-[11px] md:text-[13px] font-bold ml-2 flex-shrink-0">{item.value}</span>
                     </div>
                   ))}
                 </div>
@@ -604,6 +604,11 @@ export default function EdgeDesign() {
         @media (prefers-reduced-motion: reduce) {
           .pillar-card, .competitor-row, .b2b-card, .intro-stat { opacity: 1 !important; }
         }
+        /* Hide scrollbars on carousels and inner-scrollable panes */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Smooth momentum scroll on iOS */
+        .snap-carousel { -webkit-overflow-scrolling: touch; }
       `}</style>
       <div className="fixed bottom-0 left-0 w-full z-[150] pointer-events-none hidden md:block">
         <div className={`overflow-hidden h-[26px] flex items-center border-t transition-colors duration-500 ${activeSection === "market" ? "bg-[#111111] border-[#2A2A2A]" : "bg-[#F0F0F0] border-[#E0E0E0]"}`}>
