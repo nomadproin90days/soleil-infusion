@@ -1,5 +1,6 @@
 import Image from "next/image";
 import GHLForm from "@/components/GHLForm";
+import StatsHighlight from "@/components/StatsHighlight";
 
 export default function Home() {
   return (
@@ -132,6 +133,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Stats Highlight Section */}
+        <StatsHighlight />
 
         {/* About Section */}
         <section id="about" className="py-24 bg-[var(--medical-light-blue)]">
