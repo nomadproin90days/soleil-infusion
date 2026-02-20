@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Roboto } from "next/font/google";
 import { useState, useEffect, useRef } from "react";
+import StatsHighlight from "@/components/StatsHighlight";
 import { animate, animateMini, scroll, inView, stagger } from "motion";
 
 const roboto = Roboto({
@@ -305,6 +306,9 @@ export default function EdgeDesign() {
           </div>
         </div>
       </section>
+
+      {/* ─── STATS HIGHLIGHT ────────────────────────────────────────── */}
+      <StatsHighlight />
 
       {/* ─── SECTION 2: THE OFFERINGS ──────────────────────────── z-20 */}
       <section
