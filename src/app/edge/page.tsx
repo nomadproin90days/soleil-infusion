@@ -217,14 +217,14 @@ export default function EdgeDesign() {
                 <em className="not-italic text-[#004a99]">REDEFINED.</em>
               </h1>
               <p className="mt-4 text-[#666666] text-sm md:text-base leading-relaxed max-w-sm md:hidden">
-                A competitive analysis and 60-day launch strategy for Soleil Infusion — Glen Burnie, MD.
+                Thuy, Feb 13: &ldquo;I need to build a system where we can scale and eventually sell that platform to other pharmacies.&rdquo; This is the 60-day answer — built from scratch.
               </p>
             </div>
 
             {/* Stats column — vertical on mobile, column on desktop */}
             <div className="md:col-span-5 md:border-l md:border-[#D0D0D0] md:h-full flex flex-col justify-between md:pl-10 md:py-16 mt-6 md:mt-0">
               <p className="hidden md:block text-[#666666] text-base leading-relaxed max-w-sm mb-8">
-                A competitive analysis and 60-day launch strategy for Soleil Infusion — Glen Burnie, MD.
+                Thuy, Feb 13: &ldquo;I need to build a system where we can scale and eventually sell that platform to other pharmacies.&rdquo; This is the 60-day answer — built from scratch, Glen Burnie, MD.
               </p>
 
               <div className="flex flex-col gap-3 md:gap-0 md:space-y-8">
@@ -274,8 +274,13 @@ export default function EdgeDesign() {
                 The 3 Products That Answer Thuy&apos;s Question: How Do We Scale?
               </h2>
             </div>
-            <span className="text-[9px] uppercase tracking-widest text-[#999999] flex-shrink-0 hidden sm:block">Three Revenue Pillars</span>
+            <span className="text-[9px] uppercase tracking-widest text-[#999999] flex-shrink-0 hidden sm:block">Built to Franchise · 15-State Vision</span>
           </div>
+
+          {/* Transcript context */}
+          <p className="text-[9px] uppercase tracking-[0.15em] text-[#AAAAAA] mb-3 md:mb-5 flex-shrink-0">
+            Thuy, Feb 13: &ldquo;For Sola Infusion, there&apos;s no website — you have to create it from scratch.&rdquo; &nbsp;·&nbsp; &ldquo;We&apos;re planning 15 states this year, then our first flagship in the Middle East.&rdquo;
+          </p>
 
           {/* Cards — vertical stack on mobile, 3-col grid on desktop */}
           <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar md:overflow-visible">
@@ -332,8 +337,13 @@ export default function EdgeDesign() {
               <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">02 / 04</span>
               <h2 className="text-xl md:text-[32px] font-bold tracking-tight">The Market Gap</h2>
             </div>
-            <span className="text-[9px] uppercase tracking-widest text-[#555555]">5 Providers Audited</span>
+            <span className="text-[9px] uppercase tracking-widest text-[#555555]">Andres: &ldquo;No conversions at all.&rdquo; — Feb 13</span>
           </div>
+
+          {/* Transcript context */}
+          <p className="text-[9px] uppercase tracking-[0.15em] text-[#444444] mb-3 md:mb-5 flex-shrink-0">
+            Thuy, Feb 13: &ldquo;It&apos;s not working right, to be honest with you. I don&apos;t know nothing about marketing — I go with my nose.&rdquo; &nbsp;·&nbsp; Ryan audited 5 local providers to find out why.
+          </p>
 
           <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-2 md:gap-0 overflow-y-auto md:overflow-visible no-scrollbar">
             {/* Competitor list */}
@@ -373,8 +383,8 @@ export default function EdgeDesign() {
                 <div className="stat-number text-[80px] sm:text-[120px] md:text-[180px] font-bold font-mono text-[#004a99] leading-none select-none" data-val="0">
                   0
                 </div>
-                <div className="text-[10px] uppercase tracking-[0.15em] text-[#555555] mt-2 max-w-[200px] mx-auto leading-relaxed">
-                  Local competitors combining medical credibility + Korean cultural positioning
+                <div className="text-[10px] uppercase tracking-[0.15em] text-[#555555] mt-2 max-w-[220px] mx-auto leading-relaxed">
+                  Local competitors with medical credibility AND Korean positioning. This is why it wasn&apos;t converting.
                 </div>
                 <div className="mt-4 border border-[#004a99] px-4 py-2 inline-block">
                   <div className="text-[9px] uppercase tracking-widest text-[#004a99]">Blue Ocean — First Mover Advantage</div>
@@ -399,8 +409,13 @@ export default function EdgeDesign() {
               <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">03 / 04</span>
               <h2 className="text-xl md:text-[32px] font-bold tracking-tight">Launch Economics</h2>
             </div>
-            <span className="text-[9px] uppercase tracking-widest text-[#999999]">Pre-Sale — Buy 2 Get 1</span>
+            <span className="text-[9px] uppercase tracking-widest text-[#999999]">Thuy: &ldquo;Take off problems off my plate, and convert.&rdquo;</span>
           </div>
+
+          {/* Transcript context */}
+          <p className="text-[9px] uppercase tracking-[0.15em] text-[#AAAAAA] mb-3 md:mb-5 flex-shrink-0">
+            Thuy, Feb 13: &ldquo;Take off some problems off my plate, please, Ryan, and convert. That&apos;s all I&apos;m saying.&rdquo; &nbsp;·&nbsp; Prescriber pipeline: &ldquo;Two months to onboard — we need to chunk it down to a couple weeks.&rdquo;
+          </p>
 
           {/* Panels — vertical on mobile, 3-col grid on desktop */}
           <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar md:overflow-visible">
@@ -505,9 +520,9 @@ export default function EdgeDesign() {
           <div className="flex justify-between items-end border-b border-[#E0E0E0] pb-3 md:pb-5 mb-4 md:mb-8 flex-shrink-0">
             <div className="flex items-baseline gap-3">
               <span className="text-[9px] font-mono text-[#004a99] uppercase tracking-[0.2em]">04 / 04</span>
-              <h2 className="text-xl md:text-[32px] font-bold tracking-tight">B2B Targets</h2>
+              <h2 className="text-xl md:text-[32px] font-bold tracking-tight">That Is Your B2B Outreach</h2>
             </div>
-            <span className="text-[9px] uppercase tracking-widest text-[#999999]">Verified — EC / Columbia</span>
+            <span className="text-[9px] uppercase tracking-widest text-[#999999]">Partners With the Same Cultural Mindset</span>
           </div>
 
           <div className="flex-1 min-h-0 flex flex-col md:grid md:grid-cols-12 md:gap-8 overflow-y-auto md:overflow-visible no-scrollbar">
@@ -538,9 +553,13 @@ export default function EdgeDesign() {
             {/* Decision column */}
             <div className="md:col-span-5 md:border-l md:border-[#E0E0E0] md:pl-8 flex flex-col justify-between mt-4 md:mt-0 border-t border-[#E0E0E0] pt-4 md:border-t-0 md:pt-0">
               <div>
-                <div className="text-[9px] uppercase tracking-[0.15em] text-[#999999] mb-3 md:mb-6 border-b border-[#E0E0E0] pb-3 md:pb-4">
-                  Strategic Recommendation
+                <div className="text-[9px] uppercase tracking-[0.15em] text-[#999999] mb-3 md:mb-5 border-b border-[#E0E0E0] pb-3 md:pb-4">
+                  Thuy&apos;s Mandate · Ryan&apos;s Response
                 </div>
+                <blockquote className="text-[10px] md:text-[11px] italic text-[#888888] leading-relaxed mb-3 md:mb-5 border-l-2 border-[#004a99] pl-3">
+                  &ldquo;You will need to market to the end user, but also find partners that resonate with us — that have the same cultural mindset to help the public. That is your B2B outreach.&rdquo;
+                  <span className="block mt-1 not-italic text-[9px] uppercase tracking-widest text-[#BBBBBB]">— Thuy, Feb 13 · @22:00</span>
+                </blockquote>
                 <h3 className="text-[30px] md:text-[52px] font-bold tracking-tight leading-[0.9] mb-3 md:mb-6">
                   LOCK IN<br />
                   <span className="text-[#004a99]">$225.</span>
@@ -601,7 +620,7 @@ export default function EdgeDesign() {
           <div className="flex whitespace-nowrap" style={{ animation: "tickL 28s linear infinite" }}>
             {Array(6).fill(null).map((_, i) => (
               <span key={i} className={`text-[8px] uppercase tracking-[0.28em] font-bold px-10 transition-colors duration-500 ${activeSection === "market" ? "text-[#444444]" : "text-[#BBBBBB]"}`}>
-                WHITE JADE · 백옥주사 · BLUE OCEAN CONFIRMED · ZERO LOCAL COMPETITORS · $225 VALIDATED · GLEN BURNIE MD · SOLEIL INFUSION ·
+                WHITE JADE · 백옥주사 · &ldquo;BUILD A SYSTEM WE CAN SCALE AND SELL&rdquo; · ZERO LOCAL COMPETITORS · $225 VALIDATED · GLEN BURNIE MD · SOLEIL INFUSION ·
               </span>
             ))}
           </div>
@@ -610,7 +629,7 @@ export default function EdgeDesign() {
           <div className="flex whitespace-nowrap" style={{ animation: "tickR 35s linear infinite" }}>
             {Array(6).fill(null).map((_, i) => (
               <span key={i} className="text-[8px] uppercase tracking-[0.28em] font-bold px-10 text-white/35">
-                60 DAYS TO LAUNCH · PRE-SALE TARGET $15K · BUY 2 GET 1 FREE · 801 LANDMARK DR · MEDICAL INTEGRITY · LIFESTYLE WELLNESS ·
+                60 DAYS TO LAUNCH · PRE-SALE $15K · &ldquo;TAKE OFF PROBLEMS OFF MY PLATE, AND CONVERT&rdquo; · &ldquo;THAT IS YOUR B2B OUTREACH&rdquo; · FIRST MOVER ADVANTAGE ·
               </span>
             ))}
           </div>
