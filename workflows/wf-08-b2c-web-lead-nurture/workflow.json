@@ -1,0 +1,39 @@
+{
+  "id": "wf-08",
+  "name": "B2C Web Lead Nurture (Korean Community)",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Form Submission",
+    "filter": { "form": "Website Contact / Inquiry Form" },
+    "alternativeTrigger": { "type": "Tag Applied", "tag": "b2c-lead" }
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, thanks for your interest in Soleil Infusion! We'd love to connect. A team member will reach out shortly. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Welcome to Soleil Infusion", "content": "Branded welcome email with services overview, pricing summary, booking link, and location details. Add Korean-language version when lang-korean tag is detected." },
+    { "step": 3, "type": "Create Opportunity", "pipeline": "B2C Lead Pipeline", "stage": "New Lead" },
+    { "step": 4, "type": "Wait", "duration": "1 day" },
+    { "step": 5, "type": "Condition", "check": "Has contact booked an appointment?", "branches": {
+      "yes": [
+        { "step": "5a", "type": "Enroll in Workflow", "workflow": "wf-04-new-patient-booking" }
+      ],
+      "no": [
+        { "step": "5b", "type": "Send SMS", "content": "Hi {{contact.first_name}}, ready to experience Soleil Infusion? Book your first session here: {{custom.calendly_link}}", "stopOnResponse": true }
+      ]
+    }},
+    { "step": 6, "type": "Wait", "duration": "3 days" },
+    { "step": 7, "type": "Send Email", "subject": "What to Expect at Soleil Infusion", "content": "Educational email about the infusion experience — no PHI, no medical claims. Focus on comfort, ambiance, and wellness lifestyle." },
+    { "step": 8, "type": "Wait", "duration": "7 days" },
+    { "step": 9, "type": "Condition", "check": "Still no booking after 11 days?", "branches": {
+      "yes": [
+        { "step": "9a", "type": "Move Opportunity", "stage": "Nurture" },
+        { "step": 9b", "type": "Add Task", "title": "Manual outreach attempt — long-term B2C nurture lead", "assignedTo": "Team" }
+      ]
+    }},
+    { "step": 10, "type": "Add Tag", "tag": "b2c-nurture" }
+  ],
+  "tags": ["b2c-lead", "b2c-nurture"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "notes": "Korean language parallel branch: check for lang-korean tag and send Korean-language versions of steps 1 and 2 when configured."
+}

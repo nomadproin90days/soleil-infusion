@@ -1,0 +1,26 @@
+{
+  "id": "ghl-foundation-setup",
+  "name": "GHL Foundation Setup Script",
+  "platform": "GoHighLevel",
+  "status": "Published",
+  "type": "setup-script",
+  "description": "Node.js script that provisions all required custom fields and custom values in the GHL sub-account via the V1 REST API. Safe to re-run — skips existing items.",
+  "trigger": {
+    "type": "Manual Execution",
+    "filter": { "environment": "Node.js CLI" }
+  },
+  "actions": [
+    { "step": 1, "type": "Verify API Connection", "endpoint": "GET /locations/", "notes": "Confirms GHL_API_KEY and GHL_LOCATION_ID are valid" },
+    { "step": 2, "type": "Create Provider Custom Fields", "count": 5, "fields": ["NPI Number", "Clinic Name", "Preferred Communication", "Portal Activation Date", "Contract Signed Date"] },
+    { "step": 3, "type": "Create Patient Custom Fields", "count": 15, "fields": ["Pioneer Rx #", "Formula ID", "Prescriber Name", "Prescriber NPI", "Days Supply", "Rx Expiration Date", "Refill Count Remaining", "Compound Type", "Consent Signed Date", "Payment Date", "Shipped Date", "Tracking Number", "Shipment Carrier", "Preferred Language", "Auto-Refill Enrolled"] },
+    { "step": 4, "type": "Create Custom Values", "count": 6, "values": ["Secure Payment Link", "Pharmacy Address", "Pharmacy Phone", "Pharmacy Hours", "Portal Guide URL", "Calendly Link"] }
+  ],
+  "tags": [],
+  "compliance": ["HIPAA"],
+  "priority": "critical",
+  "environment": {
+    "runtime": "Node.js",
+    "apiBase": "https://rest.gohighlevel.com/v1",
+    "requiredEnvVars": ["GHL_API_KEY", "GHL_LOCATION_ID"]
+  }
+}

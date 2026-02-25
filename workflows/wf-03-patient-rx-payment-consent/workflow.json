@@ -1,0 +1,30 @@
+{
+  "id": "wf-03",
+  "name": "Patient Rx — Payment & Consent Chase",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Opportunity Stage Change",
+    "filter": { "pipeline": "Patient Rx Fulfillment Pipeline", "stage": "Pending Payment" }
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, your session at Soleil Infusion is ready! Please complete your payment to confirm your visit: {{custom.secure_payment_link}}. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Complete Your Payment — Soleil Infusion", "content": "Payment request email with secure link, session summary (no PHI), and support contact." },
+    { "step": 3, "type": "Wait", "duration": "24 hours" },
+    { "step": 4, "type": "Condition", "check": "Has opportunity moved past Pending Payment?", "branches": {
+      "yes": [
+        { "step": "4a", "type": "Add Tag", "tag": "payment-confirmed" },
+        { "step": "4b", "type": "End Workflow" }
+      ],
+      "no": [
+        { "step": "4c", "type": "Send SMS", "content": "Hi {{contact.first_name}}, we noticed your payment is still pending. Please complete it at your earliest convenience: {{custom.secure_payment_link}}. Questions? Call us.", "stopOnResponse": true },
+        { "step": "4d", "type": "Send Internal Notification", "recipient": "Admin", "message": "PAYMENT PENDING 24h+: {{contact.full_name}} has not paid. Manual follow-up required." }
+      ]
+    }}
+  ],
+  "tags": ["payment-confirmed"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "pipeline": "Patient Rx Fulfillment Pipeline",
+  "notes": "Draft — needs review before publishing. Verify payment link custom value is populated."
+}

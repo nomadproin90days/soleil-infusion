@@ -1,0 +1,32 @@
+{
+  "id": "wf-05",
+  "name": "Post-Infusion Follow-up & Rebooking",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Appointment Status Changed",
+    "filter": { "status": "Completed" },
+    "alternativeTrigger": { "type": "Tag Applied", "tag": "visit-complete" }
+  },
+  "actions": [
+    { "step": 1, "type": "Wait", "duration": "2 hours after appointment end time" },
+    { "step": 2, "type": "Send SMS", "content": "Thank you for visiting Soleil Infusion, {{contact.first_name}}! We hope you're feeling great. How was your experience?", "stopOnResponse": true },
+    { "step": 3, "type": "Wait", "duration": "24 hours" },
+    { "step": 4, "type": "Condition", "check": "Did contact reply to SMS?", "branches": {
+      "yes": [
+        { "step": "4a", "type": "Add Tag", "tag": "review-request" },
+        { "step": "4b", "type": "Enroll in Workflow", "workflow": "wf-10-google-review-request" }
+      ],
+      "no": [
+        { "step": "4c", "type": "Send Email", "subject": "How did your Soleil Infusion visit go?", "content": "Soft check-in email with rebooking link, no PHI, inviting them to share feedback and schedule their next session." }
+      ]
+    }},
+    { "step": 5, "type": "Wait", "duration": "5 days" },
+    { "step": 6, "type": "Send SMS", "content": "Hi {{contact.first_name}}, ready for your next session? Book now: {{custom.calendly_link}}", "stopOnResponse": true },
+    { "step": 7, "type": "Add Tag", "tag": "post-visit-follow-up-sent" }
+  ],
+  "tags": ["post-visit-follow-up-sent", "review-request"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "notes": "Routes positive responders to WF-10 for Google review capture."
+}

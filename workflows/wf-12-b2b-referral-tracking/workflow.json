@@ -1,0 +1,27 @@
+{
+  "id": "wf-12",
+  "name": "B2B Partner Referral Tracking",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Tag Applied",
+    "filter": { "tag": "b2b-referral" },
+    "prerequisite": "Custom field referring_partner must be populated on the contact"
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Welcome to Soleil Infusion, {{contact.first_name}}! We're glad {{custom.referring_partner}} sent you our way. Looking forward to meeting you. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Create Opportunity", "pipeline": "Patient Rx Fulfillment Pipeline", "stage": "Referred Lead" },
+    { "step": 3, "type": "Add Internal Note", "content": "Referred by {{custom.referring_partner}}" },
+    { "step": 4, "type": "Add Task", "title": "Notify referring partner of successful referral conversion", "dueIn": "Same day", "assignedTo": "Team" },
+    { "step": 5, "type": "Condition", "check": "Appointment completed?", "branches": {
+      "yes": [
+        { "step": "5a", "type": "Enroll in Workflow", "workflow": "wf-05-post-infusion-followup" }
+      ]
+    }}
+  ],
+  "tags": ["b2b-referral"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "medium",
+  "customFields": ["referring_partner"],
+  "notes": "Referring partner name is pulled from custom field referring_partner. Ensure this field is populated before tag is applied."
+}

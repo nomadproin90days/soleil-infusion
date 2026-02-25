@@ -1,0 +1,27 @@
+{
+  "id": "wf-01",
+  "name": "B2B Lead Nurture & Onboarding",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Tag Applied",
+    "filter": { "tag": "b2b-lead" },
+    "alternativeTrigger": "B2B Lead Form Submission"
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, welcome to the Soleil Infusion partner network! We're excited to connect. A member of our team will be in touch shortly. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Welcome to the Soleil Infusion Partner Network", "content": "Branded welcome email with partnership overview, next steps, and contact information for the Soleil team." },
+    { "step": 3, "type": "Create Opportunity", "pipeline": "B2B Partner Pipeline", "stage": "New Lead" },
+    { "step": 4, "type": "Add Task", "title": "Follow up with new B2B lead", "dueIn": "1 business day", "assignedTo": "Team" },
+    { "step": 5, "type": "Wait", "duration": "3 days" },
+    { "step": 6, "type": "Add Task", "title": "3-day B2B check-in", "assignedTo": "Team" },
+    { "step": 7, "type": "Wait", "duration": "4 days" },
+    { "step": 8, "type": "Add Task", "title": "7-day B2B activation check", "assignedTo": "Team" },
+    { "step": 9, "type": "Add Tag", "tag": "b2b-lead" }
+  ],
+  "tags": ["b2b-lead"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "pipeline": "B2B Partner Pipeline",
+  "notes": "Draft — needs review before publishing. Verify all message content and branch connections."
+}

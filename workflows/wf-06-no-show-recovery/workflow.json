@@ -1,0 +1,30 @@
+{
+  "id": "wf-06",
+  "name": "No-Show Recovery",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Appointment Status Changed",
+    "filter": { "status": "No Show" }
+  },
+  "actions": [
+    { "step": 1, "type": "Add Tag", "tag": "no-show" },
+    { "step": 2, "type": "Wait", "duration": "30 minutes" },
+    { "step": 3, "type": "Send SMS", "content": "Hi {{contact.first_name}}, we missed you today! Would you like to reschedule? Book here: {{custom.calendly_link}}. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 4, "type": "Wait", "duration": "2 days" },
+    { "step": 5, "type": "Send Email", "subject": "We'd love to see you at Soleil Infusion", "content": "Reschedule offer email with booking link, warm tone, and simple call to action." },
+    { "step": 6, "type": "Condition", "check": "Has contact rescheduled?", "branches": {
+      "yes": [
+        { "step": "6a", "type": "Remove Tag", "tag": "no-show" },
+        { "step": "6b", "type": "Add Tag", "tag": "rescheduled" }
+      ],
+      "no": [
+        { "step": "6c", "type": "Add Task", "title": "Manual follow-up call — no-show recovery", "dueIn": "1 business day", "assignedTo": "Team" }
+      ]
+    }}
+  ],
+  "tags": ["no-show", "rescheduled"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "medium",
+  "notes": "Rescheduled contacts have the no-show tag removed and are re-enrolled in WF-04 via new booking trigger."
+}

@@ -1,0 +1,37 @@
+{
+  "id": "wf-07",
+  "name": "Pre-Launch Package Sales (Buy 2 Get 1 Free)",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Tag Applied",
+    "filter": { "tag": "presale-lead" },
+    "alternativeTrigger": "Form Submission — Presale Landing Page"
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, thanks for your interest in Soleil Infusion! We're offering our launch special — 2 sessions + 1 free — for a limited time. Ready to reserve yours? Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Your Exclusive Pre-Launch Offer — Soleil Infusion", "content": "Full offer details email: package value, service descriptions (Essential Hydration $165-175, Energy/Immunity $195-215, Performance/Recovery $225-245), booking instructions, and urgency messaging." },
+    { "step": 3, "type": "Create Opportunity", "pipeline": "Pre-Launch Sales Pipeline", "stage": "New Inquiry" },
+    { "step": 4, "type": "Wait", "duration": "2 days" },
+    { "step": 5, "type": "Condition", "check": "No reply received?", "branches": {
+      "yes": [
+        { "step": "5a", "type": "Send SMS", "content": "Hi {{contact.first_name}}, spots are filling up for our Soleil Infusion launch special! Secure your 3-session package before they're gone.", "stopOnResponse": true }
+      ],
+      "no": [
+        { "step": "5b", "type": "Move Opportunity", "stage": "Engaged" }
+      ]
+    }},
+    { "step": 6, "type": "Wait", "duration": "3 days" },
+    { "step": 7, "type": "Condition", "check": "Still no booking?", "branches": {
+      "yes": [
+        { "step": "7a", "type": "Send Email", "subject": "One Last Reminder — Soleil Infusion Launch Special", "content": "Final follow-up email with testimonials or social proof when available, plus direct booking link." }
+      ]
+    }},
+    { "step": 8, "type": "Move Opportunity", "pipeline": "Pre-Launch Sales Pipeline", "stage": "Offer Sent" },
+    { "step": 9, "type": "Add Tag", "tag": "presale-offer-sent" }
+  ],
+  "tags": ["presale-lead", "presale-offer-sent"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "critical",
+  "notes": "TIME-CRITICAL — activate immediately upon launch. This workflow drives pre-launch revenue."
+}

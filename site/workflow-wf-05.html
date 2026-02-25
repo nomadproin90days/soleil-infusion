@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WF-05: Post-Infusion Follow-up — Soleil Infusion</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0A0A0A; color: #FFFFFF; font-family: 'Inter', sans-serif; }
+    .page-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A96E; }
+    .gold { color: #C9A96E; }
+    .badge-draft { background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-high { background: rgba(201, 169, 110, 0.15); color: #C9A96E; border: 1px solid rgba(201, 169, 110, 0.3); }
+    .prose p { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; }
+    .prose ul { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; }
+    .step-item { border-left: 2px solid rgba(201, 169, 110, 0.3); padding-left: 1.5rem; padding-bottom: 1.5rem; position: relative; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0A0A0A]/95 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-black text-sm tracking-widest uppercase gold">Soleil Infusion</a>
+      <div class="flex gap-8 text-sm font-medium text-white/60">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="workflows.html" class="hover:text-white transition-colors">Workflows</a>
+      </div>
+    </div>
+  </nav>
+  <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+    <div class="mb-6"><a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; All Workflows</a></div>
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="font-mono text-xs text-white/30 border border-white/10 px-3 py-1">WF-05</span>
+        <span class="badge-draft px-3 py-1 rounded text-xs font-medium">Draft</span>
+        <span class="badge-high px-3 py-1 rounded text-xs font-medium">High Priority</span>
+      </div>
+      <h1 class="page-title mb-4">Post-Infusion<br /><span class="gold">Follow-up & Rebooking</span></h1>
+      <p class="text-white/50 text-lg max-w-2xl">Thank-you sequence 2 hours post-visit, review routing for satisfied patients, and a 5-day rebooking nudge — closing the patient loyalty loop.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Trigger</div><div class="text-white font-bold">Appointment Completed</div><div class="text-white/30 text-xs mt-1">Or tag: visit-complete</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Routes To</div><div class="text-white font-bold">WF-10 (Reviews)</div><div class="text-white/30 text-xs mt-1">For positive responders</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Rebook Nudge</div><div class="text-white font-bold">Day 5</div><div class="text-white/30 text-xs mt-1">Direct booking link SMS</div></div>
+    </div>
+    <div class="space-y-16">
+      <div>
+        <div class="section-label mb-4">What It Does & Why It Exists</div>
+        <div class="prose"><p>Two hours after a visit is marked complete, this workflow sends a thank-you SMS asking about the patient's experience. If they reply (indicating engagement), they are automatically routed to the Google Review workflow (WF-10). If they don't reply after 24 hours, a softer follow-up email is sent. Five days post-visit, all patients receive a rebooking SMS with a direct booking link.</p><p>The post-visit window is the highest-value opportunity for relationship deepening, review generation, and rebooking conversion. Without automation, most practices miss this window entirely.</p></div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Benefits & Outcomes</div>
+        <div class="prose"><ul><li>Thank-you outreach strengthens the patient-practice relationship</li><li>Positive responders are automatically funneled into review generation</li><li>Non-responders receive an alternative email pathway to maintain engagement</li><li>5-day rebooking SMS creates a systematic rebooking pipeline</li><li>Tags enable downstream segmentation and post-visit engagement reporting</li></ul></div>
+      </div>
+      <div>
+        <div class="section-label mb-6">Automation Steps</div>
+        <div class="space-y-0">
+          <div class="step-item"><div class="text-white font-bold mb-1">Wait 2 Hours</div><div class="text-white/40 text-sm">After appointment end time. Gives patient time to get home before receiving follow-up.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 1 — Thank-You SMS</div><div class="text-white/40 text-sm">"Thank you for visiting Soleil Infusion, [Name]! We hope you're feeling great. How was your experience?" Stop-on-response active.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Wait 24 Hours → Condition Check</div><div class="text-white/40 text-sm">Did contact reply to the thank-you SMS?</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Branch A — Replied: Route to WF-10</div><div class="text-white/40 text-sm">Apply review-request tag → enrolls patient in Google Review Request workflow automatically.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Branch B — No Reply: Follow-up Email</div><div class="text-white/40 text-sm">Softer check-in email with rebooking link. No pressure messaging.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Wait 5 Days → Rebooking SMS</div><div class="text-white/40 text-sm">"Hi [Name], ready for your next session? Book now: [booking link]" Stop-on-response active.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Tag: post-visit-follow-up-sent</div><div class="text-white/40 text-sm">Applied for tracking and preventing duplicate enrollment.</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Dependencies</div>
+        <div class="prose"><ul><li><strong style="color:white">Workflow:</strong> WF-10 (Google Review Request) — enrolled via review-request tag</li><li><strong style="color:white">Custom Values:</strong> calendly_link for rebooking link</li><li><strong style="color:white">Tags:</strong> review-request, post-visit-follow-up-sent, visit-complete</li><li><strong style="color:white">Compliance:</strong> HIPAA — no treatment details; references "your visit" generically</li></ul></div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Automation Impact</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">20-35%</div><div class="text-white/40 text-sm">Estimated rebooking rate increase</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">$165-295</div><div class="text-white/40 text-sm">Per rebooked visit — each follow-up has real revenue value</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">20-30 min</div><div class="text-white/40 text-sm">Saved per patient in manual post-visit outreach</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/10 flex gap-8">
+      <a href="workflow-wf-04.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; WF-04</a>
+      <a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">Workflow Index</a>
+      <a href="workflow-wf-06.html" class="text-white/30 hover:text-white text-sm transition-colors">WF-06 &rarr;</a>
+    </div>
+  </main>
+  <footer class="border-t border-white/10 px-6 py-8"><div class="max-w-7xl mx-auto flex items-center justify-between text-white/30 text-sm"><span>Soleil Infusion LLC &mdash; GHL Automation System</span><span>Built by Stone Systems &middot; 2026</span></div></footer>
+</body>
+</html>

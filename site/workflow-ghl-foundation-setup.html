@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GHL Foundation Setup — Soleil Infusion</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0A0A0A; color: #FFFFFF; font-family: 'Inter', sans-serif; }
+    .page-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A96E; }
+    .gold { color: #C9A96E; }
+    .badge-published { background: rgba(34, 197, 94, 0.15); color: #22C55E; border: 1px solid rgba(34, 197, 94, 0.3); }
+    .badge-critical { background: rgba(239, 68, 68, 0.15); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .prose p { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; }
+    .prose ul { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; }
+    .step-item { border-left: 2px solid rgba(201, 169, 110, 0.3); padding-left: 1.5rem; padding-bottom: 1.5rem; position: relative; }
+    .step-item::before { content: attr(data-step); position: absolute; left: -1rem; top: 0; width: 1.75rem; height: 1.75rem; background: #0A0A0A; border: 1px solid #C9A96E; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: #C9A96E; text-align: center; line-height: 1.75rem; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0A0A0A]/95 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-black text-sm tracking-widest uppercase gold">Soleil Infusion</a>
+      <div class="flex gap-8 text-sm font-medium text-white/60">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="workflows.html" class="hover:text-white transition-colors">Workflows</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+
+    <div class="mb-6">
+      <a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; All Workflows</a>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="font-mono text-xs text-white/30 border border-white/10 px-3 py-1">SETUP</span>
+        <span class="badge-published px-3 py-1 rounded text-xs font-medium">Published</span>
+        <span class="badge-critical px-3 py-1 rounded text-xs font-medium">Critical</span>
+      </div>
+      <h1 class="page-title mb-4">GHL Foundation<br /><span class="gold">Setup Script</span></h1>
+      <p class="text-white/50 text-lg max-w-2xl">Node.js script that provisions all required custom fields and custom values in the Soleil Infusion GHL sub-account via the V1 REST API.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="border border-white/10 p-6">
+        <div class="section-label mb-2">Trigger</div>
+        <div class="text-white font-bold">Manual CLI Execution</div>
+        <div class="text-white/30 text-xs mt-1">node scripts/ghl-setup.js</div>
+      </div>
+      <div class="border border-white/10 p-6">
+        <div class="section-label mb-2">Platform</div>
+        <div class="text-white font-bold">GoHighLevel V1 API</div>
+        <div class="text-white/30 text-xs mt-1">rest.gohighlevel.com/v1</div>
+      </div>
+      <div class="border border-white/10 p-6">
+        <div class="section-label mb-2">Output</div>
+        <div class="text-white font-bold">20 Fields + 6 Values</div>
+        <div class="text-white/30 text-xs mt-1">Idempotent — safe to re-run</div>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div class="space-y-16">
+
+      <div>
+        <div class="section-label mb-4">What It Does & Why It Exists</div>
+        <div class="prose">
+          <p>This Node.js script provisions the foundational data layer in the Soleil Infusion GoHighLevel sub-account via the V1 REST API. It creates 20 custom contact fields (5 provider-type and 15 patient-type) and 6 custom values that are referenced by all 12 automation workflows. Without these fields and values in place, the workflows cannot function correctly.</p>
+          <p>The script is idempotent — it safely skips any items that already exist, making it safe to re-run after any partial setup. It provides clear terminal output showing exactly what was created vs. skipped vs. failed.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-4">Business Problem It Solves</div>
+        <div class="prose">
+          <p>Setting up GoHighLevel manually through the UI is error-prone and time-consuming. Field names must match exactly across all workflows, and typos or inconsistencies cause automation failures that are hard to debug. This script guarantees a consistent, repeatable baseline setup that can be verified and re-applied in minutes by any team member with API access.</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-4">Benefits & Outcomes</div>
+        <div class="prose">
+          <ul>
+            <li>Eliminates 30-60 minutes of manual GHL UI configuration per sub-account</li>
+            <li>Guarantees field key naming consistency across all 12 workflows</li>
+            <li>Provides immediate terminal feedback on created vs. existing items</li>
+            <li>Reduces onboarding errors for new GHL sub-accounts</li>
+            <li>Enables faster duplication of this setup for future clients</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-6">Execution Steps</div>
+        <div class="space-y-0">
+          <div class="step-item" data-step="1">
+            <div class="text-white font-bold mb-1">Verify API Connection</div>
+            <div class="text-white/40 text-sm">Calls GET /locations/ and GET /contacts/ to confirm GHL_API_KEY and GHL_LOCATION_ID are valid before proceeding.</div>
+          </div>
+          <div class="step-item" data-step="2">
+            <div class="text-white font-bold mb-1">Create 5 Provider Custom Fields</div>
+            <div class="text-white/40 text-sm">NPI Number, Clinic Name, Preferred Communication, Portal Activation Date, Contract Signed Date — skips if already exists.</div>
+          </div>
+          <div class="step-item" data-step="3">
+            <div class="text-white font-bold mb-1">Create 15 Patient Custom Fields</div>
+            <div class="text-white/40 text-sm">Pioneer Rx #, Formula ID, Prescriber Name, Days Supply, Rx Expiration Date, Preferred Language, Auto-Refill Enrolled, and more.</div>
+          </div>
+          <div class="step-item" data-step="4">
+            <div class="text-white font-bold mb-1">Create 6 Custom Values</div>
+            <div class="text-white/40 text-sm">Secure Payment Link, Pharmacy Address, Pharmacy Phone, Pharmacy Hours, Portal Guide URL, Calendly Link — values left empty for manual population in GHL UI.</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-4">Inputs & Outputs</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <div class="text-white/50 text-xs uppercase tracking-widest mb-3">Inputs</div>
+            <div class="space-y-2">
+              <div class="border border-white/10 p-4">
+                <div class="text-white font-mono text-sm">GHL_API_KEY</div>
+                <div class="text-white/30 text-xs mt-1">Location-scoped Bearer token in .env.local</div>
+              </div>
+              <div class="border border-white/10 p-4">
+                <div class="text-white font-mono text-sm">GHL_LOCATION_ID</div>
+                <div class="text-white/30 text-xs mt-1">OKIhS7IwmBqsinp4BOZV</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="text-white/50 text-xs uppercase tracking-widest mb-3">Outputs</div>
+            <div class="space-y-2">
+              <div class="border border-white/10 p-4">
+                <div class="text-white font-bold text-sm">20 Custom Fields</div>
+                <div class="text-white/30 text-xs mt-1">5 provider + 15 patient fields created in GHL</div>
+              </div>
+              <div class="border border-white/10 p-4">
+                <div class="text-white font-bold text-sm">6 Custom Values</div>
+                <div class="text-white/30 text-xs mt-1">Placeholder values created; URLs populated manually</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-4">Dependencies</div>
+        <div class="prose">
+          <ul>
+            <li><strong style="color:white">Runtime:</strong> Node.js v16+</li>
+            <li><strong style="color:white">API:</strong> GoHighLevel REST API V1 (rest.gohighlevel.com/v1)</li>
+            <li><strong style="color:white">Auth:</strong> Location-scoped Bearer token</li>
+            <li><strong style="color:white">File:</strong> .env.local in project root</li>
+            <li><strong style="color:white">Network:</strong> Outbound HTTPS to rest.gohighlevel.com</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label mb-4">Automation Impact</div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="border border-white/10 p-6">
+            <div class="text-2xl font-black gold mb-1">30-60 min</div>
+            <div class="text-white/40 text-sm">Saved per sub-account setup vs. manual UI entry</div>
+          </div>
+          <div class="border border-white/10 p-6">
+            <div class="text-2xl font-black gold mb-1">100%</div>
+            <div class="text-white/40 text-sm">Field key consistency — zero naming errors</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-white/10">
+      <a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; Back to Workflow Index</a>
+    </div>
+
+  </main>
+
+  <footer class="border-t border-white/10 px-6 py-8">
+    <div class="max-w-7xl mx-auto flex items-center justify-between text-white/30 text-sm">
+      <span>Soleil Infusion LLC &mdash; GHL Automation System</span>
+      <span>Built by Stone Systems &middot; 2026</span>
+    </div>
+  </footer>
+
+</body>
+</html>

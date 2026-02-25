@@ -1,0 +1,52 @@
+{
+  "id": "wf-09",
+  "name": "Membership Enrollment & Renewal",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "triggers": [
+    {
+      "id": "trigger-a",
+      "type": "Tag Applied",
+      "filter": { "tag": "member-new" },
+      "label": "New Member Enrollment"
+    },
+    {
+      "id": "trigger-b",
+      "type": "Custom Field Date",
+      "filter": { "field": "membership_renewal_date", "offset": "-7 days" },
+      "label": "Renewal Reminder (7 days before renewal date)"
+    }
+  ],
+  "enrollmentActions": [
+    { "step": 1, "type": "Send SMS", "content": "Welcome to Soleil Infusion, {{contact.first_name}}! Your membership is active. Book your first session here: {{custom.calendly_link}}. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Welcome to Your Soleil Infusion Membership", "content": "Membership welcome email with benefits summary, booking link, concierge contact, and membership terms." },
+    { "step": 3, "type": "Create Opportunity", "pipeline": "Membership Pipeline", "stage": "Active Member" },
+    { "step": 4, "type": "Add Tag", "tag": "member-active" }
+  ],
+  "renewalActions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, your Soleil Infusion membership renews soon. We'd love to keep you as a member! Questions? Just reply here.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Your Soleil Infusion Membership Renewal", "content": "Renewal reminder email with session usage summary, membership benefits recap, and renewal link." },
+    { "step": 3, "type": "Wait", "duration": "3 days" },
+    { "step": 4, "type": "Condition", "check": "Has membership renewed?", "branches": {
+      "yes": [
+        { "step": "4a", "type": "Send SMS", "content": "Thank you for renewing, {{contact.first_name}}! We appreciate your loyalty. See you at your next visit.", "stopOnResponse": true },
+        { "step": "4b", "type": "Add Tag", "tag": "member-renewed" }
+      ],
+      "no": [
+        { "step": "4c", "type": "Send SMS", "content": "Hi {{contact.first_name}}, your Soleil Infusion membership expires in 2 days. Renew today to keep your discount.", "stopOnResponse": true },
+        { "step": "4d", "type": "Wait", "duration": "2 days" },
+        { "step": "4e", "type": "Condition", "check": "Still not renewed?", "branches": {
+          "yes": [
+            { "step": "4e-i", "type": "Add Tag", "tag": "member-lapsed" },
+            { "step": "4e-ii", "type": "Add Task", "title": "Personal outreach — lapsed member win-back", "assignedTo": "Team" }
+          ]
+        }}
+      ]
+    }}
+  ],
+  "tags": ["member-new", "member-active", "member-renewed", "member-lapsed"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "customFields": ["membership_renewal_date"],
+  "notes": "Two separate trigger branches. Verify membership_renewal_date custom field exists before activating renewal branch."
+}

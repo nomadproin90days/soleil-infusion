@@ -1,0 +1,157 @@
+{
+  "project": "Soleil Infusion GHL CRM Automation System",
+  "client": "Thuy Cao — Soleil Infusion LLC",
+  "location": "801 Landmark Drive, Glen Burnie, MD 21061",
+  "ghlLocationId": "OKIhS7IwmBqsinp4BOZV",
+  "builtBy": "Stone Systems",
+  "lastUpdated": "2026-02-25",
+  "totalWorkflows": 13,
+  "workflows": [
+    {
+      "id": "ghl-foundation-setup",
+      "name": "GHL Foundation Setup Script",
+      "type": "setup-script",
+      "status": "Published",
+      "priority": "critical",
+      "path": "workflows/ghl-foundation-setup/workflow.json",
+      "trigger": "Manual CLI Execution",
+      "tags": []
+    },
+    {
+      "id": "wf-01",
+      "name": "B2B Lead Nurture & Onboarding",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-01-b2b-lead-nurture/workflow.json",
+      "trigger": "Tag: b2b-lead",
+      "tags": ["b2b-lead"]
+    },
+    {
+      "id": "wf-02",
+      "name": "Rx Intake & Pharmacist Alert",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "critical",
+      "path": "workflows/wf-02-rx-intake-pharmacist-alert/workflow.json",
+      "trigger": "Tag: rx-received",
+      "tags": ["rx-received"]
+    },
+    {
+      "id": "wf-03",
+      "name": "Patient Rx — Payment & Consent Chase",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-03-patient-rx-payment-consent/workflow.json",
+      "trigger": "Opportunity Stage: Pending Payment",
+      "tags": []
+    },
+    {
+      "id": "wf-04",
+      "name": "New Patient Booking & Pre-Visit Sequence",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-04-new-patient-booking/workflow.json",
+      "trigger": "Customer Booked Appointment",
+      "tags": ["appointment-confirmed"]
+    },
+    {
+      "id": "wf-05",
+      "name": "Post-Infusion Follow-up & Rebooking",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-05-post-infusion-followup/workflow.json",
+      "trigger": "Appointment Status: Completed",
+      "tags": ["post-visit-follow-up-sent", "review-request"]
+    },
+    {
+      "id": "wf-06",
+      "name": "No-Show Recovery",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "medium",
+      "path": "workflows/wf-06-no-show-recovery/workflow.json",
+      "trigger": "Appointment Status: No Show",
+      "tags": ["no-show", "rescheduled"]
+    },
+    {
+      "id": "wf-07",
+      "name": "Pre-Launch Package Sales (Buy 2 Get 1 Free)",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "critical",
+      "path": "workflows/wf-07-prelaunch-package-sales/workflow.json",
+      "trigger": "Tag: presale-lead",
+      "tags": ["presale-lead", "presale-offer-sent"]
+    },
+    {
+      "id": "wf-08",
+      "name": "B2C Web Lead Nurture (Korean Community)",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-08-b2c-web-lead-nurture/workflow.json",
+      "trigger": "Form Submission / Tag: b2c-lead",
+      "tags": ["b2c-lead", "b2c-nurture"]
+    },
+    {
+      "id": "wf-09",
+      "name": "Membership Enrollment & Renewal",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-09-membership-enrollment-renewal/workflow.json",
+      "trigger": "Tag: member-new / Date Field: membership_renewal_date",
+      "tags": ["member-new", "member-active", "member-renewed", "member-lapsed"]
+    },
+    {
+      "id": "wf-10",
+      "name": "Google Review Request",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "medium",
+      "path": "workflows/wf-10-google-review-request/workflow.json",
+      "trigger": "Tag: review-request",
+      "tags": ["review-request", "review-requested"]
+    },
+    {
+      "id": "wf-11",
+      "name": "Missed Call Text Back",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "high",
+      "path": "workflows/wf-11-missed-call-textback/workflow.json",
+      "trigger": "Missed Incoming Call",
+      "tags": ["missed-call"]
+    },
+    {
+      "id": "wf-12",
+      "name": "B2B Partner Referral Tracking",
+      "type": "ghl-workflow",
+      "status": "Draft",
+      "priority": "medium",
+      "path": "workflows/wf-12-b2b-referral-tracking/workflow.json",
+      "trigger": "Tag: b2b-referral",
+      "tags": ["b2b-referral"]
+    }
+  ],
+  "compliance": ["HIPAA", "TCPA"],
+  "pipelines": [
+    "Patient Rx Fulfillment Pipeline",
+    "B2B Partner Pipeline",
+    "Pre-Launch Sales Pipeline",
+    "B2C Lead Pipeline",
+    "Membership Pipeline"
+  ],
+  "customFields": [
+    "preferred_language",
+    "referring_partner",
+    "membership_renewal_date",
+    "package_balance",
+    "last_visit_date",
+    "b2b_partner_status"
+  ]
+}

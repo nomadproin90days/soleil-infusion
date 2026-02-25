@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WF-06: No-Show Recovery — Soleil Infusion</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0A0A0A; color: #FFFFFF; font-family: 'Inter', sans-serif; }
+    .page-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A96E; }
+    .gold { color: #C9A96E; }
+    .badge-draft { background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-medium { background: rgba(148, 163, 184, 0.15); color: #94A3B8; border: 1px solid rgba(148, 163, 184, 0.3); }
+    .prose p { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; }
+    .prose ul { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; }
+    .step-item { border-left: 2px solid rgba(201, 169, 110, 0.3); padding-left: 1.5rem; padding-bottom: 1.5rem; position: relative; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0A0A0A]/95 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-black text-sm tracking-widest uppercase gold">Soleil Infusion</a>
+      <div class="flex gap-8 text-sm font-medium text-white/60">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="workflows.html" class="hover:text-white transition-colors">Workflows</a>
+      </div>
+    </div>
+  </nav>
+  <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+    <div class="mb-6"><a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; All Workflows</a></div>
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="font-mono text-xs text-white/30 border border-white/10 px-3 py-1">WF-06</span>
+        <span class="badge-draft px-3 py-1 rounded text-xs font-medium">Draft</span>
+        <span class="badge-medium px-3 py-1 rounded text-xs font-medium">Medium Priority</span>
+      </div>
+      <h1 class="page-title mb-4">No-Show<br /><span class="gold">Recovery</span></h1>
+      <p class="text-white/50 text-lg max-w-2xl">30-minute SMS after a missed appointment, 2-day email follow-up, and tag-based reschedule tracking — turning lost appointments into recovered revenue.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Trigger</div><div class="text-white font-bold">Appointment: No Show</div><div class="text-white/30 text-xs mt-1">Status change in GHL calendar</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">First Contact</div><div class="text-white font-bold">30 Minutes</div><div class="text-white/30 text-xs mt-1">While missed appt is top of mind</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Tags</div><div class="text-white font-bold">no-show / rescheduled</div><div class="text-white/30 text-xs mt-1">Swapped on successful reschedule</div></div>
+    </div>
+    <div class="space-y-16">
+      <div>
+        <div class="section-label mb-4">What It Does & Why It Exists</div>
+        <div class="prose"><p>When an appointment is marked "No Show" in GHL, this workflow tags the contact, waits 30 minutes, and sends a warm rescheduling SMS with a booking link. Two days later, it sends a reschedule offer email. It then checks whether the patient has rebooked — if yes, it swaps tags from no-show to rescheduled; if no, it creates a manual call task for the team.</p><p>Research shows that 30-40% of no-shows will reschedule when contacted the same day. Without automation, clinic staff often fail to follow up until it's too late, and the revenue is permanently lost.</p></div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Benefits & Outcomes</div>
+        <div class="prose"><ul><li>Patients are reached within 30 minutes — while the missed appointment is still top of mind</li><li>Warm, non-judgmental tone maintains the relationship</li><li>2-day email follow-up catches patients who missed or ignored the initial SMS</li><li>Rescheduled patients re-enter WF-04 automatically via new booking trigger</li><li>Manual call task ensures persistent no-shows still receive human outreach</li></ul></div>
+      </div>
+      <div>
+        <div class="section-label mb-6">Automation Steps</div>
+        <div class="space-y-0">
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 1 — Tag: no-show</div><div class="text-white/40 text-sm">Applied immediately when appointment status = No Show.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Wait 30 Minutes</div><div class="text-white/40 text-sm">Brief delay allows staff to verify the no-show status before automated outreach begins.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 2 — Reschedule SMS</div><div class="text-white/40 text-sm">"Hi [Name], we missed you today! Would you like to reschedule? [booking link]. Reply STOP to unsubscribe." Stop-on-response active.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Wait 2 Days → Reschedule Email</div><div class="text-white/40 text-sm">Reschedule offer email with booking link, warm tone, and simple call to action.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Condition: Has contact rescheduled?</div><div class="text-white/40 text-sm">System checks if new appointment was booked.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Branch A — Rescheduled</div><div class="text-white/40 text-sm">Remove no-show tag, apply rescheduled tag. WF-04 fires on new booking automatically.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Branch B — Still No-Show</div><div class="text-white/40 text-sm">Manual call task assigned to team: "No-show recovery — phone outreach needed."</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Automation Impact</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">30 min</div><div class="text-white/40 text-sm">Recovery contact time vs. end-of-day manual follow-up</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">30-40%</div><div class="text-white/40 text-sm">Estimated no-show reschedule rate with same-day contact</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">$165-295</div><div class="text-white/40 text-sm">Revenue recovered per rebooked no-show</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/10 flex gap-8">
+      <a href="workflow-wf-05.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; WF-05</a>
+      <a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">Workflow Index</a>
+      <a href="workflow-wf-07.html" class="text-white/30 hover:text-white text-sm transition-colors">WF-07 &rarr;</a>
+    </div>
+  </main>
+  <footer class="border-t border-white/10 px-6 py-8"><div class="max-w-7xl mx-auto flex items-center justify-between text-white/30 text-sm"><span>Soleil Infusion LLC &mdash; GHL Automation System</span><span>Built by Stone Systems &middot; 2026</span></div></footer>
+</body>
+</html>

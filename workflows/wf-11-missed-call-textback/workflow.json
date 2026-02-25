@@ -1,0 +1,19 @@
+{
+  "id": "wf-11",
+  "name": "Missed Call Text Back",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Missed Incoming Call",
+    "filter": { "phoneNumber": "Soleil Infusion main line" }
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi! We just missed your call at Soleil Infusion. We'd love to connect — reply here or book directly at {{custom.calendly_link}}. Reply STOP to unsubscribe.", "stopOnResponse": true, "delay": "within 60 seconds" },
+    { "step": 2, "type": "Add Tag", "tag": "missed-call" },
+    { "step": 3, "type": "Add Task", "title": "Missed call — follow up within 1 hour", "dueIn": "1 hour", "assignedTo": "Team" }
+  ],
+  "tags": ["missed-call"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "notes": "Response time is critical — SMS fires within 60 seconds of missed call. Highest ROI workflow for lead capture."
+}

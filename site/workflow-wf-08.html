@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WF-08: B2C Web Lead Nurture — Soleil Infusion</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { background: #0A0A0A; color: #FFFFFF; font-family: 'Inter', sans-serif; }
+    .page-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.03em; }
+    .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A96E; }
+    .gold { color: #C9A96E; }
+    .badge-draft { background: rgba(245, 158, 11, 0.15); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-high { background: rgba(201, 169, 110, 0.15); color: #C9A96E; border: 1px solid rgba(201, 169, 110, 0.3); }
+    .prose p { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; }
+    .prose ul { color: rgba(255,255,255,0.65); line-height: 1.75; margin-bottom: 1rem; padding-left: 1.5rem; list-style: disc; }
+    .step-item { border-left: 2px solid rgba(201, 169, 110, 0.3); padding-left: 1.5rem; padding-bottom: 1.5rem; position: relative; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[#0A0A0A]/95 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-black text-sm tracking-widest uppercase gold">Soleil Infusion</a>
+      <div class="flex gap-8 text-sm font-medium text-white/60">
+        <a href="index.html" class="hover:text-white transition-colors">Home</a>
+        <a href="workflows.html" class="hover:text-white transition-colors">Workflows</a>
+      </div>
+    </div>
+  </nav>
+  <main class="pt-32 pb-24 px-6 max-w-5xl mx-auto">
+    <div class="mb-6"><a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; All Workflows</a></div>
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="font-mono text-xs text-white/30 border border-white/10 px-3 py-1">WF-08</span>
+        <span class="badge-draft px-3 py-1 rounded text-xs font-medium">Draft</span>
+        <span class="badge-high px-3 py-1 rounded text-xs font-medium">High Priority</span>
+      </div>
+      <h1 class="page-title mb-4">B2C Web Lead<br /><span class="gold">Nurture</span></h1>
+      <p class="text-white/50 text-lg max-w-2xl">11-day intelligent nurture for inbound website leads — with booking detection branching, educational content, and Korean-language architecture built in.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Trigger</div><div class="text-white font-bold">Form Submit / b2c-lead</div><div class="text-white/30 text-xs mt-1">Website inquiry form or tag</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Nurture Window</div><div class="text-white font-bold">11 Days</div><div class="text-white/30 text-xs mt-1">Day 1, 4, and 11 checkpoints</div></div>
+      <div class="border border-white/10 p-6"><div class="section-label mb-2">Korean-Ready</div><div class="text-white font-bold">lang-korean Tag</div><div class="text-white/30 text-xs mt-1">Parallel branch architecture</div></div>
+    </div>
+    <div class="space-y-16">
+      <div>
+        <div class="section-label mb-4">What It Does & Why It Exists</div>
+        <div class="prose"><p>When a consumer submits the website contact form or receives the b2c-lead tag, this workflow delivers an immediate welcome SMS and branded email, then nurtures them over 11 days with strategic touch points. At day 1, it checks for a booking — routing converted leads into the pre-visit workflow (WF-04) and sending non-bookers a direct booking link. At day 4, an educational email is sent. By day 11, persistent non-bookers are moved to a nurture pipeline stage.</p><p>Korean-language parallel branch is architected for the lang-korean tag — when Korean-language messaging is configured, the workflow delivers Korean-language versions of the welcome SMS and email automatically.</p></div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Business Problem It Solves</div>
+        <div class="prose"><p>Web leads are the coldest type of inquiry. Without a structured nurture sequence, these leads convert at very low rates. The Korean-American community aged 35-65 is Soleil Infusion's core market — they respond well to consistent, respectful follow-up communication that respects their timeline and doesn't feel pushy.</p></div>
+      </div>
+      <div>
+        <div class="section-label mb-6">Automation Steps</div>
+        <div class="space-y-0">
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 1 — Welcome SMS</div><div class="text-white/40 text-sm">Immediate. "Hi [Name], thanks for your interest in Soleil Infusion! A team member will reach out shortly. Reply STOP to unsubscribe." (Korean version if lang-korean tag present.)</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 2 — Welcome Email</div><div class="text-white/40 text-sm">Immediate. Branded email with services overview, pricing summary, booking link, and location details.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Step 3 — Pipeline Opportunity</div><div class="text-white/40 text-sm">B2C Lead Pipeline, Stage: New Lead. Immediate tracking visibility.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Day 1 — Booking Check</div><div class="text-white/40 text-sm">Has contact booked? YES → Enroll in WF-04. NO → Booking link SMS: "Ready to experience Soleil Infusion? Book here: [link]"</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Day 4 — Educational Email</div><div class="text-white/40 text-sm">"What to Expect at Soleil Infusion" — wellness lifestyle focus, no PHI, no medical claims. Builds trust and addresses the "What is IV therapy?" objection.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Day 11 — Long-term Nurture</div><div class="text-white/40 text-sm">If still no booking: Move opportunity to "Nurture" stage. Assign manual outreach task to team.</div></div>
+          <div class="step-item"><div class="text-white font-bold mb-1">Tag: b2c-nurture</div><div class="text-white/40 text-sm">Applied for segmentation and future campaign targeting.</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label mb-4">Automation Impact</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">25-40%</div><div class="text-white/40 text-sm">Estimated web lead conversion improvement</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">11 days</div><div class="text-white/40 text-sm">Fully automated — zero staff time per lead</div></div>
+          <div class="border border-white/10 p-6"><div class="text-2xl font-black gold mb-1">Korean-ready</div><div class="text-white/40 text-sm">Language-aware architecture for core market</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-16 pt-8 border-t border-white/10 flex gap-8">
+      <a href="workflow-wf-07.html" class="text-white/30 hover:text-white text-sm transition-colors">&larr; WF-07</a>
+      <a href="workflows.html" class="text-white/30 hover:text-white text-sm transition-colors">Workflow Index</a>
+      <a href="workflow-wf-09.html" class="text-white/30 hover:text-white text-sm transition-colors">WF-09 &rarr;</a>
+    </div>
+  </main>
+  <footer class="border-t border-white/10 px-6 py-8"><div class="max-w-7xl mx-auto flex items-center justify-between text-white/30 text-sm"><span>Soleil Infusion LLC &mdash; GHL Automation System</span><span>Built by Stone Systems &middot; 2026</span></div></footer>
+</body>
+</html>

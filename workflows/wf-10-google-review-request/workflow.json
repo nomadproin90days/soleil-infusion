@@ -1,0 +1,27 @@
+{
+  "id": "wf-10",
+  "name": "Google Review Request",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Tag Applied",
+    "filter": { "tag": "review-request" },
+    "notes": "Applied by WF-05 when patient responds positively to post-visit SMS"
+  },
+  "actions": [
+    { "step": 1, "type": "Wait", "duration": "1 hour" },
+    { "step": 2, "type": "Send SMS", "content": "Hi {{contact.first_name}}, so glad you enjoyed your visit! Would you mind leaving us a quick Google review? It means a lot to our small team: {{custom.google_review_link}}. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 3, "type": "Wait", "duration": "3 days" },
+    { "step": 4, "type": "Condition", "check": "Has review-reviewed tag been applied? (manual or integration)", "branches": {
+      "no": [
+        { "step": "4a", "type": "Send Email", "subject": "One small ask — Soleil Infusion", "content": "Gentle follow-up email with Google review link and a personal note of appreciation. No pressure messaging." }
+      ]
+    }},
+    { "step": 5, "type": "Add Tag", "tag": "review-requested" }
+  ],
+  "tags": ["review-request", "review-requested"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "medium",
+  "customValues": ["google_review_link"],
+  "notes": "Google Review Link must be added to Custom Values once Google Business Profile is configured for Soleil Infusion."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "wf-02",
+  "name": "Rx Intake & Pharmacist Alert",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Tag Applied",
+    "filter": { "tag": "rx-received" }
+  },
+  "actions": [
+    { "step": 1, "type": "Add Tag", "tag": "rx-received" },
+    { "step": 2, "type": "Move Opportunity", "pipeline": "Patient Rx Fulfillment Pipeline", "stage": "Rx Received" },
+    { "step": 3, "type": "Send Internal Notification", "recipient": "Pharmacist", "message": "New Rx received for {{contact.full_name}}. Please review and process." },
+    { "step": 4, "type": "Wait", "duration": "2 hours" },
+    { "step": 5, "type": "Condition", "check": "Opportunity stage still at Rx Received?", "branches": {
+      "yes": [
+        { "step": "5a", "type": "Send Internal Notification", "recipient": "Team Manager", "message": "ESCALATION: Rx for {{contact.full_name}} has not been processed after 2 hours. Immediate review required." }
+      ],
+      "no": [
+        { "step": "5b", "type": "End Workflow", "notes": "Rx already advanced — no escalation needed" }
+      ]
+    }}
+  ],
+  "tags": ["rx-received"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "critical",
+  "pipeline": "Patient Rx Fulfillment Pipeline",
+  "notes": "Draft — needs review before publishing. Verify pharmacist notification recipient and escalation thresholds."
+}

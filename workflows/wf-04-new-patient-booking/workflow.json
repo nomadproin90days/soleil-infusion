@@ -1,0 +1,24 @@
+{
+  "id": "wf-04",
+  "name": "New Patient Booking & Pre-Visit Sequence",
+  "platform": "GoHighLevel",
+  "status": "Draft",
+  "trigger": {
+    "type": "Customer Booked Appointment",
+    "filter": { "calendar": "any" }
+  },
+  "actions": [
+    { "step": 1, "type": "Send SMS", "content": "Hi {{contact.first_name}}, your Soleil Infusion appointment is confirmed for {{appointment.start_time}}. We're located at 801 Landmark Drive, Glen Burnie, MD. Reply STOP to unsubscribe.", "stopOnResponse": true },
+    { "step": 2, "type": "Send Email", "subject": "Your Soleil Infusion Appointment is Confirmed", "content": "Confirmation email including address (801 Landmark Drive, Glen Burnie, MD 21061), parking notes, what to expect during your visit, and a reminder to arrive 5 minutes early." },
+    { "step": 3, "type": "Add Tag", "tag": "appointment-confirmed" },
+    { "step": 4, "type": "Add Task", "title": "Pre-visit intake form sent?", "dueIn": "Same day", "assignedTo": "Admin Staff" },
+    { "step": 5, "type": "Wait", "duration": "Until 24 hours before appointment" },
+    { "step": 6, "type": "Send SMS", "content": "Reminder: your visit at Soleil Infusion is tomorrow at {{appointment.start_time}}. See you soon!", "stopOnResponse": true },
+    { "step": 7, "type": "Wait", "duration": "Until 1 hour before appointment" },
+    { "step": 8, "type": "Send SMS", "content": "Your Soleil Infusion session starts in 1 hour. Please arrive 5 minutes early.", "stopOnResponse": true }
+  ],
+  "tags": ["appointment-confirmed"],
+  "compliance": ["HIPAA", "TCPA"],
+  "priority": "high",
+  "notes": "Stop-on-response active on all SMS steps. TCPA time-window enforcement required (8am-9pm ET)."
+}
