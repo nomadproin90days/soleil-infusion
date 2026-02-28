@@ -16,7 +16,8 @@ import {
   ShieldCheck,
   Smartphone,
   Users,
-  Clock
+  Clock,
+  BarChart3
 } from "lucide-react";
 
 const RESOURCES = [
@@ -131,6 +132,20 @@ const RESOURCES = [
     href: "/referral",
     category: "Strategy",
     icon: Users
+  },
+  {
+    title: "Dashboard Setup Guide",
+    desc: "Instructions for tracking Speed-to-Lead, Show Rate, and other KPIs.",
+    href: "/hub/docs/dashboard-setup",
+    category: "Infrastructure",
+    icon: BarChart3
+  },
+  {
+    title: "Contract KPI Checklist",
+    desc: "The exact metrics required by your 90-day agreement.",
+    href: "/hub/docs/kpi-checklist",
+    category: "Strategy",
+    icon: ShieldCheck
   }
 ];
 
