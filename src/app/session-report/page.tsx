@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "motion/react";
 import { CheckCircle2, FileText, ArrowRight, AlertTriangle, Terminal, Calendar, Send, Activity, BarChart3, Globe } from "lucide-react";
 
@@ -172,22 +173,24 @@ export default function SessionReport() {
           </div>
           <div className="md:col-span-8 space-y-4">
             {[
-              { title: "Apollo Sequence Import Kit", desc: "Created for B12 provider outreach." },
-              { title: "GHL Implementation QA Test Plan", desc: "Authored for full end-to-end system validation." },
-              { title: "Session Compilation Handoff", desc: "Prepared to maintain execution continuity." }
+              { title: "Apollo Sequence Import Kit", desc: "Created for B12 provider outreach.", slug: "apollo-kit" },
+              { title: "GHL Implementation QA Test Plan", desc: "Authored for full end-to-end system validation.", slug: "qa-test-plan" },
+              { title: "Session Compilation Handoff", desc: "Prepared to maintain execution continuity.", slug: "handoff-pack" }
             ].map((doc, i) => (
-              <div key={i} className="flex items-center justify-between p-6 bg-white rounded-2xl border border-black/5 shadow-sm group hover:border-[#004a99]/20 transition-all">
-                <div className="flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-[#004a99]/5 flex items-center justify-center text-[#004a99] group-hover:bg-[#004a99] group-hover:text-white transition-colors">
-                    <FileText size={20} />
+              <Link href={`/session-report/docs/${doc.slug}`} key={i} className="block">
+                <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-black/5 shadow-sm group hover:border-[#004a99]/20 transition-all cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <div className="h-10 w-10 rounded-full bg-[#004a99]/5 flex items-center justify-center text-[#004a99] group-hover:bg-[#004a99] group-hover:text-white transition-colors">
+                      <FileText size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">{doc.title}</h4>
+                      <p className="text-sm text-[#646464] font-light">{doc.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-medium">{doc.title}</h4>
-                    <p className="text-sm text-[#646464] font-light">{doc.desc}</p>
-                  </div>
+                  <ArrowRight size={18} className="text-black/10 group-hover:text-[#004a99] transition-colors" />
                 </div>
-                <ArrowRight size={18} className="text-black/10 group-hover:text-[#004a99] transition-colors" />
-              </div>
+              </Link>
             ))}
           </div>
         </motion.section>

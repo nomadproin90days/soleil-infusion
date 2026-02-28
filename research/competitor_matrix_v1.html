@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soleil Infusion — Growth Strategy</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+    
+    :root {
+      --black: #111;
+      --blue: #004a99;
+      --accent: #A6C7E7;
+      --gray: #666;
+      --bg: #f4f4f4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      font-size: 14px;
+      line-height: 1.4;
+      -webkit-print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 60px;
+      min-height: 100vh;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    /* ── Grid Layout ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: 64px;
+      line-height: 0.9;
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
+    
+    h2 {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-top: 2px solid var(--black);
+      padding-top: 10px;
+      margin-bottom: 20px;
+      margin-top: 60px;
+    }
+
+    p { font-size: 16px; color: var(--gray); max-width: 90%; }
+    
+    .big-number {
+      font-size: 80px;
+      font-weight: 800;
+      letter-spacing: -4px;
+      line-height: 1;
+      color: var(--blue);
+    }
+
+    /* ── Hero Section ── */
+    .hero { margin-bottom: 80px; }
+    .hero-meta {
+      display: flex; justify-content: space-between; 
+      font-size: 12px; font-weight: 600; text-transform: uppercase; 
+      border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 40px;
+    }
+
+    /* ── The 3 Pillars ── */
+    .pillar-card {
+      border: 1px solid #eee;
+      padding: 30px;
+      transition: all 0.2s;
+    }
+    .pillar-card:hover { border-color: var(--blue); }
+    
+    .pillar-title {
+      font-size: 24px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px;
+    }
+    .pillar-korean {
+      font-family: serif; font-size: 18px; color: var(--blue); margin-bottom: 20px; display: block;
+    }
+    .price-tag {
+      font-size: 14px; font-weight: 700; background: var(--black); color: #fff; 
+      padding: 5px 10px; display: inline-block; margin-bottom: 20px;
+    }
+
+    /* ── Data Table (Minimalist) ── */
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { text-align: left; font-size: 10px; text-transform: uppercase; border-bottom: 2px solid #000; padding: 10px 0; }
+    td { padding: 15px 0; border-bottom: 1px solid #eee; font-size: 14px; color: var(--gray); }
+    td strong { color: var(--black); font-weight: 600; }
+    .check-no { color: #ccc; }
+
+    /* ── Decision Box (Subtle) ── */
+    .decision-row {
+      background: var(--bg);
+      padding: 40px;
+      margin-top: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .decision-text h3 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+    .decision-action {
+      background: var(--blue); color: #fff; padding: 15px 30px; 
+      font-weight: 700; font-size: 14px; text-transform: uppercase;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 80px; font-size: 10px; color: #ccc; text-transform: uppercase; letter-spacing: 1px;
+      display: flex; justify-content: space-between;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; margin: 0; padding: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  
+  <div class="hero-meta">
+    <span>Soleil Infusion</span>
+    <span>Launch Strategy</span>
+    <span>Feb 2026</span>
+  </div>
+
+  <div class="hero">
+    <h1>The 3 Scalable<br><span style="color:var(--blue)">Revenue Pillars.</span></h1>
+    <div class="grid-2">
+      <p>Answering the core question: <strong>"What are the three things that will scale us fastest?"</strong> Validated against local competitor data and Korean market demand.</p>
+    </div>
+  </div>
+
+  <!-- THE 3 PILLARS -->
+  <h2>01 / The Offerings</h2>
+  <div class="grid-3">
+    
+    <div class="pillar-card">
+      <span class="price-tag">$225 – $250</span>
+      <div class="pillar-title">White Jade</div>
+      <span class="pillar-korean">백옥주사</span>
+      <p><strong>The Cultural Hook.</strong> Glutathione IV for skin brightening. Zero local competitors use this branding. High margin, high virality in the Korean community.</p>
+    </div>
+
+    <div class="pillar-card">
+      <span class="price-tag">$195 / $680 mo</span>
+      <div class="pillar-title">Burnout Reset</div>
+      <span class="pillar-korean">마늘주사</span>
+      <p><strong>The Subscription Engine.</strong> "Garlic Drip" for fatigue. A weekly habit for professionals. This drives the LTV ($9k+/yr).</p>
+    </div>
+
+    <div class="pillar-card">
+      <span class="price-tag">$165 – $175</span>
+      <div class="pillar-title">Hangover</div>
+      <span class="pillar-korean">해장</span>
+      <p><strong>The Funnel Entry.</strong> Weekend revenue driver. Broad appeal to nurses, first responders, and travelers. Feeds the other two pillars.</p>
+    </div>
+
+  </div>
+
+  <!-- COMPETITOR DATA -->
+  <h2>02 / The Market Gap</h2>
+  <div class="grid-2">
+    <div>
+      <div class="big-number">0</div>
+      <p style="margin-top:10px">Local competitors offering "White Jade" with Korean positioning.</p>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Competitor</th>
+          <th>White Jade?</th>
+          <th>Korean Focus?</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>VitaFusion</strong> (Baltimore)</td>
+          <td class="check-no">No</td>
+          <td class="check-no">No</td>
+          <td>$250</td>
+        </tr>
+        <tr>
+          <td><strong>Jean Walter</strong> (Columbia)</td>
+          <td class="check-no">No</td>
+          <td class="check-no">No</td>
+          <td>$175+</td>
+        </tr>
+        <tr>
+          <td><strong>Thrive</strong> (Mobile)</td>
+          <td class="check-no">Add-on</td>
+          <td class="check-no">No</td>
+          <td>$190</td>
+        </tr>
+        <tr>
+          <td><strong>KARA Med Spa</strong> (NJ Benchmark)</td>
+          <td><strong>Yes</strong></td>
+          <td><strong>Yes</strong></td>
+          <td><strong>$250</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- B2B TARGETS -->
+  <h2>03 / B2B Targets (Top 10)</h2>
+  <div class="grid-4" style="font-size:12px; font-weight:600; color:var(--gray);">
+    <div>Dr. Sangmin Lee<br><span style="color:var(--blue)">Chiropractor</span></div>
+    <div>Kim Chiropractic<br><span style="color:var(--blue)">Clinic</span></div>
+    <div>Jeong Wellness<br><span style="color:var(--blue)">Dr. Ken Jeong</span></div>
+    <div>Roh Chiropractic<br><span style="color:var(--blue)">Dr. Sun Yung Roh</span></div>
+    <div>Mocurry Chiro<br><span style="color:var(--blue)">Dr. Dong Guk Kim</span></div>
+    <div>Hahn Health<br><span style="color:var(--blue)">Integrative</span></div>
+    <div>Columbia Integrative<br><span style="color:var(--blue)">Functional</span></div>
+    <div>Flourish Wellness<br><span style="color:var(--blue)">Holistic</span></div>
+  </div>
+
+  <!-- DECISION -->
+  <div class="decision-row">
+    <div class="decision-text">
+      <h3>Strategic Recommendation</h3>
+      <p style="margin:0; font-size:14px; max-width:600px;">Lock in the <strong>$225</strong> price point. It undercuts the medical leader ($250) while maintaining a premium brand image. Approve the "Buy 2 Get 1" Pre-Sale offer ($450 pack).</p>
+    </div>
+    <div class="decision-action">
+      Decision Needed Friday
+    </div>
+  </div>
+
+  <footer>
+    <div>Soleil Infusion</div>
+    <div>Confidential Strategy</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
