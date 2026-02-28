@@ -20,3 +20,20 @@ To consume these workflows:
 
 ## Deployment
 Live report: [Vercel URL]
+
+## Local Development & Verification
+To run this project locally, build it, or deploy it:
+
+```bash
+# Install dependencies
+npm install
+
+# Run the development server (available on http://localhost:3000)
+npm run dev
+
+# Build for production
+npm run build
+
+# Deploy to Vercel (requires Vercel CLI)
+vercel --prod
+```
