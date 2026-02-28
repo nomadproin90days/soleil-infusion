@@ -538,10 +538,12 @@ export default function Home() {
                       id="vi5Ov0XkJLgD8z8jFWS5_1772309403783"
                     ></iframe>
                   ) : (
-                    <div className="flex flex-col items-center justify-center h-[850px] text-center p-12 font-light">
-                      <p className="text-2xl mb-6">Returning patient booking coming soon.</p>
-                      <button onClick={() => setActiveBooking('none')} className="text-[#004a99] underline font-medium">Back to selection</button>
-                    </div>
+                    <iframe 
+                      src="https://api.voshellspharmacy.com/widget/booking/C7UK0IcC9vyLJmxCYWUV" 
+                      style={{ width: '100%', height: '850px', border: 'none', overflow: 'hidden' }}
+                      scrolling="no" 
+                      id="C7UK0IcC9vyLJmxCYWUV_1772310620830"
+                    ></iframe>
                   )}
                 </div>
               </motion.div>
