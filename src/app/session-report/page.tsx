@@ -144,13 +144,13 @@ export default function SessionReport() {
           <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="space-y-4">
               <h3 className="text-xl font-medium">Project Setup</h3>
-              <p className="text-[#646464] font-light">New project successfully initialized in <strong>Lovable</strong> for rapid prototyping and deployment.</p>
+              <p className="text-[#646464] font-light">Production Next.js environment initialized and deployed for high-performance delivery.</p>
             </div>
             <div className="space-y-4">
               <h3 className="text-xl font-medium">Content Implementation</h3>
               <ul className="space-y-2 text-[#646464] font-light">
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> “White Jade” brand messaging</li>
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> “Clinical Excellence” copy</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> “White Jade” brand messaging live in hero services</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> “Medical Integrity” & “Outcome-Driven” copy deployed</li>
               </ul>
             </div>
             <div className="sm:col-span-2 bg-[#FAFAFA] p-8 rounded-2xl border border-dashed border-black/10">
