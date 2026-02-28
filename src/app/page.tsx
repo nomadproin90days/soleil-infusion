@@ -8,13 +8,11 @@ import {
   ShieldCheck, 
   Star, 
   MapPin, 
-  Phone, 
   Clock, 
   CheckCircle2,
   Sparkles,
   Zap,
   Droplets,
-  Calendar,
   Waves,
   Heart,
   ArrowUpRight,
@@ -114,7 +112,7 @@ export default function Home() {
         animate={{ y: 0 }}
         className="fixed top-0 w-full z-[100] border-b border-black/5 bg-white/80 backdrop-blur-md"
       >
-        <div className="max-w-7xl mx-auto px-6 min-h-24 py-2 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 min-h-24 lg:min-h-32 py-2 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-4 group">
             <BrandLogo alt="Soleil Infusion Logo" priority className="transition-transform duration-500 group-hover:scale-105" />
             <div className="flex flex-col">
@@ -143,7 +141,7 @@ export default function Home() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section className="relative pt-56 pb-32 overflow-hidden">
+      <section className="relative pt-56 lg:pt-64 pb-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div 
             variants={containerVariants}
@@ -435,9 +433,9 @@ export default function Home() {
       <section id="inquiry" className="py-24 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#004a99] mb-6 block font-bold">{t.inquiryLabel || 'General Inquiry'}</span>
-            <h2 className="text-5xl md:text-[80px] font-light tracking-tighter text-[#111111] mb-8 leading-tight">{t.inquiryHeadline || 'Still have questions?'}</h2>
-            <p className="text-[#646464] text-xl font-light mb-12 max-w-2xl mx-auto">{t.inquirySub || 'Send us a message and our medical team will get back to you.'}</p>
+            <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#004a99] mb-6 block font-bold">{t.inquiryLabel}</span>
+            <h2 className="text-5xl md:text-[80px] font-light tracking-tighter text-[#111111] mb-8 leading-tight">{t.inquiryHeadline}</h2>
+            <p className="text-[#646464] text-xl font-light mb-12 max-w-2xl mx-auto">{t.inquirySub}</p>
           </div>
           <GHLForm formId="8c7tIeZhpGM0ULERcESp" title="Soleil IV Infusions - Copy" height={1156} />
         </div>
