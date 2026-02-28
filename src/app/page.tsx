@@ -439,7 +439,7 @@ export default function Home() {
             <h2 className="text-5xl md:text-[80px] font-light tracking-tighter text-[#111111] mb-8 leading-tight">{t.inquiryHeadline || 'Still have questions?'}</h2>
             <p className="text-[#646464] text-xl font-light mb-12 max-w-2xl mx-auto">{t.inquirySub || 'Send us a message and our medical team will get back to you.'}</p>
           </div>
-          <GHLForm formId="TD6hYijKkRFiwxR39U9B" title="Soleil IV Infusions General Inquiry" />
+          <GHLForm formId="8c7tIeZhpGM0ULERcESp" title="Soleil IV Infusions - Copy" height={1156} />
         </div>
       </section>
 

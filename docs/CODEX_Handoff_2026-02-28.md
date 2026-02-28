@@ -39,7 +39,7 @@ Do not delete the entire import statement unless it becomes empty after removal.
 | `src/app/session-report/page.tsx` line 6 | `BarChart3`, `Laptop` |
 | `src/app/intake/page.tsx` line 10 | `CheckCircle2` |
 | `src/app/hub/workflow/[id]/page.tsx` line 4 | `ShieldCheck`, `Users`, `Settings`, `Calendar`, `Smartphone`, `Clock` |
-| `src/components/GHLForm.tsx` line 3 | entire line: `import { useEffect } from 'react';` |
+| `src/components/GHLForm.tsx` | ~~`useEffect` already removed~~ — also added `height` prop (done) |
 
 For `hub/workflow/[id]/page.tsx`: after removing the listed icons, confirm the remaining
 lucide-react imports on line 4 are actually referenced in JSX before saving.
@@ -182,7 +182,7 @@ This clears Turbopack's incremental cache which occasionally stalls on Korean/Vi
 |---|---|---|
 | `BrandLogo` | `src/components/BrandLogo.tsx` | `alt`, `className`, `priority` |
 | `LanguageSwitcher` | `src/components/LanguageSwitcher.tsx` | `locale: Locale`, `onChange: (l: Locale) => void` |
-| `GHLForm` | `src/components/GHLForm.tsx` | `formId`, `baseUrl`, `className`, `title` |
+| `GHLForm` | `src/components/GHLForm.tsx` | `formId`, `baseUrl`, `className`, `title`, `height` (px, default 1156) |
 
 ### Translation Files
 
@@ -200,15 +200,15 @@ All export a `const` with `en`, `ko`, `vi` keys. Pattern: `TRANSLATIONS[lang].ke
 
 ### GHL Widget IDs
 
-| Route | Type | Widget ID |
-|---|---|---|
-| `/` new patient | Calendar | `vi5Ov0XkJLgD8z8jFWS5` |
-| `/` return patient | Calendar | `C7UK0IcC9vyLJmxCYWUV` |
-| `/#inquiry` | Form | `TD6hYijKkRFiwxR39U9B` |
-| `/intake` | Form | `3hXlVkwkuGCoLTkHA6d5` |
-| `/referral` form | Form | `vidpgunEF5sDUTl0wVyU` |
-| `/referral` calendar | Calendar | `BmauXC3RW6J6IQDl0fEc` |
-| Global chat | Chat Widget | **PENDING** |
+| Route | Type | Widget ID | Notes |
+|---|---|---|---|
+| `/` new patient | Calendar | `vi5Ov0XkJLgD8z8jFWS5` | |
+| `/` return patient | Calendar | `C7UK0IcC9vyLJmxCYWUV` | |
+| `/#inquiry` | Form | `8c7tIeZhpGM0ULERcESp` | "Soleil IV Infusions - Copy", height 1156px |
+| `/intake` | Form | `3hXlVkwkuGCoLTkHA6d5` | |
+| `/referral` form | Form | `vidpgunEF5sDUTl0wVyU` | |
+| `/referral` calendar | Calendar | `BmauXC3RW6J6IQDl0fEc` | |
+| Global chat | Chat Widget | **PENDING** | |
 
 All GHL iframes use base URL: `https://api.voshellspharmacy.com`
 `GHLForm.tsx` uses: `https://api.voshellspharmacy.com/js/form_embed.js`
