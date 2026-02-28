@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { CheckCircle2, FileText, ArrowRight, ShieldCheck, Calendar, Send, Clock, BarChart3, Laptop } from "lucide-react";
+import { CheckCircle2, FileText, ArrowRight, ShieldCheck, Calendar, Send, Clock } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { normalizeLocale, type Locale } from "@/lib/localization";

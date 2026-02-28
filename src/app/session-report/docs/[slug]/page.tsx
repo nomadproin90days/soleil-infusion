@@ -19,7 +19,7 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
         <section>
           <h3 className="text-xl font-medium text-[#111111] mb-4">2) The Outreach Message</h3>
           <div className="bg-white p-6 rounded-xl border border-black/5 leading-relaxed italic text-[#646464]">
-            <p>"Are you seeing friction around home B12 administration? We support practices like yours by standardizing this workflow with pre-loaded syringes and direct coordination, so your staff doesn't have to chase the logistics."</p>
+            <p>&ldquo;Are you seeing friction around home B12 administration? We support practices like yours by standardizing this workflow with pre-loaded syringes and direct coordination, so your staff doesn&apos;t have to chase the logistics.&rdquo;</p>
           </div>
         </section>
         <section>
@@ -60,7 +60,7 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">2) Testing the "Safety Nets"</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">2) Testing the &ldquo;Safety Nets&rdquo;</h3>
           <div className="bg-[#fefce8] p-6 rounded-xl border border-[#fef08a]">
             <p className="text-sm text-[#854d0e] font-medium mb-2">Automated No-Show Recovery</p>
             <p className="text-sm text-[#a16207] leading-relaxed">
@@ -94,7 +94,7 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">What's Next?</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4">What&apos;s Next?</h3>
           <p className="leading-relaxed">
             The technical booking foundation is solid. Our next focus is launching your professional website and starting the clinical partnership outreach.
           </p>

@@ -7,7 +7,6 @@ import {
   ShieldCheck, 
   ArrowLeft, 
   Clock, 
-  CheckCircle2,
   Lock,
   ArrowUpRight
 } from "lucide-react";

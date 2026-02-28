@@ -162,6 +162,25 @@ export default function ResourceHub() {
     return urlLocale !== "en" ? urlLocale : savedLocale !== "en" ? savedLocale : browserLocale;
   });
 
+  const BREADCRUMB_JSON_LD = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://soleilinfusion.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Resource Hub",
+        "item": "https://soleilinfusion.com/hub"
+      }
+    ]
+  };
+
   useEffect(() => {
     window.localStorage.setItem("preferred_locale", lang);
     document.cookie = `preferred_locale=${lang}; path=/; max-age=31536000; samesite=lax`;
@@ -184,6 +203,10 @@ export default function ResourceHub() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans pb-32">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(BREADCRUMB_JSON_LD) }}
+      />
       {/* Header */}
       <motion.header 
         initial={{ opacity: 0, y: -20 }}
@@ -260,7 +283,7 @@ export default function ResourceHub() {
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-[#999999]">{t.noResults} "{query}"</p>
+            <p className="text-[#999999]">{t.noResults} &ldquo;{query}&rdquo;</p>
           </div>
         )}
       </main>

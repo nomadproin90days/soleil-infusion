@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, ShieldCheck, Activity, Users, Settings, Calendar, Smartphone, Clock } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Activity } from "lucide-react";
 
 // This is a Server Component by default in Next.js 13+ App Router
 export default async function WorkflowPage({ params }: { params: { id: string } }) {

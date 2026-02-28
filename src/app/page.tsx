@@ -323,7 +323,7 @@ export default function Home() {
                 className="w-full h-full rounded-[6rem] border border-white/10 bg-[#111111] flex items-center justify-center p-12 overflow-hidden shadow-2xl shadow-blue-900/20 relative group"
               >
                 {/* Laboratory Background Image from Pexels */}
-                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
+                <div className="absolute inset-0 bg-[url('/lab-bg.jpg')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/80 via-transparent to-[#004a99]/20 pointer-events-none" />
 
                 <div className="text-center relative z-10">

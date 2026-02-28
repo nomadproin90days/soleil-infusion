@@ -11,9 +11,9 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
     content: (
       <div className="space-y-8 font-light text-[#444444]">
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">How to Track Your Clinic's Success</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">How to Track Your Clinic&apos;s Success</h3>
           <p className="leading-relaxed">
-            We use GoHighLevel's internal "Dashboard" and "Reporting" tabs to monitor how many patients are booking and showing up for their infusions.
+            We use GoHighLevel&apos;s internal &ldquo;Dashboard&rdquo; and &ldquo;Reporting&rdquo; tabs to monitor how many patients are booking and showing up for their infusions.
           </p>
         </section>
         <section>
@@ -36,7 +36,7 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">The "Control Tower" Dashboard</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4">The &ldquo;Control Tower&rdquo; Dashboard</h3>
           <p className="text-sm mb-4 italic text-[#646464]">We recommend adding these visual widgets to your main GHL screen:</p>
           <ul className="space-y-3">
             {[
@@ -61,7 +61,7 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
         <section>
           <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">The Standard for Success</h3>
           <p className="leading-relaxed">
-            Your agreement defines a "PASS" based on these specific metrics. We track these weekly to ensure the system is scaling as planned.
+            Your agreement defines a &ldquo;PASS&rdquo; based on these specific metrics. We track these weekly to ensure the system is scaling as planned.
           </p>
         </section>
         <section>
@@ -112,8 +112,9 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
 };
 
 // Internal icons for the content
-function Calendar(props: any) { return <BarChart3 {...props} /> }
-function Users(props: any) { return <ShieldCheck {...props} /> }
+type IconProps = React.ComponentProps<typeof BarChart3>;
+function Calendar(props: IconProps) { return <BarChart3 {...props} />; }
+function Users(props: IconProps) { return <ShieldCheck {...props} />; }
 
 export default function DocPage() {
   const params = useParams();
