@@ -88,15 +88,15 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
               <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">100% DONE</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="font-medium text-sm">Website Integration</span>
-              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">100% DONE</span>
+              <span className="font-medium text-sm">Professional Website</span>
+              <span className="text-xs px-2 py-1 bg-amber-100 text-amber-700 rounded-full font-bold">UP NEXT</span>
             </div>
           </div>
         </section>
         <section>
           <h3 className="text-xl font-medium text-[#111111] mb-4">What's Next?</h3>
           <p className="leading-relaxed">
-            The technical foundation is solid. Our next focus is growing your practice by launching the new partnership outreach and monitoring how patients interact with the new site.
+            The technical booking foundation is solid. Our next focus is launching your professional website and starting the clinical partnership outreach.
           </p>
         </section>
       </div>

@@ -53,13 +53,13 @@
 
 ---
 
-## 💻 4. Website Build (Lovable Platform)
+## 💻 4. Website Build
 *Goal: Launch a visually stunning, high-converting site by Week 2.*
 
-- [x] **Ryan:** Initialize new project in Lovable.
-- [x] **Ryan:** Implement the "White Jade" & "Clinical Excellence" copy using `docs/website_copy_v1.md` as the source of truth.
-- [x] **Ryan:** Connect the "Book Appointment" buttons to the GHL Form embed.
-- [ ] **Thuy:** Final review of the Lovable site preview.
+- [ ] **Ryan:** Initialize new project.
+- [ ] **Ryan:** Implement the "White Jade" & "Clinical Excellence" copy using `docs/website_copy_v1.md` as the source of truth.
+- [ ] **Ryan:** Connect the "Book Appointment" buttons to the GHL Form embed.
+- [ ] **Thuy:** Final review of the site preview.
 
 **Deadline:** Feb 24 (Monday)
 

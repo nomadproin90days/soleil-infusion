@@ -38,7 +38,7 @@ export default function SessionReport() {
           Session <span className="font-medium text-[#004a99]">Summary</span>
         </h1>
         <p className="text-xl md:text-2xl text-[#646464] max-w-2xl leading-relaxed">
-          Your patient booking system is now live. We have completed the setup for your online calendars, automated reminders, and professional website content.
+          Your patient booking system is now live. We have completed the setup for your online calendars, automated reminders, and the internal coordination infrastructure.
         </p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm font-mono text-[#646464]">
           <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 text-[#111111]">Feb 27, 2026</div>
@@ -125,33 +125,7 @@ export default function SessionReport() {
           </div>
         </motion.section>
 
-        {/* Website & Brand */}
-        <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
-          <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Website Update</h2>
-          </div>
-          <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">Professional Messaging</h3>
-              <p className="text-[#646464] font-light">Your website now speaks directly to your target audience using the "White Jade" and "Medical Integrity" branding we finalized.</p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">Ready for Patients</h3>
-              <ul className="space-y-2 text-[#646464] font-light">
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> All "Book Now" buttons are active</li>
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> Patient forms are securely connected</li>
-              </ul>
-            </div>
-            <div className="sm:col-span-2 bg-[#FAFAFA] p-8 rounded-2xl border border-dashed border-black/10 flex items-center gap-6">
-              <Laptop className="text-[#004a99] hidden sm:block" size={40} />
-              <p className="text-[#646464] font-light leading-relaxed">
-                Everything is integrated. When a patient clicks a button on your site, they are guided through a professional booking process that leads directly into your calendar.
-              </p>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Growth Strategy */}
+        {/* Growth & Strategy */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
             <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Growth & Partnerships</h2>
@@ -173,10 +147,31 @@ export default function SessionReport() {
           </div>
         </motion.section>
 
-        {/* Next Steps */}
+        {/* Future Roadmap */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">What happens next</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">What's Next</h2>
+          </div>
+          <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <h3 className="text-xl font-medium">Upcoming: Professional Website</h3>
+              <p className="text-[#646464] font-light text-balance">Now that the booking system is live, our next priority is launching your public-facing website. This will include your "White Jade" branding and "Medical Integrity" messaging.</p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-xl font-medium">Integration & Content</h3>
+              <ul className="space-y-2 text-[#646464] font-light">
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> Building the public site layout</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> Writing high-end patient content</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> Connecting the "Book" buttons live</li>
+              </ul>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Review & Detailed Info */}
+        <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+          <div className="md:col-span-4">
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Project Details</h2>
           </div>
           <div className="md:col-span-8">
             <div className="space-y-4">
