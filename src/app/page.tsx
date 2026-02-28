@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
 import GHLForm from "@/components/GHLForm";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { normalizeLocale } from "@/lib/localization";
 import { HOME_TRANSLATIONS } from "@/lib/translations/home";
 
@@ -132,20 +133,7 @@ export default function Home() {
               <Link href="/referral" className="hover:text-[#004a99] transition-colors font-mono uppercase text-[10px] tracking-[0.2em] border border-black/10 px-3 py-1 rounded-md">{t.navPartners}</Link>
             </div>
 
-            {/* Language Toggle */}
-            <div className="flex items-center bg-[#FAFAFA] border border-black/5 p-1 rounded-full shadow-inner">
-              {(["en", "ko", "vi"] as Language[]).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase transition-all ${
-                    lang === l ? 'bg-[#004a99] text-white shadow-sm' : 'text-[#999999] hover:text-[#111111]'
-                  }`}
-                >
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
+            <LanguageSwitcher locale={lang} onChange={setLang} />
 
             <Link href="#book" className="hidden md:block bg-[#004a99] text-white px-8 py-3 rounded-full hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10 active:scale-95 text-sm font-bold uppercase tracking-widest">
               {t.bookBtn}
@@ -334,8 +322,12 @@ export default function Home() {
                   rotate: [0, 1, 0]
                 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                className="w-full h-full rounded-[6rem] border border-white/10 bg-white/5 backdrop-blur-3xl flex items-center justify-center p-12 overflow-hidden shadow-2xl shadow-blue-900/20"
+                className="w-full h-full rounded-[6rem] border border-white/10 bg-[#111111] flex items-center justify-center p-12 overflow-hidden shadow-2xl shadow-blue-900/20 relative group"
               >
+                {/* Laboratory Background Image from Pexels */}
+                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-40 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/80 via-transparent to-[#004a99]/20 pointer-events-none" />
+
                 <div className="text-center relative z-10">
                   <Droplets size={120} className="text-[#A6C7E7] mx-auto mb-8 opacity-40 animate-pulse" />
                   <div className="text-[100px] font-bold text-[#A6C7E7] mb-2 tracking-tighter leading-none italic">99.9%</div>
