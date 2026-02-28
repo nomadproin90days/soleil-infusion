@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { 
@@ -19,7 +19,10 @@ import {
   Clock,
   BarChart3
 } from "lucide-react";
-import Image from "next/image";
+import BrandLogo from "@/components/BrandLogo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { normalizeLocale, type Locale } from "@/lib/localization";
+import { HUB_TRANSLATIONS } from "@/lib/translations/hub";
 
 const RESOURCES = [
   {
@@ -152,11 +155,32 @@ const RESOURCES = [
 
 export default function ResourceHub() {
   const [query, setSearchQuery] = useState("");
+  const [lang, setLang] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "en";
+    const urlLocale = normalizeLocale(new URLSearchParams(window.location.search).get("lang"));
+    const savedLocale = normalizeLocale(window.localStorage.getItem("preferred_locale"));
+    const browserLocale = normalizeLocale(navigator.language);
+    return urlLocale !== "en" ? urlLocale : savedLocale !== "en" ? savedLocale : browserLocale;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("preferred_locale", lang);
+    document.cookie = `preferred_locale=${lang}; path=/; max-age=31536000; samesite=lax`;
+    const url = new URL(window.location.href);
+    if (lang === "en") {
+      url.searchParams.delete("lang");
+    } else {
+      url.searchParams.set("lang", lang);
+    }
+    window.history.replaceState({}, "", url.toString());
+  }, [lang]);
+
+  const t = HUB_TRANSLATIONS[lang];
 
   const filtered = RESOURCES.filter(r => 
     r.title.toLowerCase().includes(query.toLowerCase()) || 
     r.desc.toLowerCase().includes(query.toLowerCase()) ||
-    r.category.toLowerCase().includes(query.toLowerCase())
+    t.categories[r.category as keyof typeof t.categories]?.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
@@ -169,19 +193,22 @@ export default function ResourceHub() {
       >
         <div className="flex items-center justify-between mb-12 text-[#111111]">
           <div className="flex items-center gap-4">
-            <Image src="/soleil-logo.png" alt="Soleil Logo" width={60} height={60} className="object-contain" />
+            <BrandLogo alt="Soleil Logo" priority />
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight leading-none mb-1 text-[#004a99]">SOLEIL</span>
               <span className="font-bold text-xl tracking-tight leading-none">INFUSION</span>
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher locale={lang} onChange={setLang} />
             <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Soleil Resource Hub</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">{t.hubLabel}</span>
           </div>
         </div>
         <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-8 text-balance">
-          All Project <span className="font-medium text-[#004a99]">Documents</span>
+          {lang === 'en' ? (
+            <>All Project <span className="font-medium text-[#004a99]">Documents</span></>
+          ) : t.title}
         </h1>
         
         {/* Search Bar */}
@@ -189,7 +216,7 @@ export default function ResourceHub() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#999999]" size={20} />
           <input 
             type="text"
-            placeholder="Search workflows, reports, or strategy..."
+            placeholder={t.searchPlaceholder}
             className="w-full bg-white border border-black/5 rounded-2xl py-4 pl-12 pr-6 text-lg outline-none focus:border-[#004a99]/30 focus:shadow-sm transition-all shadow-sm"
             value={query}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -212,14 +239,16 @@ export default function ResourceHub() {
                     <div className="h-12 w-12 rounded-2xl bg-[#FAFAFA] flex items-center justify-center text-[#646464] group-hover:bg-[#004a99] group-hover:text-white transition-colors">
                       <res.icon size={24} />
                     </div>
-                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#999999]">{res.category}</span>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#999999]">
+                      {t.categories[res.category as keyof typeof t.categories] || res.category}
+                    </span>
                   </div>
                   <h3 className="text-xl font-medium mb-3 group-hover:text-[#004a99] transition-colors">{res.title}</h3>
                   <p className="text-[#646464] font-light text-sm leading-relaxed flex-1">
                     {res.desc}
                   </p>
                   <div className="mt-8 flex items-center gap-2 text-sm font-medium text-[#004a99] opacity-0 group-hover:opacity-100 transition-opacity translate-x-[-10px] group-hover:translate-x-0 transition-transform duration-300">
-                    <span>View Document</span>
+                    <span>{t.viewDocument}</span>
                     <ArrowRight size={16} />
                   </div>
                 </div>
@@ -230,7 +259,7 @@ export default function ResourceHub() {
 
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-[#999999]">No documents found matching "{query}"</p>
+            <p className="text-[#999999]">{t.noResults} "{query}"</p>
           </div>
         )}
       </main>
@@ -238,13 +267,13 @@ export default function ResourceHub() {
       {/* Footer / Quick Access */}
       <footer className="fixed bottom-0 w-full bg-white/80 backdrop-blur-md border-t border-black/5 z-[100] py-4">
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center text-[10px] font-mono uppercase tracking-[0.2em] text-[#999999]">
-          <span>© 2026 Soleil Infusion Hub</span>
+          <span>© 2026 {t.hubLabel}</span>
           <div className="flex gap-6">
             <Link href="/" className="hover:text-[#004a99] transition-colors flex items-center gap-1">
-              Main Site <ArrowUpRight size={10} />
+              {t.mainSite} <ArrowUpRight size={10} />
             </Link>
             <Link href="/session-report" className="hover:text-[#004a99] transition-colors flex items-center gap-1">
-              Latest Report <ArrowUpRight size={10} />
+              {t.latestReport} <ArrowUpRight size={10} />
             </Link>
           </div>
         </div>

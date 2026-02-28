@@ -1,11 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { CheckCircle2, FileText, ArrowRight, ShieldCheck, Calendar, Send, Clock, BarChart3, Laptop } from "lucide-react";
+import BrandLogo from "@/components/BrandLogo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { normalizeLocale, type Locale } from "@/lib/localization";
+import { SESSION_REPORT_TRANSLATIONS } from "@/lib/translations/session-report";
 
 export default function SessionReport() {
+  const [lang, setLang] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "en";
+    const urlLocale = normalizeLocale(new URLSearchParams(window.location.search).get("lang"));
+    const savedLocale = normalizeLocale(window.localStorage.getItem("preferred_locale"));
+    const browserLocale = normalizeLocale(navigator.language);
+    return urlLocale !== "en" ? urlLocale : savedLocale !== "en" ? savedLocale : browserLocale;
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem("preferred_locale", lang);
+    document.cookie = `preferred_locale=${lang}; path=/; max-age=31536000; samesite=lax`;
+    const url = new URL(window.location.href);
+    if (lang === "en") {
+      url.searchParams.delete("lang");
+    } else {
+      url.searchParams.set("lang", lang);
+    }
+    window.history.replaceState({}, "", url.toString());
+  }, [lang]);
+
+  const t = SESSION_REPORT_TRANSLATIONS[lang];
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -33,29 +59,32 @@ export default function SessionReport() {
       >
         <div className="flex items-center justify-between mb-12">
           <div className="flex items-center gap-4">
-            <Image src="/soleil-logo.png" alt="Soleil Logo" width={60} height={60} className="object-contain" />
+            <BrandLogo alt="Soleil Logo" priority />
             <div className="flex flex-col text-[#111111]">
               <span className="font-bold text-xl tracking-tight leading-none mb-1 text-[#004a99]">SOLEIL</span>
               <span className="font-bold text-xl tracking-tight leading-none">INFUSION</span>
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <LanguageSwitcher locale={lang} onChange={setLang} />
             <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Progress Report</span>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">{t.reportLabel}</span>
           </div>
         </div>
         <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-6 text-balance">
-          Session <span className="font-medium text-[#004a99]">Summary</span>
+          {lang === 'en' ? (
+            <>Session <span className="font-medium text-[#004a99]">Summary</span></>
+          ) : t.title}
         </h1>
         <p className="text-xl md:text-2xl text-[#646464] max-w-2xl leading-relaxed">
-          Your patient booking system is now live. We have completed the setup for your online calendars, automated reminders, and the internal coordination infrastructure.
+          {t.subtitle}
         </p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm font-mono text-[#646464]">
           <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 text-[#111111]">Feb 27, 2026</div>
           <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 font-medium text-[#111111]">Project: Soleil Infusion</div>
           <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 flex items-center gap-2">
             <CheckCircle2 size={14} className="text-green-600" />
-            Status: Fully Operational
+            {t.statusLabel}
           </div>
         </div>
       </motion.header>
@@ -69,14 +98,14 @@ export default function SessionReport() {
         {/* Executive Summary */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Executive Summary</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">{t.executiveSummary}</h2>
           </div>
           <div className="md:col-span-8 prose prose-lg">
             <p className="text-2xl font-light leading-snug text-balance">
-              Today, we successfully moved your booking system from the planning stage into a <span className="font-medium text-[#004a99]">fully working tool</span>. 
+              {t.execDesc1}
             </p>
             <p className="text-xl text-[#646464] leading-relaxed mt-6 font-light">
-              Your patients can now book their own appointments online, and your clinic will automatically keep them informed via text and email. This removes the administrative burden from your staff while ensuring every patient feels well-cared for from the moment they book.
+              {t.execDesc2}
             </p>
           </div>
         </motion.section>
@@ -84,7 +113,7 @@ export default function SessionReport() {
         {/* Shipped To Production */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">The Results</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">{t.resultsLabel}</h2>
           </div>
           <div className="md:col-span-8 space-y-12">
             
@@ -92,17 +121,17 @@ export default function SessionReport() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Calendar className="text-[#004a99]" size={24} />
-                <h3 className="text-2xl font-medium tracking-tight">Automated Patient Booking</h3>
+                <h3 className="text-2xl font-medium tracking-tight">{t.bookingTitle}</h3>
               </div>
-              <p className="text-[#646464] font-light mb-6">We have set up two specialized calendars to handle your patient volume:</p>
+              <p className="text-[#646464] font-light mb-6">{t.bookingDesc}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm">
-                  <h4 className="font-medium mb-2">New Patient Consultations</h4>
-                  <p className="text-[#646464] font-light">A 60-minute window for first-time visitors, including their intake forms.</p>
+                  <h4 className="font-medium mb-2">{t.newPatientTitle}</h4>
+                  <p className="text-[#646464] font-light">{t.newPatientDesc}</p>
                 </div>
                 <div className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm">
-                  <h4 className="font-medium mb-2">Returning Patients</h4>
-                  <p className="text-[#646464] font-light">A 75-minute treatment window for regular clients, optimized for care quality.</p>
+                  <h4 className="font-medium mb-2">{t.returnPatientTitle}</h4>
+                  <p className="text-[#646464] font-light">{t.returnPatientDesc}</p>
                 </div>
               </div>
             </div>
@@ -111,15 +140,15 @@ export default function SessionReport() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Clock className="text-[#008B8B]" size={24} />
-                <h3 className="text-2xl font-medium tracking-tight">The "No-Show" Prevention System</h3>
+                <h3 className="text-2xl font-medium tracking-tight">{t.followupTitle}</h3>
               </div>
-              <p className="text-[#646464] font-light mb-6">Your system now handles all patient communication automatically, saving hours of staff time each week:</p>
+              <p className="text-[#646464] font-light mb-6">{t.followupDesc}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  { name: "Instant Confirmation", desc: "Text & email sent immediately after booking." },
-                  { name: "24-Hour Reminder", desc: "Final confirmation sent one day before." },
-                  { name: "2-Hour Nudge", desc: "A quick text reminder as they prepare to leave." },
-                  { name: "No-Show Recovery", desc: "Automatic follow-up if a patient misses a visit." }
+                  { name: t.followupItem1, desc: t.followupItem1Desc },
+                  { name: t.followupItem2, desc: t.followupItem2Desc },
+                  { name: t.followupItem3, desc: t.followupItem3Desc },
+                  { name: t.followupItem4, desc: t.followupItem4Desc }
                 ].map((item, i) => (
                   <div key={i} className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm flex items-start gap-4">
                     <div className="h-2 w-2 rounded-full bg-green-500 mt-2 shadow-[0_0_8px_rgba(34,197,94,0.5)] flex-shrink-0" />
@@ -138,20 +167,24 @@ export default function SessionReport() {
         {/* Growth & Strategy */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Growth & Partnerships</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">{t.growthTitle}</h2>
           </div>
           <div className="md:col-span-8">
             <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm space-y-6">
               <div className="flex items-center gap-3">
                 <Send className="text-[#A6C7E7]" size={24} />
-                <h3 className="text-xl font-medium">Clinic Partnership Strategy</h3>
+                <h3 className="text-xl font-medium">{t.partnershipTitle}</h3>
               </div>
               <p className="text-[#646464] font-light leading-relaxed">
-                We have refined how we approach other medical clinics. Instead of just introducing your services, we are positioning Soleil as a solution to their biggest headaches (like B12 home-care logistics). This will make it much easier for them to say "Yes" to a partnership.
+                {t.partnershipDesc}
               </p>
               <div className="flex gap-4">
-                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">Medicaid Expansion Included</div>
-                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">Professional Outreach Ready</div>
+                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">
+                  {lang === 'ko' ? "메디케이드 보장 확대 포함" : lang === 'vi' ? "Mở rộng Medicaid" : "Medicaid Expansion Included"}
+                </div>
+                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">
+                  {lang === 'ko' ? "전문가 아웃리치 준비 완료" : lang === 'vi' ? "Tiếp cận chuyên nghiệp sẵn sàng" : "Professional Outreach Ready"}
+                </div>
               </div>
             </div>
           </div>
@@ -160,19 +193,19 @@ export default function SessionReport() {
         {/* Future Roadmap */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">What's Next</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">{t.nextTitle}</h2>
           </div>
           <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h3 className="text-xl font-medium">Upcoming: Professional Website</h3>
-              <p className="text-[#646464] font-light text-balance">Now that the booking system is live, our next priority is launching your public-facing website. This will include your "White Jade" branding and "Medical Integrity" messaging.</p>
+              <h3 className="text-xl font-medium">{t.upcomingTitle}</h3>
+              <p className="text-[#646464] font-light text-balance">{t.upcomingDesc}</p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-medium">Integration & Content</h3>
+              <h3 className="text-xl font-medium">{t.integrationTitle}</h3>
               <ul className="space-y-2 text-[#646464] font-light">
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> Building the public site layout</li>
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> Writing high-end patient content</li>
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> Connecting the "Book" buttons live</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> {t.integrationItem1}</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> {t.integrationItem2}</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> {t.integrationItem3}</li>
               </ul>
             </div>
           </div>
@@ -181,14 +214,14 @@ export default function SessionReport() {
         {/* Review & Detailed Info */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Project Details</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">{t.projectDetails}</h2>
           </div>
           <div className="md:col-span-8">
             <div className="space-y-4">
               {[
-                { title: "Review Marketing Kit", desc: "Review the new email templates we've drafted for your clinic partners.", slug: "apollo-kit" },
-                { title: "Quality Checklists", desc: "See the step-by-step plan we used to verify your system is working correctly.", slug: "qa-test-plan" },
-                { title: "Project Status", desc: "A simple overview of what's done and what's coming up next.", slug: "handoff-pack" }
+                { title: lang === 'ko' ? "마케팅 키트 검토" : lang === 'vi' ? "Xem xét bộ Marketing" : "Review Marketing Kit", desc: lang === 'ko' ? "클리닉 파트너를 위해 작성된 새 이메일 템플릿을 검토하세요." : lang === 'vi' ? "Xem xét các mẫu email mới dành cho đối tác phòng khám." : "Review the new email templates we've drafted for your clinic partners.", slug: "apollo-kit" },
+                { title: lang === 'ko' ? "품질 체크리스트" : lang === 'vi' ? "Danh mục kiểm tra chất lượng" : "Quality Checklists", desc: lang === 'ko' ? "시스템이 올바르게 작동하는지 확인하기 위해 사용한 단계별 계획을 확인하세요." : lang === 'vi' ? "Xem kế hoạch từng bước được sử dụng để xác minh hệ thống." : "See the step-by-step plan we used to verify your system is working correctly.", slug: "qa-test-plan" },
+                { title: lang === 'ko' ? "프로젝트 상태" : lang === 'vi' ? "Trạng thái dự án" : "Project Status", desc: lang === 'ko' ? "완료된 작업과 다음 단계에 대한 간단한 개요입니다." : lang === 'vi' ? "Tổng quan đơn giản về những việc đã hoàn thành và sắp tới." : "A simple overview of what's done and what's coming up next.", slug: "handoff-pack" }
               ].map((doc, i) => (
                 <Link href={`/session-report/docs/${doc.slug}`} key={i} className="block">
                   <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-black/5 shadow-sm group hover:border-[#004a99]/20 transition-all cursor-pointer">
@@ -213,18 +246,18 @@ export default function SessionReport() {
         <motion.section variants={itemVariants} className="pt-12 border-t border-black/5">
           <div className="bg-[#111111] text-white p-12 rounded-[2rem] overflow-hidden relative">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#004a99]/20 to-transparent pointer-events-none" />
-            <h2 className="text-3xl md:text-5xl font-light mb-8 relative z-10">Current Project Status</h2>
+            <h2 className="text-3xl md:text-5xl font-light mb-8 relative z-10">{t.currentStatus}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
               <div>
                 <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">The Result</p>
                 <p className="text-xl md:text-2xl font-light leading-relaxed">
-                  Your booking system is <span className="text-white font-medium">100% installed and active</span>. Everything is verified and ready for your first patients.
+                  {t.resultNote}
                 </p>
               </div>
               <div>
                 <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">The Next Step</p>
                 <p className="text-xl md:text-2xl font-light leading-relaxed text-[#A6C7E7]">
-                  Start growing your practice with the new partnership strategy.
+                  {t.nextStepNote}
                 </p>
               </div>
             </div>
@@ -234,6 +267,11 @@ export default function SessionReport() {
             </div>
           </div>
         </motion.section>
+
+      </motion.main>
+    </div>
+  );
+}
 
       </motion.main>
     </div>
