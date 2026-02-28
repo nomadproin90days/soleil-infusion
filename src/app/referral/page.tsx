@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Script from "next/script";
 import { motion } from "motion/react";
 import {
   ShieldCheck,
   Users,
   ArrowRight,
   CheckCircle2,
-  FileText,
   Phone,
   Globe,
   Clock,
@@ -16,6 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import BrandLogo from "@/components/BrandLogo";
+import GHLForm from "@/components/GHLForm";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { normalizeLocale, type Locale } from "@/lib/localization";
 import { REFERRAL_TRANSLATIONS } from "@/lib/translations/referral";
@@ -238,25 +237,8 @@ export default function ReferralKit() {
             {t.startPartnershipDesc}
           </p>
           
-          <div className="max-w-3xl mx-auto bg-white p-4 md:p-8 rounded-[3rem] border border-black/5 shadow-sm min-h-[800px] overflow-hidden">
-            <iframe
-              src="https://api.voshellspharmacy.com/widget/form/vidpgunEF5sDUTl0wVyU"
-              style={{ width: '100%', height: '1400px', border: 'none', borderRadius: '3px' }}
-              id="inline-vidpgunEF5sDUTl0wVyU" 
-              data-layout="{'id':'INLINE'}"
-              data-trigger-type="alwaysShow"
-              data-trigger-value=""
-              data-activation-type="alwaysActivated"
-              data-activation-value=""
-              data-deactivation-type="neverDeactivate"
-              data-deactivation-value=""
-              data-form-name="Soleil - B2B Referral Form"
-              data-height="1400"
-              data-layout-iframe-id="inline-vidpgunEF5sDUTl0wVyU"
-              data-form-id="vidpgunEF5sDUTl0wVyU"
-              title="Soleil - B2B Referral Form"
-            ></iframe>
-            <Script src="https://api.voshellspharmacy.com/js/form_embed.js" strategy="afterInteractive" />
+          <div className="max-w-3xl mx-auto">
+            <GHLForm formId="vidpgunEF5sDUTl0wVyU" title="Soleil - B2B Referral Form" height={1400} />
           </div>
         </motion.section>
 
@@ -281,7 +263,6 @@ export default function ReferralKit() {
               id="4hqXKsvC0RlDfyt590Qf_1772312008724"
               title="Business Connection & Support Calendar"
             ></iframe>
-            <Script src="https://api.voshellspharmacy.com/js/form_embed.js" strategy="afterInteractive" />
           </div>
         </motion.section>
 
