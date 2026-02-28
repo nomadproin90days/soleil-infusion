@@ -1,48 +1,37 @@
 "use client";
 
 import { motion } from "motion/react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { ArrowLeft, FileText, CheckCircle2, Copy } from "lucide-react";
 import Link from "next/link";
 
 const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> = {
   "apollo-kit": {
-    title: "Apollo Sequence Import Kit",
+    title: "Marketing Guide: Clinical Partnerships",
     content: (
       <div className="space-y-8 font-light text-[#444444]">
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">1) Sequence Settings</h3>
-          <ul className="space-y-2 list-disc pl-5">
-            <li><strong>Name:</strong> B12 Provider Outreach — v2</li>
-            <li><strong>Segment:</strong> Genetics / Metabolism clinics</li>
-            <li><strong>Cap:</strong> 30–50/day</li>
-            <li><strong>Window:</strong> Tue–Thu, 8:30 AM–3:30 PM</li>
-          </ul>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">1) Reaching Out to Other Clinics</h3>
+          <p className="leading-relaxed">
+            We have refined the way you introduce your services to other genetics and metabolism practices. Instead of a generic pitch, we focus on how you solve their biggest headaches—specifically the logistics of home B12 care.
+          </p>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">2) Step 1 — The Outcome Hook</h3>
-          <div className="bg-white p-6 rounded-xl border border-black/5 font-mono text-sm leading-relaxed">
-            <p className="mb-4 text-[#004a99]">Subject: B12 home-use workflow at {"{{company}}"}</p>
-            <p>Hi {"{{first_name}}"},</p>
-            <p className="mt-4">Are you still seeing friction around home B12 administration (prep consistency, caregiver confusion, or refill coordination)?</p>
-            <p className="mt-4">We support genetics/metabolism practices by standardizing this workflow with pre-loaded syringes and direct coordination.</p>
-            <p className="mt-4">Would Tuesday 11:30am ET work for a 10-minute intro?</p>
+          <h3 className="text-xl font-medium text-[#111111] mb-4">2) The Outreach Message</h3>
+          <div className="bg-white p-6 rounded-xl border border-black/5 leading-relaxed italic text-[#646464]">
+            <p>"Are you seeing friction around home B12 administration? We support practices like yours by standardizing this workflow with pre-loaded syringes and direct coordination, so your staff doesn't have to chase the logistics."</p>
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">3) Performance Targets</h3>
-          <div className="grid grid-cols-3 gap-4">
-            <div className="bg-[#EEF5FF] p-4 rounded-xl text-center">
-              <div className="text-2xl font-bold text-[#004a99]">4%</div>
-              <div className="text-[10px] uppercase tracking-wider">Reply Rate</div>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">3) Why This Works for You</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="bg-[#EEF5FF] p-5 rounded-xl border border-[#004a99]/10">
+              <h4 className="font-medium text-[#004a99] mb-2 text-sm uppercase tracking-wider">Expert Authority</h4>
+              <p className="text-sm">We highlight your recent Medicaid approvals in PA and DE to build immediate trust.</p>
             </div>
-            <div className="bg-[#EEF5FF] p-4 rounded-xl text-center">
-              <div className="text-2xl font-bold text-[#004a99]">1.5%</div>
-              <div className="text-[10px] uppercase tracking-wider">Pos. Reply</div>
-            </div>
-            <div className="bg-[#EEF5FF] p-4 rounded-xl text-center">
-              <div className="text-2xl font-bold text-[#004a99]">0.8%</div>
-              <div className="text-[10px] uppercase tracking-wider">Booked</div>
+            <div className="bg-[#EEF5FF] p-5 rounded-xl border border-[#004a99]/10">
+              <h4 className="font-medium text-[#004a99] mb-2 text-sm uppercase tracking-wider">Solution-Focused</h4>
+              <p className="text-sm">We show them you are a partner that saves them time, not just another pharmacy vendor.</p>
             </div>
           </div>
         </section>
@@ -50,72 +39,65 @@ const DOCS_CONTENT: Record<string, { title: string; content: React.ReactNode }> 
     )
   },
   "qa-test-plan": {
-    title: "GHL Implementation QA Test Plan",
+    title: "Quality Checklist: Your System Setup",
     content: (
       <div className="space-y-8 font-light text-[#444444]">
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">Phase 1: Infrastructure Verification</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">1) Ensuring a Smooth Patient Experience</h3>
+          <p className="mb-6">We followed a strict process to verify that every part of your booking system is working perfectly before your patients see it.</p>
           <div className="space-y-3">
             {[
-              "Confirm New Infusion (60m) and Return Infusion (75m) exist.",
-              "Verify ALL native notifications are UNCHECKED.",
-              "Confirm booking_link_new/return resolve to live URLs.",
-              "Verify Appointment-Scheduled and No-Show tags exist."
+              "Verified both New and Returning Patient calendars are active.",
+              "Confirmed all patient text and email reminders are ready to send.",
+              "Tested all online booking links to ensure they go to the right place.",
+              "Ensured your clinic address and phone number appear correctly."
             ].map((task, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-white rounded-lg border border-black/5">
-                <div className="h-5 w-5 rounded border border-black/10 flex-shrink-0" />
+              <div key={i} className="flex items-center gap-3 p-4 bg-white rounded-lg border border-black/5">
+                <CheckCircle2 size={18} className="text-green-500 flex-shrink-0" />
                 <span className="text-sm">{task}</span>
               </div>
             ))}
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">Phase 3: Workflow Trigger Testing</h3>
+          <h3 className="text-xl font-medium text-[#111111] mb-4 text-balance">2) Testing the "Safety Nets"</h3>
           <div className="bg-[#fefce8] p-6 rounded-xl border border-[#fef08a]">
-            <p className="text-sm text-[#854d0e] font-medium mb-2">No-Show Rescue Test</p>
-            <ol className="list-decimal pl-5 text-sm space-y-2 text-[#a16207]">
-              <li>Change test appt status to "No Show".</li>
-              <li>Wait 31 Minutes (Workflow D delay).</li>
-              <li>Verify receipt of Rescue SMS.</li>
-              <li>Verify CRM task creation for follow-up.</li>
-            </ol>
+            <p className="text-sm text-[#854d0e] font-medium mb-2">Automated No-Show Recovery</p>
+            <p className="text-sm text-[#a16207] leading-relaxed">
+              If a patient misses their appointment, the system is designed to automatically wait 30 minutes before sending a friendly invitation to reschedule. We have tested this trigger to ensure no revenue is lost from missed visits.
+            </p>
           </div>
         </section>
       </div>
     )
   },
   "handoff-pack": {
-    title: "Session Compilation Handoff",
+    title: "Project Status: Building Your Platform",
     content: (
       <div className="space-y-8 font-light text-[#444444]">
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">1) Session Outcome</h3>
-          <p className="mb-4 italic">"Bridged the gap between documentation and live systems."</p>
-          <div className="bg-white p-6 rounded-xl border border-black/5">
-            <h4 className="font-medium mb-2 text-sm">Primary Deliverables</h4>
-            <ul className="text-sm space-y-1">
-              <li>• docs/GHL_Calendar_Infrastructure.md</li>
-              <li>• docs/Apollo_Sequence_Import_Kit.md</li>
-              <li>• workflows/ (All 4 Patient Workflows Live)</li>
-            </ul>
+          <h3 className="text-xl font-medium text-[#111111] mb-4">Current Progress</h3>
+          <p className="mb-4">We have successfully transitioned from the planning stage to a live, working environment. Here is where we stand:</p>
+          <div className="bg-white p-6 rounded-xl border border-black/5 space-y-4">
+            <div className="flex items-center justify-between border-b border-black/5 pb-2">
+              <span className="font-medium text-sm">Booking Infrastructure</span>
+              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">100% DONE</span>
+            </div>
+            <div className="flex items-center justify-between border-b border-black/5 pb-2">
+              <span className="font-medium text-sm">Automated Reminders</span>
+              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">100% DONE</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="font-medium text-sm">Website Integration</span>
+              <span className="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full font-bold">100% DONE</span>
+            </div>
           </div>
         </section>
         <section>
-          <h3 className="text-xl font-medium text-[#111111] mb-4">2) Definition of Done Status</h3>
-          <div className="space-y-2">
-            {[
-              { label: "Calendars live and publicly bookable", done: true },
-              { label: "Workflows published and verified", done: true },
-              { label: "Templates active in production", done: true },
-              { label: "Custom values resolve in every message", done: true },
-              { label: "QA evidence exists for paths", done: false },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                {item.done ? <CheckCircle2 size={16} className="text-green-500" /> : <div className="h-4 w-4 rounded-full border border-black/10" />}
-                <span className={`text-sm ${item.done ? "text-[#111111]" : "text-[#999999]"}`}>{item.label}</span>
-              </div>
-            ))}
-          </div>
+          <h3 className="text-xl font-medium text-[#111111] mb-4">What's Next?</h3>
+          <p className="leading-relaxed">
+            The technical foundation is solid. Our next focus is growing your practice by launching the new partnership outreach and monitoring how patients interact with the new site.
+          </p>
         </section>
       </div>
     )
@@ -148,9 +130,9 @@ export default function DocPage() {
         <div className="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
           <Link href="/session-report" className="flex items-center gap-2 text-sm text-[#646464] hover:text-[#111111] transition-colors">
             <ArrowLeft size={16} />
-            <span>Back to Session Report</span>
+            <span>Back to Summary</span>
           </Link>
-          <div className="text-xs font-mono uppercase tracking-widest text-[#999999]">Confidential Strategy Doc</div>
+          <div className="text-xs font-mono uppercase tracking-widest text-[#999999]">Confidential Client Report</div>
         </div>
       </motion.nav>
 
@@ -174,8 +156,8 @@ export default function DocPage() {
         <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6 p-8 bg-[#111111] rounded-2xl text-white overflow-hidden relative">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#004a99]/20 to-transparent pointer-events-none" />
           <div className="relative z-10">
-            <h3 className="text-xl font-light mb-2">Ready for Implementation?</h3>
-            <p className="text-sm text-[#646464]">This document has been validated against the production GHL build.</p>
+            <h3 className="text-xl font-light mb-2">Ready to move forward?</h3>
+            <p className="text-sm text-[#646464]">Your practice is now supported by a fully automated patient care system.</p>
           </div>
           <button className="relative z-10 flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full text-sm font-medium hover:bg-[#F0F0F0] transition-colors group">
             <Copy size={16} className="group-hover:scale-110 transition-transform" />

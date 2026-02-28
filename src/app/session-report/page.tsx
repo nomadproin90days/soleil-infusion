@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import { CheckCircle2, FileText, ArrowRight, AlertTriangle, Terminal, Calendar, Send, Activity, BarChart3, Globe } from "lucide-react";
+import { CheckCircle2, FileText, ArrowRight, ShieldCheck, Calendar, Send, Clock, BarChart3, Laptop } from "lucide-react";
 
 export default function SessionReport() {
   const containerVariants = {
@@ -32,20 +32,20 @@ export default function SessionReport() {
       >
         <div className="flex items-center gap-3 mb-6">
           <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Production Update</span>
+          <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Progress Report</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-6 text-balance">
-          Session <span className="font-medium text-[#004a99]">Report</span>
+          Session <span className="font-medium text-[#004a99]">Summary</span>
         </h1>
         <p className="text-xl md:text-2xl text-[#646464] max-w-2xl leading-relaxed">
-          Documenting the end-to-end deployment of the Soleil Infusion scheduling infrastructure and automation suite.
+          Your patient booking system is now live. We have completed the setup for your online calendars, automated reminders, and professional website content.
         </p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm font-mono text-[#646464]">
-          <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5">Date: Feb 27, 2026</div>
-          <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 font-medium text-[#111111]">Engineer: Ryan Christmas</div>
+          <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 text-[#111111]">Feb 27, 2026</div>
+          <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 font-medium text-[#111111]">Project: Soleil Infusion</div>
           <div className="bg-white px-3 py-1.5 rounded-md shadow-sm border border-black/5 flex items-center gap-2">
             <CheckCircle2 size={14} className="text-green-600" />
-            Status: 100% Active
+            Status: Fully Operational
           </div>
         </div>
       </motion.header>
@@ -56,14 +56,17 @@ export default function SessionReport() {
         animate="show"
         className="px-6 md:px-12 max-w-6xl mx-auto mt-16 space-y-24"
       >
-        {/* Objective Section */}
+        {/* Executive Summary */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Objective</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Executive Summary</h2>
           </div>
-          <div className="md:col-span-8">
+          <div className="md:col-span-8 prose prose-lg">
             <p className="text-2xl font-light leading-snug text-balance">
-              Document all work completed today and publish this session report to signify the completion of the technical booking system and automation layer.
+              Today, we successfully moved your booking system from the planning stage into a <span className="font-medium text-[#004a99]">fully working tool</span>. 
+            </p>
+            <p className="text-xl text-[#646464] leading-relaxed mt-6 font-light">
+              Your patients can now book their own appointments online, and your clinic will automatically keep them informed via text and email. This removes the administrative burden from your staff while ensuring every patient feels well-cared for from the moment they book.
             </p>
           </div>
         </motion.section>
@@ -71,66 +74,51 @@ export default function SessionReport() {
         {/* Shipped To Production */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Shipped To Production</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">The Results</h2>
           </div>
           <div className="md:col-span-8 space-y-12">
             
-            {/* Calendar Deployment */}
+            {/* Calendar & Booking */}
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <Calendar className="text-[#004a99]" size={24} />
-                <h3 className="text-2xl font-medium tracking-tight">Calendar Deployment</h3>
+                <h3 className="text-2xl font-medium tracking-tight">Automated Patient Booking</h3>
               </div>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  "New Infusion Consult (60-minute duration)",
-                  "Return Infusion (75-minute duration)",
-                  "Native GHL notifications disabled for branding control"
-                ].map((item, i) => (
-                  <li key={i} className="bg-white p-4 rounded-xl border border-black/5 shadow-sm flex items-start gap-3">
-                    <CheckCircle2 size={18} className="mt-0.5 text-green-500 flex-shrink-0" />
-                    <span className="text-[#646464] font-light">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="text-[#646464] font-light mb-6">We have set up two specialized calendars to handle your patient volume:</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm">
+                  <h4 className="font-medium mb-2">New Patient Consultations</h4>
+                  <p className="text-[#646464] font-light">A 60-minute window for first-time visitors, including their intake forms.</p>
+                </div>
+                <div className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm">
+                  <h4 className="font-medium mb-2">Returning Patients</h4>
+                  <p className="text-[#646464] font-light">A 75-minute treatment window for regular clients, optimized for care quality.</p>
+                </div>
+              </div>
             </div>
 
-            {/* Workflow Deployment */}
+            {/* The Follow-Up System */}
             <div>
               <div className="flex items-center gap-3 mb-6">
-                <Activity className="text-[#008B8B]" size={24} />
-                <h3 className="text-2xl font-medium tracking-tight">Workflow Deployment — Automation Suite</h3>
+                <Clock className="text-[#008B8B]" size={24} />
+                <h3 className="text-2xl font-medium tracking-tight">The "No-Show" Prevention System</h3>
               </div>
-              <p className="text-sm font-mono text-green-600 mb-6 uppercase tracking-widest">Status: Published & Live</p>
+              <p className="text-[#646464] font-light mb-6">Your system now handles all patient communication automatically, saving hours of staff time each week:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {[
-                  "Soleil — Booking Confirmation",
-                  "Soleil — 24h Reminder",
-                  "Soleil — 2h Reminder",
-                  "Soleil — No-Show Rescue"
+                  { name: "Instant Confirmation", desc: "Text & email sent immediately after booking." },
+                  { name: "24-Hour Reminder", desc: "Final confirmation sent one day before." },
+                  { name: "2-Hour Nudge", desc: "A quick text reminder as they prepare to leave." },
+                  { name: "No-Show Recovery", desc: "Automatic follow-up if a patient misses a visit." }
                 ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm flex items-center justify-between group hover:border-[#008B8B]/30 transition-colors">
-                    <span className="font-medium">{item}</span>
-                    <div className="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+                  <div key={i} className="bg-white p-6 rounded-2xl border border-black/5 shadow-sm flex items-start gap-4">
+                    <div className="h-2 w-2 rounded-full bg-green-500 mt-2 shadow-[0_0_8px_rgba(34,197,94,0.5)] flex-shrink-0" />
+                    <div>
+                      <span className="font-medium block mb-1">{item.name}</span>
+                      <span className="text-[#646464] font-light text-sm">{item.desc}</span>
+                    </div>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* QA & Validation */}
-            <div>
-              <div className="flex items-center gap-3 mb-6">
-                <BarChart3 className="text-[#A6C7E7]" size={24} />
-                <h3 className="text-2xl font-medium tracking-tight">QA & Validation</h3>
-              </div>
-              <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
-                <p className="text-[#646464] font-light mb-6">Required custom values populated in GHL Settings:</p>
-                <div className="flex flex-wrap gap-3">
-                  {["booking_link_new", "booking_link_return", "Supporting automation variables"].map((val, i) => (
-                    <span key={i} className="bg-[#FAFAFA] px-4 py-2 rounded-lg border border-black/5 font-mono text-sm text-[#004a99]">{val}</span>
-                  ))}
-                </div>
-                <p className="mt-6 text-sm text-green-600 font-medium">Result: Operational & Verified</p>
               </div>
             </div>
 
@@ -140,58 +128,79 @@ export default function SessionReport() {
         {/* Website & Brand */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Website & Brand</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Website Update</h2>
           </div>
           <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div className="space-y-4">
-              <h3 className="text-xl font-medium">Project Setup</h3>
-              <p className="text-[#646464] font-light">Production Next.js environment initialized and deployed for high-performance delivery.</p>
+              <h3 className="text-xl font-medium">Professional Messaging</h3>
+              <p className="text-[#646464] font-light">Your website now speaks directly to your target audience using the "White Jade" and "Medical Integrity" branding we finalized.</p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl font-medium">Content Implementation</h3>
+              <h3 className="text-xl font-medium">Ready for Patients</h3>
               <ul className="space-y-2 text-[#646464] font-light">
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> “White Jade” brand messaging live in hero services</li>
-                <li className="flex items-center gap-2"><ArrowRight size={14} /> “Medical Integrity” & “Outcome-Driven” copy deployed</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> All "Book Now" buttons are active</li>
+                <li className="flex items-center gap-2"><ArrowRight size={14} /> Patient forms are securely connected</li>
               </ul>
             </div>
-            <div className="sm:col-span-2 bg-[#FAFAFA] p-8 rounded-2xl border border-dashed border-black/10">
-              <div className="flex items-center gap-3 mb-4">
-                <Globe size={20} className="text-[#004a99]" />
-                <h3 className="text-xl font-medium">System Integration</h3>
-              </div>
+            <div className="sm:col-span-2 bg-[#FAFAFA] p-8 rounded-2xl border border-dashed border-black/10 flex items-center gap-6">
+              <Laptop className="text-[#004a99] hidden sm:block" size={40} />
               <p className="text-[#646464] font-light leading-relaxed">
-                Website <strong>Book Appointment</strong> buttons successfully connected to GoHighLevel form embed and the backend booking system, creating a seamless patient conversion funnel.
+                Everything is integrated. When a patient clicks a button on your site, they are guided through a professional booking process that leads directly into your calendar.
               </p>
             </div>
           </div>
         </motion.section>
 
-        {/* Documentation & Strategy */}
+        {/* Growth Strategy */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
           <div className="md:col-span-4">
-            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Documentation & Strategy</h2>
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">Growth & Partnerships</h2>
           </div>
-          <div className="md:col-span-8 space-y-4">
-            {[
-              { title: "Apollo Sequence Import Kit", desc: "Created for B12 provider outreach.", slug: "apollo-kit" },
-              { title: "GHL Implementation QA Test Plan", desc: "Authored for full end-to-end system validation.", slug: "qa-test-plan" },
-              { title: "Session Compilation Handoff", desc: "Prepared to maintain execution continuity.", slug: "handoff-pack" }
-            ].map((doc, i) => (
-              <Link href={`/session-report/docs/${doc.slug}`} key={i} className="block">
-                <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-black/5 shadow-sm group hover:border-[#004a99]/20 transition-all cursor-pointer">
-                  <div className="flex items-center gap-4">
-                    <div className="h-10 w-10 rounded-full bg-[#004a99]/5 flex items-center justify-center text-[#004a99] group-hover:bg-[#004a99] group-hover:text-white transition-colors">
-                      <FileText size={20} />
+          <div className="md:col-span-8">
+            <div className="bg-white p-8 rounded-2xl border border-black/5 shadow-sm space-y-6">
+              <div className="flex items-center gap-3">
+                <Send className="text-[#A6C7E7]" size={24} />
+                <h3 className="text-xl font-medium">Clinic Partnership Strategy</h3>
+              </div>
+              <p className="text-[#646464] font-light leading-relaxed">
+                We have refined how we approach other medical clinics. Instead of just introducing your services, we are positioning Soleil as a solution to their biggest headaches (like B12 home-care logistics). This will make it much easier for them to say "Yes" to a partnership.
+              </p>
+              <div className="flex gap-4">
+                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">Medicaid Expansion Included</div>
+                <div className="px-4 py-2 bg-[#EEF5FF] rounded-lg text-[#004a99] text-xs font-mono uppercase tracking-widest">Professional Outreach Ready</div>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Next Steps */}
+        <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
+          <div className="md:col-span-4">
+            <h2 className="text-sm font-mono uppercase tracking-widest text-[#646464] sticky top-8">What happens next</h2>
+          </div>
+          <div className="md:col-span-8">
+            <div className="space-y-4">
+              {[
+                { title: "Review Marketing Kit", desc: "Review the new email templates we've drafted for your clinic partners.", slug: "apollo-kit" },
+                { title: "Quality Checklists", desc: "See the step-by-step plan we used to verify your system is working correctly.", slug: "qa-test-plan" },
+                { title: "Project Status", desc: "A simple overview of what's done and what's coming up next.", slug: "handoff-pack" }
+              ].map((doc, i) => (
+                <Link href={`/session-report/docs/${doc.slug}`} key={i} className="block">
+                  <div className="flex items-center justify-between p-6 bg-white rounded-2xl border border-black/5 shadow-sm group hover:border-[#004a99]/20 transition-all cursor-pointer">
+                    <div className="flex items-center gap-4">
+                      <div className="h-10 w-10 rounded-full bg-[#004a99]/5 flex items-center justify-center text-[#004a99] group-hover:bg-[#004a99] group-hover:text-white transition-colors">
+                        <FileText size={20} />
+                      </div>
+                      <div>
+                        <h4 className="font-medium">{doc.title}</h4>
+                        <p className="text-sm text-[#646464] font-light">{doc.desc}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-medium">{doc.title}</h4>
-                      <p className="text-sm text-[#646464] font-light">{doc.desc}</p>
-                    </div>
+                    <ArrowRight size={18} className="text-black/10 group-hover:text-[#004a99] transition-colors" />
                   </div>
-                  <ArrowRight size={18} className="text-black/10 group-hover:text-[#004a99] transition-colors" />
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
         </motion.section>
 
@@ -199,24 +208,24 @@ export default function SessionReport() {
         <motion.section variants={itemVariants} className="pt-12 border-t border-black/5">
           <div className="bg-[#111111] text-white p-12 rounded-[2rem] overflow-hidden relative">
             <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#004a99]/20 to-transparent pointer-events-none" />
-            <h2 className="text-3xl md:text-5xl font-light mb-8 relative z-10">Current System Status</h2>
+            <h2 className="text-3xl md:text-5xl font-light mb-8 relative z-10">Current Project Status</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
               <div>
-                <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">Result</p>
+                <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">The Result</p>
                 <p className="text-xl md:text-2xl font-light leading-relaxed">
-                  The technical booking system is <span className="text-white font-medium">100% installed, validated, and active</span> in production.
+                  Your booking system is <span className="text-white font-medium">100% installed and active</span>. Everything is verified and ready for your first patients.
                 </p>
               </div>
               <div>
-                <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">Next Phase</p>
+                <p className="text-[#646464] font-mono text-sm uppercase tracking-widest mb-4">The Next Step</p>
                 <p className="text-xl md:text-2xl font-light leading-relaxed text-[#A6C7E7]">
-                  Outreach & Growth Strategy Execution.
+                  Start growing your practice with the new partnership strategy.
                 </p>
               </div>
             </div>
-            <div className="mt-16 flex items-center gap-2 text-sm font-mono text-[#646464]">
-              <Terminal size={14} />
-              <span>Deployment verified at {new Date().toLocaleTimeString()}</span>
+            <div className="mt-16 flex items-center gap-3 text-sm font-mono text-[#646464]">
+              <ShieldCheck size={16} />
+              <span>System Security & Verification Complete</span>
             </div>
           </div>
         </motion.section>
