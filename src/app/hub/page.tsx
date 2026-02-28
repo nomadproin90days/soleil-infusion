@@ -124,6 +124,13 @@ const RESOURCES = [
     href: "/hub/workflow/ghl-foundation-setup",
     category: "Infrastructure",
     icon: Settings
+  },
+  {
+    title: "Referral Kit Page",
+    desc: "B2B clinical partnership landing page for referring practitioners.",
+    href: "/referral",
+    category: "Strategy",
+    icon: Users
   }
 ];
 
