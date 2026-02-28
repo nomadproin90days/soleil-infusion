@@ -1,0 +1,114 @@
+#!/usr/bin/env node
+/**
+ * GHL Referral Form Setup Script — Soleil Infusion
+ * Targets V1 API (rest.gohighlevel.com/v1).
+ *
+ * Usage:
+ *   node scripts/ghl-referral-form-setup.js
+ *
+ * Creates: Fields specifically for the B2B Referral Form (Doctor referring a Patient).
+ */
+
+const fs = require('fs')
+const path = require('path')
+
+// Load .env.local
+const envPath = path.join(__dirname, '..', '.env.local')
+if (fs.existsSync(envPath)) {
+  for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
+    const [key, ...rest] = line.split('=')
+    if (key && rest.length) process.env[key.trim()] = rest.join('=').trim()
+  }
+}
+
+const BASE_URL = 'https://rest.gohighlevel.com/v1'
+const API_KEY   = process.env.GHL_API_KEY
+const LOC_ID    = process.env.GHL_LOCATION_ID
+
+if (!API_KEY || !LOC_ID) {
+  console.error('❌  Missing GHL_API_KEY or GHL_LOCATION_ID in .env.local')
+  process.exit(1)
+}
+
+const HEADERS = {
+  Authorization: `Bearer ${API_KEY}`,
+  'Content-Type': 'application/json',
+}
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+const log   = (e, m) => console.log(`${e}  ${m}`)
+
+// ─── Definitions ─────────────────────────────────────────────────────────────
+
+const REFERRAL_FIELDS = [
+  { name: 'Referring Provider Name',  dataType: 'TEXT' },
+  { name: 'Referring Clinic Name',    dataType: 'TEXT' },
+  { name: 'Provider Email',           dataType: 'TEXT' },
+  { name: 'Provider Phone',           dataType: 'PHONE' },
+  { name: 'Patient Priority',         dataType: 'SINGLE_OPTIONS',
+    picklistOptions: ['Standard', 'Urgent (Within 24h)', 'Stat'] },
+  { name: 'Clinical Notes for Soleil', dataType: 'LARGE_TEXT' },
+]
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+async function getExistingFieldNames() {
+  const res = await fetch(`${BASE_URL}/custom-fields/?locationId=${LOC_ID}`, { headers: HEADERS })
+  const data = await res.json()
+  return new Set((data?.customFields ?? []).map((f) => f.name.toLowerCase()))
+}
+
+async function createFields(fields, groupLabel) {
+  console.log(`\n📋  Creating ${groupLabel} custom fields...`)
+  const existing = await getExistingFieldNames()
+  let created = 0, skipped = 0, failed = 0
+
+  for (const field of fields) {
+    if (existing.has(field.name.toLowerCase())) {
+      log('⏭️ ', `Already exists: ${field.name}`)
+      skipped++
+      continue
+    }
+
+    const body = {
+      name:     field.name,
+      dataType: field.dataType,
+      placeholder: '',
+      ...(field.picklistOptions && { options: field.picklistOptions }),
+    }
+
+    const res = await fetch(`${BASE_URL}/custom-fields/`, {
+      method: 'POST',
+      headers: HEADERS,
+      body: JSON.stringify(body),
+    })
+    const data = await res.json()
+
+    if (res.ok) {
+      log('✅', `Created: ${field.name}`)
+      created++
+    } else {
+      log('❌', `Failed: ${field.name} — ${data?.message ?? res.status}`)
+      failed++
+    }
+    await sleep(350)
+  }
+  console.log(`   → ${created} created, ${skipped} skipped, ${failed} failed`)
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
+
+async function main() {
+  console.log('╔══════════════════════════════════════════════╗')
+  console.log('║   GHL Referral System Field Setup            ║')
+  console.log('╚══════════════════════════════════════════════╝')
+
+  await createFields(REFERRAL_FIELDS, 'Referral')
+
+  console.log('\n✅  Referral Fields Ready.')
+}
+
+main().catch(err => {
+  console.error('\n💥  Fatal error:', err.message)
+  process.exit(1)
+})

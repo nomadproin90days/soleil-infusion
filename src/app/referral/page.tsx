@@ -173,17 +173,32 @@ export default function ReferralKit() {
           </div>
         </motion.section>
 
-        {/* Referral Form Placeholder */}
+        {/* Referral Form Section */}
         <motion.section id="refer" variants={itemVariants} className="text-center py-20">
           <h2 className="text-4xl font-light mb-6 tracking-tight">Start a <span className="font-medium text-[#004a99]">Partnership</span></h2>
           <p className="text-[#646464] font-light max-w-xl mx-auto mb-12">
-            Complete the form below to begin the clinical onboarding process or refer your first patient.
+            Complete the secure, HIPAA-compliant form below to begin the clinical onboarding process or refer your first patient.
           </p>
           
-          <div className="max-w-2xl mx-auto bg-white p-12 rounded-[3rem] border border-black/5 shadow-sm min-h-[400px] flex flex-col items-center justify-center">
-            <FileText size={48} className="text-[#EEEEEE] mb-6" />
-            <p className="text-[#999999] font-mono text-[10px] uppercase tracking-widest mb-2">[ GHL REFERRAL FORM EMBED ]</p>
-            <p className="text-sm text-[#646464] font-light italic">Waiting for form implementation</p>
+          <div className="max-w-3xl mx-auto bg-white p-4 md:p-8 rounded-[3rem] border border-black/5 shadow-sm min-h-[800px] overflow-hidden">
+            <iframe
+              src="https://api.voshellspharmacy.com/widget/form/vidpgunEF5sDUTl0wVyU"
+              style={{ width: '100%', height: '1400px', border: 'none', borderRadius: '3px' }}
+              id="inline-vidpgunEF5sDUTl0wVyU" 
+              data-layout="{'id':'INLINE'}"
+              data-trigger-type="alwaysShow"
+              data-trigger-value=""
+              data-activation-type="alwaysActivated"
+              data-activation-value=""
+              data-deactivation-type="neverDeactivate"
+              data-deactivation-value=""
+              data-form-name="Soleil - B2B Referral Form"
+              data-height="1400"
+              data-layout-iframe-id="inline-vidpgunEF5sDUTl0wVyU"
+              data-form-id="vidpgunEF5sDUTl0wVyU"
+              title="Soleil - B2B Referral Form"
+            ></iframe>
+            <script src="https://api.voshellspharmacy.com/js/form_embed.js" async></script>
           </div>
         </motion.section>
 
