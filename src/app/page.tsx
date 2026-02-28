@@ -135,7 +135,7 @@ export default function Home() {
 
             <LanguageSwitcher locale={lang} onChange={setLang} />
 
-            <Link href="#book" className="hidden md:block bg-[#004a99] text-white px-8 py-3 rounded-full hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10 active:scale-95 text-sm font-bold uppercase tracking-widest">
+            <Link href="#book" className="bg-[#004a99] text-white px-4 py-2 md:px-8 md:py-3 rounded-full hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10 active:scale-95 text-xs md:text-sm font-bold uppercase tracking-widest">
               {t.bookBtn}
             </Link>
           </div>
@@ -316,22 +316,22 @@ export default function Home() {
             </div>
             
             <div className="md:w-1/2 relative aspect-square w-full max-w-[550px]">
-              <motion.div 
-                animate={{ 
-                  y: [0, -30, 0],
+              <motion.div
+                animate={{
+                  y: [0, -15, 0],
                   rotate: [0, 1, 0]
                 }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 className="w-full h-full rounded-[6rem] border border-white/10 bg-[#111111] flex items-center justify-center p-12 overflow-hidden shadow-2xl shadow-blue-900/20 relative group"
               >
                 {/* Laboratory Background Image from Pexels */}
-                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-40 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
+                <div className="absolute inset-0 bg-[url('https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
                 <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/80 via-transparent to-[#004a99]/20 pointer-events-none" />
 
                 <div className="text-center relative z-10">
-                  <Droplets size={120} className="text-[#A6C7E7] mx-auto mb-8 opacity-40 animate-pulse" />
+                  <Droplets size={72} className="text-[#A6C7E7] mx-auto mb-6 opacity-25" />
                   <div className="text-[100px] font-bold text-[#A6C7E7] mb-2 tracking-tighter leading-none italic">99.9%</div>
-                  <div className="text-[10px] font-mono uppercase tracking-[0.6em] text-[#646464] font-bold">Clinical Sterility Grade</div>
+                  <div className="text-[10px] font-mono uppercase tracking-[0.6em] text-[#A6C7E7]/60 font-bold">Clinical Sterility Grade</div>
                 </div>
                 {/* Orbital dots */}
                 <div className="absolute inset-0 border border-dashed border-white/5 rounded-full m-12 animate-[spin_20s_linear_infinite]" />
@@ -424,6 +424,9 @@ export default function Home() {
           
           <div className="text-center mt-16 bg-[#FAFAFA] p-8 rounded-3xl border border-black/5">
             <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#999999]">{t.needHelp} <span className="text-[#111111] font-bold">(443) 281-9157</span></p>
+            <Link href="#inquiry" className="inline-block mt-4 text-[10px] font-mono uppercase tracking-[0.25em] text-[#999999] hover:text-[#004a99] transition-colors">
+              {t.inquiryLabel} ↓
+            </Link>
           </div>
         </div>
       </section>
