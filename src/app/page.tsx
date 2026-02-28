@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowRight, 
   ShieldCheck, 
@@ -18,10 +19,13 @@ import {
   Waves,
   Heart,
   Search,
-  ArrowUpRight
+  ArrowUpRight,
+  X
 } from "lucide-react";
 
 export default function Home() {
+  const [activeBooking, setActiveBooking] = useState<'none' | 'new' | 'return'>('none');
+
   const containerVariants = {
     hidden: { opacity: 0 },
     show: {
@@ -275,28 +279,74 @@ export default function Home() {
             <p className="text-[#646464] text-xl font-light mb-12 max-w-2xl mx-auto">Select a booking type below. All first-time visits include a brief clinical consultation with our Nurse Practitioner.</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-[#FAFAFA] p-10 rounded-[3rem] border border-black/5 hover:border-[#004a99]/20 transition-all flex flex-col items-center text-center group">
-              <div className="h-16 w-16 rounded-2xl bg-white flex items-center justify-center text-[#004a99] mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                <Star size={32} />
-              </div>
-              <h3 className="text-2xl font-medium mb-4">New Patient</h3>
-              <p className="text-[#646464] font-light text-sm mb-10">Initial consultation + first infusion treatment. (60 min)</p>
-              <Link href="#" className="w-full bg-[#004a99] text-white py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10">
-                Book Consult
-              </Link>
-            </div>
-            <div className="bg-[#FAFAFA] p-10 rounded-[3rem] border border-black/5 hover:border-[#004a99]/20 transition-all flex flex-col items-center text-center group">
-              <div className="h-16 w-16 rounded-2xl bg-white flex items-center justify-center text-[#004a99] mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
-                <Droplets size={32} />
-              </div>
-              <h3 className="text-2xl font-medium mb-4">Returning Patient</h3>
-              <p className="text-[#646464] font-light text-sm mb-10">Scheduled treatment follow-up. (75 min)</p>
-              <Link href="#" className="w-full bg-white border border-black/10 text-[#111111] py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:border-[#004a99] transition-all">
-                Book Treatment
-              </Link>
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            {activeBooking === 'none' ? (
+              <motion.div 
+                key="selection"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
+              >
+                <button 
+                  onClick={() => setActiveBooking('new')}
+                  className="bg-[#FAFAFA] p-10 rounded-[3rem] border border-black/5 hover:border-[#004a99]/20 transition-all flex flex-col items-center text-center group"
+                >
+                  <div className="h-16 w-16 rounded-2xl bg-white flex items-center justify-center text-[#004a99] mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    <Star size={32} />
+                  </div>
+                  <h3 className="text-2xl font-medium mb-4 text-[#111111]">New Patient</h3>
+                  <p className="text-[#646464] font-light text-sm mb-10">Initial consultation + first infusion treatment. (60 min)</p>
+                  <div className="w-full bg-[#004a99] text-white py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10">
+                    Book Consult
+                  </div>
+                </button>
+                <button 
+                  onClick={() => setActiveBooking('return')}
+                  className="bg-[#FAFAFA] p-10 rounded-[3rem] border border-black/5 hover:border-[#004a99]/20 transition-all flex flex-col items-center text-center group"
+                >
+                  <div className="h-16 w-16 rounded-2xl bg-white flex items-center justify-center text-[#004a99] mb-8 shadow-sm group-hover:scale-110 transition-transform duration-500">
+                    <Droplets size={32} />
+                  </div>
+                  <h3 className="text-2xl font-medium mb-4 text-[#111111]">Returning Patient</h3>
+                  <p className="text-[#646464] font-light text-sm mb-10">Scheduled treatment follow-up. (75 min)</p>
+                  <div className="w-full bg-white border border-black/10 text-[#111111] py-5 rounded-full font-bold uppercase tracking-widest text-xs hover:border-[#004a99] transition-all">
+                    Book Treatment
+                  </div>
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div 
+                key="calendar"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="bg-white p-4 md:p-8 rounded-[3rem] border border-black/5 shadow-xl shadow-blue-900/5 relative"
+              >
+                <button 
+                  onClick={() => setActiveBooking('none')}
+                  className="absolute top-6 right-6 z-10 p-2 rounded-full bg-[#FAFAFA] text-[#646464] hover:text-[#111111] transition-colors"
+                >
+                  <X size={20} />
+                </button>
+                <div className="min-h-[800px] w-full bg-[#FAFAFA] rounded-[2rem] overflow-hidden">
+                  {activeBooking === 'new' ? (
+                    <iframe 
+                      src="https://api.voshellspharmacy.com/widget/booking/vi5Ov0XkJLgD8z8jFWS5" 
+                      style={{ width: '100%', height: '800px', border: 'none', overflow: 'hidden' }}
+                      scrolling="no" 
+                      id="vi5Ov0XkJLgD8z8jFWS5_1772309403783"
+                    ></iframe>
+                  ) : (
+                    <div className="flex flex-col items-center justify-center h-[800px] text-center p-12 font-light">
+                      <p className="text-lg mb-4">Returning patient booking coming soon.</p>
+                      <button onClick={() => setActiveBooking('none')} className="text-[#004a99] underline">Back to selection</button>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           
           <div className="text-center">
             <p className="text-[10px] font-mono uppercase tracking-[0.2em] text-[#999999]">Need assistance? Call us at <span className="text-[#111111] font-bold">(443) 281-9157</span></p>
