@@ -21,168 +21,44 @@ import {
   X
 } from "lucide-react";
 import BrandLogo from "@/components/BrandLogo";
+import GHLForm from "@/components/GHLForm";
 import { normalizeLocale } from "@/lib/localization";
+import { HOME_TRANSLATIONS } from "@/lib/translations/home";
 
-type Language = "en" | "ko" | "vi";
+type Language = keyof typeof HOME_TRANSLATIONS;
 
-const TRANSLATIONS = {
-  en: {
-    opening: "Opening Soon in Glen Burnie",
-    headline: "Medical Integrity. Lifestyle Wellness.",
-    subhead: "Experience clinically expert IV infusion therapy tailored to your unique biology. Bridging the gap between medical necessity and daily vitality.",
-    ctaOffer: "Claim Launch Offer",
-    ctaMenu: "View Menu",
-    offerLabel: "🔥 Exclusive Launch Offer",
-    offerDetail: "Buy 2 infusions, get 1 FREE",
-    limitedTime: "Limited Time Only",
-    trust1: "USP <797> Compliant",
-    trust2: "ISO 5 Sterile Environment",
-    trust3: "MD-Oversight",
-    trust4: "Licensed Clinicians",
-    menuLabel: "The Treatment Menu",
-    menuHeadline: "Outcome-Driven Therapies.",
-    menuSub: "Customized formulations designed for specific health goals, from rapid recovery to cellular repair.",
-    service1Title: "Essential Hydration",
-    service1Desc: "Rapid rehydration for general wellness and recovery. Restores electrolyte balance instantly.",
-    service2Title: "Energy & Immunity",
-    service2Desc: "Formulations to boost vitality and support your body's natural immune defense systems.",
-    service3Title: "White Jade & Glow",
-    service3Desc: "The famous 'Cinderella' drip. High-dose Glutathione for clinical skin brightening and deep detoxification.",
-    service3Badge: "⭐ Korean Market Hero",
-    service4Title: "Advanced Functional",
-    service4Desc: "Specialized drips (NAD+, Liver Support) targeting cellular repair and biological longevity.",
-    whyLabel: "Why Choose Soleil?",
-    whyHeadline: "High-End Standards. Boutique Luxury.",
-    diff1Title: "Vertical Integration",
-    diff1Desc: "Partnered with Voshell's Pharmacy for direct sourcing of sterile preparations, ensuring the highest quality control.",
-    diff2Title: "Sterile Compounding",
-    diff2Desc: "Utilizing a USP <797>-compliant ISO 5 laminar flow hood for hospital-grade sterility that typical med-spas cannot match.",
-    diff3Title: "Specialist Care",
-    diff3Desc: "Culturally tailored protocols with bilingual care teams specialized in metabolic health.",
-    bookLabel: "Start Your Journey",
-    bookHeadline: "Secure Your Treatment Chair.",
-    bookSub: "Select a booking type below. All first-time visits include a brief clinical consultation.",
-    newPatient: "New Patient",
-    returnPatient: "Returning Patient",
-    newPatientDesc: "Initial consultation + first infusion treatment. (60 min)",
-    returnPatientDesc: "Scheduled treatment follow-up. (75 min)",
-    bookBtn: "Book Consult",
-    bookBtnReturn: "Book Treatment",
-    needHelp: "Need assistance? Call us at",
-    locationLabel: "Visit Us",
-    locationHeadline: "Glen Burnie Medical Hub.",
-    directions: "Get Directions",
-    footerDesc: "Elevating the standard of clinical wellness in Maryland. Licensed, sterile, and outcome-driven IV therapy solutions.",
-    navTreatments: "Treatments",
-    navDifference: "Our Difference",
-    navLocation: "Location",
-    navPartners: "Partners"
+const LOCAL_BUSINESS_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: "Soleil Infusion",
+  image: "https://soleilinfusion.com/soleil-logo.png",
+  url: "https://soleilinfusion.com",
+  telephone: "+1-443-281-9157",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "801 Landmark Drive",
+    addressLocality: "Glen Burnie",
+    addressRegion: "MD",
+    postalCode: "21061",
+    addressCountry: "US",
   },
-  ko: {
-    opening: "글렌 버니 지역 곧 오픈 예정",
-    headline: "의료적 신뢰. 라이프스타일 웰니스.",
-    subhead: "개인의 생체 리듬에 맞춘 전문적인 IV 영양 수액 요법을 경험해 보세요. 의료적 필요성과 일상의 활력 사이의 가교 역할을 합니다.",
-    ctaOffer: "오픈 기념 혜택 신청",
-    ctaMenu: "메뉴 보기",
-    offerLabel: "🔥 단독 오픈 기념 혜택",
-    offerDetail: "수액 2회 구매 시, 1회 무료 증정",
-    limitedTime: "한정 기간 제공",
-    trust1: "USP <797> 준수",
-    trust2: "ISO 5 무균 환경",
-    trust3: "전문의 감독",
-    trust4: "자격증 보유 의료진",
-    menuLabel: "수액 치료 메뉴",
-    menuHeadline: "결과 중심의 테라피.",
-    menuSub: "빠른 회복부터 세포 재생까지, 특정 건강 목표를 위해 설계된 맞춤형 포뮬러.",
-    service1Title: "필수 수분 공급",
-    service1Desc: "일반적인 웰니스와 회복을 위한 빠른 수분 공급. 전해질 균형을 즉각적으로 회복시킵니다.",
-    service2Title: "에너지 & 면역력",
-    service2Desc: "활력을 높이고 신체의 자연 면역 방어 시스템을 지원하는 포뮬러.",
-    service3Title: "백옥 주사 & 광채",
-    service3Desc: "유명한 '신데렐라' 주사. 피부 미백과 깊은 해독을 위한 고용량 글루타치온 요법.",
-    service3Badge: "⭐ 한국인 인기 메뉴",
-    service4Title: "고급 기능성 수액",
-    service4Desc: "세포 재생과 생물학적 장수를 목표로 하는 전문 드립(NAD+, 간 지원).",
-    whyLabel: "왜 솔레이유 인퓨전인가요?",
-    whyHeadline: "최고 수준의 기준. 부티크 럭셔리.",
-    diff1Title: "수직적 통합 시스템",
-    diff1Desc: "보쉘 약국(Voshell's Pharmacy)과의 파트너십을 통한 무균 제제 직접 조달로 최고 수준의 품질 관리를 보장합니다.",
-    diff2Title: "무균 조제",
-    diff2Desc: "일반 메드스파에서는 모방할 수 없는 병원급 무균 상태를 위해 USP <797> 준수 ISO 5 무균 작업대를 사용합니다.",
-    diff3Title: "전문가 케어",
-    diff3Desc: "대사 건강을 전문으로 하는 이중 언어 의료팀과 문화적으로 맞춤화된 프로토콜.",
-    bookLabel: "여정을 시작하세요",
-    bookHeadline: "치료 예약을 확정하세요.",
-    bookSub: "아래에서 예약 유형을 선택하세요. 모든 첫 방문에는 간략한 전문 상담이 포함됩니다.",
-    newPatient: "신규 환자",
-    returnPatient: "기존 환자",
-    newPatientDesc: "첫 상담 + 첫 수액 치료. (60분)",
-    returnPatientDesc: "정기 치료 및 후속 관리. (75분)",
-    bookBtn: "상담 예약",
-    bookBtnReturn: "치료 예약",
-    needHelp: "도움이 필요하신가요? 전화 문의:",
-    locationLabel: "방문 안내",
-    locationHeadline: "글렌 버니 메디컬 허브.",
-    directions: "길 찾기",
-    footerDesc: "메릴랜드의 임상 웰니스 기준을 높입니다. 면허 보유 의료진, 무균 환경, 결과 중심의 IV 테라피 솔루션.",
-    navTreatments: "치료 메뉴",
-    navDifference: "차별점",
-    navLocation: "위치",
-    navPartners: "파트너"
-  },
-  vi: {
-    opening: "Sắp Khai Trương tại Glen Burnie",
-    headline: "Y Đức Chuẩn Mực. Sống Khỏe Hiện Đại.",
-    subhead: "Trải nghiệm liệu pháp truyền dịch IV chuyên khoa phù hợp với cơ địa riêng biệt của bạn. Kết nối nhu cầu y tế và sức sống hàng ngày.",
-    ctaOffer: "Nhận Ưu Đãi Khai Trương",
-    ctaMenu: "Xem Thực Đơn",
-    offerLabel: "🔥 Ưu Đãi Khai Trương Độc Quyền",
-    offerDetail: "Mua 2 gói truyền dịch, tặng 1 MIỄN PHÍ",
-    limitedTime: "Thời Gian Có Hạn",
-    trust1: "Tuân thủ USP <797>",
-    trust2: "Môi trường vô trùng ISO 5",
-    trust3: "Giám sát bởi Bác sĩ MD",
-    trust4: "Đội ngũ Y tế chuyên nghiệp",
-    menuLabel: "Thực Đơn Truyền Dịch",
-    menuHeadline: "Liệu Pháp Hiệu Quả.",
-    menuSub: "Công thức tùy chỉnh được thiết kế cho các mục tiêu sức khỏe cụ thể, từ phục hồi nhanh đến sửa chữa tế bào.",
-    service1Title: "Cấp Nước Thiết Yếu",
-    service1Desc: "Cấp nước nhanh chóng cho sức khỏe tổng quát và phục hồi. Khôi phục cân bằng điện giải ngay lập tức.",
-    service2Title: "Năng Lượng & Miễn Dịch",
-    service2Desc: "Công thức tăng cường sinh lực và hỗ trợ hệ thống phòng thủ miễn dịch tự nhiên của cơ thể.",
-    service3Title: "Ngọc Trắng & Rạng Rỡ",
-    service3Desc: "Liệu pháp truyền dịch 'Cinderella' nổi tiếng. Glutathione liều cao giúp làm sáng da và giải độc sâu.",
-    service3Badge: "⭐ Ưu tiên cho thị trường Hàn Quốc",
-    service4Title: "Chức Năng Nâng Cao",
-    service4Desc: "Các gói truyền chuyên dụng (NAD+, Hỗ trợ Gan) nhắm vào việc sửa chữa tế bào và kéo dài tuổi thọ.",
-    whyLabel: "Tại sao chọn Soleil?",
-    whyHeadline: "Tiêu Chuẩn Cao Cấp. Sang Trọng Tinh Tế.",
-    diff1Title: "Tích Hợp Trực Tiếp",
-    diff1Desc: "Hợp tác với Nhà thuốc Voshell để cung cấp trực tiếp các chế phẩm vô trùng, đảm bảo kiểm soát chất lượng cao nhất.",
-    diff2Title: "Pha Chế Vô Trùng",
-    diff2Desc: "Sử dụng tủ hút vô trùng ISO 5 tuân thủ USP <797> cho độ vô trùng cấp bệnh viện mà các Med-spa thông thường không có.",
-    diff3Title: "Chăm Sóc Chuyên Khoa",
-    diff3Desc: "Các phác đồ phù hợp về văn hóa với đội ngũ chăm sóc song ngữ chuyên về sức khỏe chuyển hóa.",
-    bookLabel: "Bắt Đầu Hành Trình",
-    bookHeadline: "Đặt Chỗ Ngay Hôm Nay.",
-    bookSub: "Chọn loại hình đặt chỗ bên dưới. Tất cả các lần thăm khám đầu tiên đều bao gồm tư vấn y tế ngắn gọn.",
-    newPatient: "Bệnh Nhân Mới",
-    returnPatient: "Bệnh Nhân Cũ",
-    newPatientDesc: "Tư vấn ban đầu + liệu trình truyền dịch đầu tiên. (60 phút)",
-    returnPatientDesc: "Theo dõi và điều trị định kỳ. (75 phút)",
-    bookBtn: "Đặt Lịch Tư Vấn",
-    bookBtnReturn: "Đặt Lịch Điều Trị",
-    needHelp: "Cần hỗ trợ? Gọi cho chúng tôi tại",
-    locationLabel: "Ghé Thăm Chúng Tôi",
-    locationHeadline: "Trung Tâm Y Tế Glen Burnie.",
-    directions: "Chỉ Đường",
-    footerDesc: "Nâng tầm tiêu chuẩn chăm sóc sức khỏe tại Maryland. Giải pháp truyền dịch IV vô trùng, chuyên nghiệp và hiệu quả.",
-    navTreatments: "Điều Trị",
-    navDifference: "Khác Biệt",
-    navLocation: "Vị Trí",
-    navPartners: "Đối Tác"
-  }
-};
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "10:00",
+      closes: "16:00",
+    },
+  ],
+  areaServed: ["Glen Burnie", "Ellicott City", "Maryland"],
+  sameAs: [],
+} as const;
 
 export default function Home() {
   const [activeBooking, setActiveBooking] = useState<'none' | 'new' | 'return'>('none');
@@ -206,7 +82,7 @@ export default function Home() {
     window.history.replaceState({}, "", url.toString());
   }, [lang]);
 
-  const t = TRANSLATIONS[lang];
+  const t = HOME_TRANSLATIONS[lang];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -226,6 +102,10 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#646464] font-sans selection:bg-[#004a99] selection:text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(LOCAL_BUSINESS_JSON_LD) }}
+      />
       
       {/* Navigation */}
       <motion.nav 
@@ -553,6 +433,18 @@ export default function Home() {
           <div className="text-center mt-16 bg-[#FAFAFA] p-8 rounded-3xl border border-black/5">
             <p className="text-xs font-mono uppercase tracking-[0.3em] text-[#999999]">{t.needHelp} <span className="text-[#111111] font-bold">(443) 281-9157</span></p>
           </div>
+        </div>
+      </section>
+
+      {/* Inquiry Section */}
+      <section id="inquiry" className="py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#004a99] mb-6 block font-bold">{t.inquiryLabel || 'General Inquiry'}</span>
+            <h2 className="text-5xl md:text-[80px] font-light tracking-tighter text-[#111111] mb-8 leading-tight">{t.inquiryHeadline || 'Still have questions?'}</h2>
+            <p className="text-[#646464] text-xl font-light mb-12 max-w-2xl mx-auto">{t.inquirySub || 'Send us a message and our medical team will get back to you.'}</p>
+          </div>
+          <GHLForm formId="TD6hYijKkRFiwxR39U9B" title="Soleil IV Infusions General Inquiry" />
         </div>
       </section>
 

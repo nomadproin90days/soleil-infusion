@@ -260,6 +260,31 @@ export default function ReferralKit() {
           </div>
         </motion.section>
 
+        {/* Business Discovery Call Calendar */}
+        <motion.section variants={itemVariants} className="bg-white rounded-[4rem] p-12 md:p-20 border border-[#004a99]/5 shadow-sm overflow-hidden text-center">
+          <div className="max-w-2xl mx-auto mb-12">
+            <h2 className="text-4xl font-light mb-6 tracking-tight">
+              {lang === 'en' ? (
+                <>Book a <span className="font-medium text-[#004a99]">Partnership Discovery Call</span></>
+              ) : t.discoveryCallTitle}
+            </h2>
+            <p className="text-[#646464] font-light text-lg leading-relaxed">
+              {t.discoveryCallDesc}
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto bg-[#FAFAFA] rounded-[3rem] p-4 min-h-[850px] overflow-hidden">
+            <iframe 
+              src="https://api.voshellspharmacy.com/widget/booking/BmauXC3RW6J6IQDl0fEc" 
+              style={{ width: '100%', height: '850px', border: 'none', overflow: 'hidden' }}
+              scrolling="no" 
+              id="4hqXKsvC0RlDfyt590Qf_1772312008724"
+              title="Business Connection & Support Calendar"
+            ></iframe>
+            <Script src="https://api.voshellspharmacy.com/js/form_embed.js" strategy="afterInteractive" />
+          </div>
+        </motion.section>
+
         {/* Contact info */}
         <motion.section variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-20 border-t border-black/5">
           <div>
