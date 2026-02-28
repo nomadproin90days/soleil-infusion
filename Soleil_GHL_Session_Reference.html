@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soleil Infusion — GHL Automation Reference</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c4906a;
+      --gold-dim: rgba(196,144,106,0.10);
+      --gold-border: rgba(196,144,106,0.28);
+      --blue: #5b8bb0;
+      --blue-dim: rgba(91,139,176,0.10);
+      --green: #3d9970;
+      --green-dim: rgba(61,153,112,0.10);
+      --red: #c0392b;
+      --red-dim: rgba(192,57,43,0.08);
+      --ink: #1a1a2e;
+      --ink-mid: #3d3d5c;
+      --ink-light: #6b6b8a;
+      --rule: #e2e4ef;
+      --surface: #f7f8fc;
+      --white: #ffffff;
+    }
+
+    html { font-size: 13px; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #eceef5;
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── PAGE ── */
+    .page {
+      max-width: 900px;
+      margin: 32px auto;
+      background: var(--white);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    /* ── COVER HEADER ── */
+    .cover {
+      background: var(--ink);
+      color: #fff;
+      padding: 44px 56px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 280px; height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,144,106,0.18) 0%, transparent 70%);
+    }
+    .cover-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .brand-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-border);
+      padding: 5px 12px;
+      border-radius: 30px;
+    }
+    .doc-meta {
+      font-size: 10px;
+      color: rgba(255,255,255,0.4);
+      text-align: right;
+      line-height: 1.8;
+    }
+    .cover h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .cover h1 em { color: var(--gold); font-style: italic; }
+    .cover-sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      max-width: 540px;
+      line-height: 1.6;
+    }
+    .cover-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 24px 0;
+    }
+    .cover-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.55);
+    }
+    .pill.gold { border-color: var(--gold-border); color: var(--gold); }
+    .pill.blue { border-color: rgba(91,139,176,0.4); color: #7ab5cc; }
+
+    /* ── BODY ── */
+    .body { padding: 0 56px 56px; }
+
+    /* ── SECTION ── */
+    .section { margin-top: 40px; }
+    .section-label {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--rule);
+      margin-bottom: 20px;
+    }
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+    h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 18px 0 8px;
+    }
+    p { font-size: 12px; color: var(--ink-mid); line-height: 1.7; margin-bottom: 10px; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--ink); font-weight: 600; }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .info-card {
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .info-card-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 5px;
+    }
+    .info-card-value {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+    .info-card-sub {
+      font-size: 10.5px;
+      color: var(--ink-light);
+      margin-top: 2px;
+    }
+
+    /* ── STATUS BADGE ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+    .badge.draft { background: rgba(91,139,176,0.12); color: var(--blue); border: 1px solid rgba(91,139,176,0.25); }
+    .badge.live  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(61,153,112,0.25); }
+    .badge.todo  { background: rgba(196,144,106,0.10); color: var(--gold); border: 1px solid var(--gold-border); }
+    .badge.critical { background: var(--red-dim); color: var(--red); border: 1px solid rgba(192,57,43,0.22); }
+    .badge.dot::before { content: '●'; font-size: 6px; }
+
+    /* ── WORKFLOW CARDS ── */
+    .wf-list { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .wf-card {
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .wf-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--rule);
+    }
+    .wf-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-right: 10px;
+      min-width: 2ch;
+    }
+    .wf-title { font-size: 12px; font-weight: 700; color: var(--ink); flex: 1; }
+    .wf-body { padding: 12px 16px; }
+    .wf-meta-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .wf-trigger {
+      font-size: 10px;
+      color: var(--ink-light);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .wf-trigger strong { color: var(--ink-mid); }
+    .wf-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .wf-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-mid);
+      line-height: 1.45;
+    }
+    .step-num {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ink-light);
+      min-width: 16px;
+      padding-top: 1px;
+    }
+
+    /* ── COMPLIANCE BOX ── */
+    .compliance-box {
+      background: var(--red-dim);
+      border: 1px solid rgba(192,57,43,0.2);
+      border-left: 4px solid var(--red);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 16px;
+    }
+    .compliance-box .label {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+    .compliance-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .compliance-box li {
+      font-size: 11.5px;
+      color: #5a1a14;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .compliance-box li::before { content: '⚠'; font-size: 10px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── PIPELINE TABLE ── */
+    .pipeline-block { margin-top: 12px; }
+    .pipeline-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .pipeline-stages {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .stage-chip {
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      color: var(--ink-mid);
+      white-space: nowrap;
+    }
+    .stage-arrow { font-size: 9px; color: var(--ink-light); }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 11.5px; }
+    thead tr { background: var(--surface); }
+    th {
+      text-align: left;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      padding: 9px 12px;
+      border-bottom: 2px solid var(--rule);
+    }
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--rule);
+      color: var(--ink-mid);
+      vertical-align: top;
+    }
+    td strong { color: var(--ink); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(196,144,106,0.03); }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 11.5px;
+      color: var(--ink-mid);
+      padding: 8px 12px;
+      background: var(--surface);
+      border-radius: 6px;
+      border: 1px solid var(--rule);
+    }
+    .check-box {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid var(--rule);
+      border-radius: 3px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── TAG CLOUD ── */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tag-item {
+      font-size: 9.5px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      border-radius: 20px;
+      color: #7a4e2d;
+    }
+
+    /* ── API BLOCK ── */
+    .api-block {
+      background: #1a1a2e;
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 12px;
+      position: relative;
+    }
+    .api-block .api-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 12px;
+    }
+    .api-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 6px;
+      align-items: baseline;
+    }
+    .api-key-label { font-size: 10px; font-weight: 600; color: var(--gold); min-width: 90px; font-family: monospace; }
+    .api-val { font-size: 10.5px; color: rgba(255,255,255,0.7); font-family: monospace; word-break: break-all; }
+    .api-val.redacted { color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 40px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .doc-footer-left { font-size: 9.5px; color: var(--ink-light); line-height: 1.7; }
+    .doc-footer-right { font-size: 9px; color: #bbb; text-align: right; }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; }
+      .page { margin: 0; box-shadow: none; border-radius: 0; }
+      .wf-card, .info-card, .compliance-box { break-inside: avoid; }
+      .section { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══ COVER ══════════════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-top">
+      <span class="brand-badge">Stone Systems · Client Brief</span>
+      <div class="doc-meta">
+        Prepared: February 24, 2026<br>
+        Version: 2.0 — Full Automation<br>
+        Confidential
+      </div>
+    </div>
+    <h1>Soleil Infusion —<br><em>GHL Automation</em> Reference</h1>
+    <p class="cover-sub">Complete context for the GoHighLevel workflow build session. This document covers what has been built, what remains, compliance requirements, pipeline architecture, and API access for the Soleil Infusion sub-account.</p>
+    <div class="cover-divider"></div>
+    <div class="cover-pills">
+      <span class="pill gold">GoHighLevel CRM</span>
+      <span class="pill gold">12 Workflows</span>
+      <span class="pill blue">HIPAA-Safe</span>
+      <span class="pill blue">TCPA Compliant</span>
+      <span class="pill">Glen Burnie, MD</span>
+      <span class="pill">IV Infusion · Wellness</span>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- ══ SECTION 1: BUSINESS OVERVIEW ══════════════════════ -->
+    <div class="section">
+      <div class="section-label">01 — Business Overview</div>
+      <h2>About Soleil Infusion</h2>
+      <p>Soleil Infusion is a forthcoming IV infusion wellness bar converting an underperforming pharmacy space at <strong>801 Landmark Drive, Glen Burnie, Maryland</strong> into a 900 sq ft, five-chair infusion bar. Prepared by Thuy Cao (owner), the business is vertically integrated with Voshell's Pharmacy, which supplies compounded sterile IV preparations at wholesale. The two entities are legally separate to comply with anti-kickback statutes.</p>
+      <p>The core strategy is a <strong>Korean-First go-to-market</strong> targeting Korean-Americans aged 35-65, for whom IV therapy is a familiar wellness practice — a currently unserved blue ocean market in the region. TAM estimated at <strong>$1.2M – $2.5M</strong> in Year 1.</p>
+
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-label">Owner</div>
+          <div class="info-card-value">Thuy Cao</div>
+          <div class="info-card-sub">Soleil Infusion LLC</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Address</div>
+          <div class="info-card-value">801 Landmark Drive</div>
+          <div class="info-card-sub">Glen Burnie, Maryland</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Pharmacy Partner</div>
+          <div class="info-card-value">Voshell's Pharmacy</div>
+          <div class="info-card-sub">IV compound supply (separate legal entity)</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Launch Offer</div>
+          <div class="info-card-value">Buy 2 Sessions, Get 1 Free</div>
+          <div class="info-card-sub">Pre-launch presale — projected $30K–$50K</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 2: SERVICE MENU ══════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">02 — Services & Pricing</div>
+      <h2>Service Menu</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Essential Hydration</strong></td><td>Basic hydration for general wellness and recovery</td><td>$165 – $175</td></tr>
+          <tr><td><strong>Energy / Immunity</strong></td><td>Formulations to boost energy and immune support</td><td>$195 – $215</td></tr>
+          <tr><td><strong>Performance / Recovery</strong></td><td>Athletic recovery and performance enhancement</td><td>$225 – $245</td></tr>
+          <tr><td><strong>Advanced Functional</strong></td><td>NAD+, Liver & Metabolic Support, detox drips</td><td>$275 – $295</td></tr>
+          <tr><td><strong>Membership</strong></td><td>2–4 visits/month with 10–15% discount</td><td>Varies</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px;font-size:10.5px;color:var(--ink-light);">Future expansion: EDTA Chelation, Diagnostic Testing, Oxygen Therapy, Mobile IV Services.</p>
+    </div>
+
+    <!-- ══ SECTION 3: COMPLIANCE ════════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">03 — Compliance Rules</div>
+      <h2>HIPAA + TCPA Requirements</h2>
+      <p>All GHL automations must comply with HIPAA and TCPA. These rules apply to <strong>every SMS and email</strong> created in any workflow.</p>
+      <div class="compliance-box">
+        <div class="label">Non-Negotiable Rules</div>
+        <ul>
+          <li>NEVER include medication names, compound names, drug names, or specific treatment formulas in any automated message</li>
+          <li>NEVER include diagnosis, symptoms, or any PHI (protected health information) in SMS or email content</li>
+          <li>Refer to all services generically: "your appointment," "your session," "your visit," "your treatment"</li>
+          <li>All SMS workflows must have <strong>Stop-on-Response</strong> enabled</li>
+          <li>First automated SMS must include: <em>"Reply STOP to unsubscribe"</em></li>
+          <li>No SMS before 8:00 AM or after 9:00 PM Eastern Time (Maryland)</li>
+          <li>B2B partner contacts require separate consent tracking from patient contacts</li>
+          <li>All new workflows must be saved as <strong>Draft</strong> first for review before publishing</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 4: PREVIOUS SESSION ═════════════════════════ -->
+    <div class="section">
+      <div class="section-label">04 — Previous Session (Built &amp; Saved as Draft)</div>
+      <h2>Workflows Already Built</h2>
+      <p>The following three workflows were created in the previous ChatGPT Agent Mode session. They are saved as <span class="badge draft dot">Draft</span> and need verification + publishing.</p>
+
+      <div class="wf-list">
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-1</span>
+            <span class="wf-title">B2B Lead Nurture &amp; Onboarding</span>
+            <span class="badge draft dot">Draft</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>b2b-lead</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Welcome email + SMS to new B2B partner lead</li>
+              <li><span class="step-num">2</span>Opportunity created in B2B Pipeline</li>
+              <li><span class="step-num">3</span>Follow-up task assigned to team member</li>
+              <li><span class="step-num">4</span>Day 3 and Day 7 check-in tasks</li>
+              <li><span class="step-num">5</span>Activation verification check</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-2</span>
+            <span class="wf-title">Rx Intake &amp; Pharmacist Alert</span>
+            <span class="badge draft dot">Draft</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>rx-received</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Contact tagging and categorization</li>
+              <li><span class="step-num">2</span>Opportunity moved to "Rx Received" stage</li>
+              <li><span class="step-num">3</span>Internal notification sent to pharmacist</li>
+              <li><span class="step-num">4</span>2-hour delay timer</li>
+              <li><span class="step-num">5</span>Escalation alert if no action taken</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-3</span>
+            <span class="wf-title">Patient Rx — Payment &amp; Consent Chase</span>
+            <span class="badge draft dot">Draft</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Pipeline Stage = "Pending Payment"</strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Payment request SMS (HIPAA-safe, no treatment names)</li>
+              <li><span class="step-num">2</span>Payment request email sent simultaneously</li>
+              <li><span class="step-num">3</span>24-hour wait timer</li>
+              <li><span class="step-num">4</span>Condition branch: Paid → advance to next stage / Unpaid → re-send + escalate</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION 5: REMAINING WORKFLOWS ══════════════════════ -->
+    <div class="section">
+      <div class="section-label">05 — Remaining Build (9 Workflows)</div>
+      <h2>Workflows Still to Build</h2>
+      <p>The following workflows need to be created in this session, in priority order. All should be saved as Draft after creation.</p>
+
+      <div class="wf-list">
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-4</span>
+            <span class="wf-title">New Patient Booking &amp; Pre-Visit Sequence</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Calendar appointment created</strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Immediate: Booking confirmation SMS + email</li>
+              <li><span class="step-num">2</span>24h before: Reminder SMS</li>
+              <li><span class="step-num">3</span>1h before: Reminder SMS</li>
+              <li><span class="step-num">4</span>Tag: <code>appointment-confirmed</code> | Task: intake form check</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-5</span>
+            <span class="wf-title">Post-Infusion Follow-up &amp; Rebooking</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>visit-complete</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Wait 2 hours → Thank-you SMS</li>
+              <li><span class="step-num">2</span>Wait 24h → Condition: responded? If yes → route to WF-10</li>
+              <li><span class="step-num">3</span>Wait 5 days → Rebooking SMS with booking link</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-6</span>
+            <span class="wf-title">No-Show Recovery</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Appointment status = No Show</strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Wait 30 min → Reschedule offer SMS</li>
+              <li><span class="step-num">2</span>Wait 2 days → Reschedule offer email</li>
+              <li><span class="step-num">3</span>Condition: Rescheduled? → tag / manual follow-up task if not</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-7</span>
+            <span class="wf-title">Pre-Launch Package Sales (Buy 2 Get 1)</span>
+            <span class="badge critical dot">Priority</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>presale-lead</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Immediate: Offer SMS + email with package details</li>
+              <li><span class="step-num">2</span>Create opportunity in Pre-Launch Sales Pipeline</li>
+              <li><span class="step-num">3</span>Day 2: Scarcity follow-up SMS ("Spots filling up")</li>
+              <li><span class="step-num">4</span>Day 5: Social proof follow-up email</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-8</span>
+            <span class="wf-title">B2C Web Lead Nurture (Korean Community)</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>b2c-lead</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Immediate: Welcome SMS + branded welcome email</li>
+              <li><span class="step-num">2</span>Day 1: Check booking status → follow-up if not booked</li>
+              <li><span class="step-num">3</span>Day 3: Educational email (no medical claims)</li>
+              <li><span class="step-num">4</span>Day 7: Move to Nurture stage + manual outreach task</li>
+              <li><span class="step-num">5</span>Future: Korean-language branch when <code>lang-korean</code> tag is set</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-9</span>
+            <span class="wf-title">Membership Enrollment &amp; Renewal</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger A: <strong>Tag — <code>member-new</code></strong> | Trigger B: <strong>7 days before renewal date</strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Enrollment: Welcome SMS + email, opportunity in Membership Pipeline</li>
+              <li><span class="step-num">2</span>Renewal: Reminder SMS → email → condition: renewed? → thank-you or final reminder or lapsed tag</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-10</span>
+            <span class="wf-title">Google Review Request</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>review-request</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Wait 1 hour → SMS with Google Review link</li>
+              <li><span class="step-num">2</span>Wait 3 days → Email follow-up if no review left</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-11</span>
+            <span class="wf-title">Missed Call Text Back</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Missed incoming call on Soleil phone number</strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Within 60 seconds: SMS recovery message with booking link</li>
+              <li><span class="step-num">2</span>Tag: <code>missed-call</code> + create "follow up within 1 hour" task</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="wf-card">
+          <div class="wf-card-header">
+            <span class="wf-num">WF-12</span>
+            <span class="wf-title">B2B Partner Referral Tracking</span>
+            <span class="badge todo dot">To Build</span>
+          </div>
+          <div class="wf-body">
+            <div class="wf-meta-row">
+              <span class="wf-trigger">Trigger: <strong>Tag applied — <code>b2b-referral</code></strong></span>
+            </div>
+            <ul class="wf-steps">
+              <li><span class="step-num">1</span>Welcome SMS acknowledging the referring partner (by name via custom field)</li>
+              <li><span class="step-num">2</span>Create opportunity in Patient Pipeline, stage = "Referred Lead"</li>
+              <li><span class="step-num">3</span>Task: notify referring partner of successful conversion</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ SECTION 6: PIPELINES ═════════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">06 — Pipeline Architecture</div>
+      <h2>5 Required Pipelines</h2>
+      <p>Verify these exist in the sub-account. Create any that are missing.</p>
+
+      <div class="pipeline-block">
+        <div class="pipeline-name">1. Patient Rx Fulfillment Pipeline</div>
+        <div class="pipeline-stages">
+          <span class="stage-chip">New Inquiry</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Consultation Scheduled</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Rx Received</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Pending Payment</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Payment Confirmed</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Appt Scheduled</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Visit Complete</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Follow-up Sent</span>
+        </div>
+      </div>
+      <div class="pipeline-block" style="margin-top:12px;">
+        <div class="pipeline-name">2. B2B Partner Pipeline</div>
+        <div class="pipeline-stages">
+          <span class="stage-chip">New Lead</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Intro Sent</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Meeting Scheduled</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Kit Delivered</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Active Partner</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Inactive</span>
+        </div>
+      </div>
+      <div class="pipeline-block" style="margin-top:12px;">
+        <div class="pipeline-name">3. Pre-Launch Sales Pipeline</div>
+        <div class="pipeline-stages">
+          <span class="stage-chip">New Inquiry</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Offer Sent</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Payment Pending</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Package Purchased</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Appt Scheduled</span>
+        </div>
+      </div>
+      <div class="pipeline-block" style="margin-top:12px;">
+        <div class="pipeline-name">4. B2C Lead Pipeline</div>
+        <div class="pipeline-stages">
+          <span class="stage-chip">New Lead</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Contacted</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Nurture</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Booked</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Converted</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Churned</span>
+        </div>
+      </div>
+      <div class="pipeline-block" style="margin-top:12px;">
+        <div class="pipeline-name">5. Membership Pipeline</div>
+        <div class="pipeline-stages">
+          <span class="stage-chip">Interested</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Trial</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Active Member</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Renewal Due</span><span class="stage-arrow">→</span>
+          <span class="stage-chip">Lapsed</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 7: CUSTOM FIELDS ═════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">07 — Custom Fields</div>
+      <h2>6 Contact Custom Fields</h2>
+      <table>
+        <thead>
+          <tr><th>Field Label</th><th>Field Key</th><th>Type</th><th>Values</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Preferred Language</strong></td><td><code>preferred_language</code></td><td>Dropdown</td><td>English, Korean</td></tr>
+          <tr><td><strong>Referring Partner</strong></td><td><code>referring_partner</code></td><td>Text</td><td>Free text</td></tr>
+          <tr><td><strong>Membership Renewal Date</strong></td><td><code>membership_renewal_date</code></td><td>Date</td><td>—</td></tr>
+          <tr><td><strong>Package Balance</strong></td><td><code>package_balance</code></td><td>Number</td><td>Integer</td></tr>
+          <tr><td><strong>Last Visit Date</strong></td><td><code>last_visit_date</code></td><td>Date</td><td>—</td></tr>
+          <tr><td><strong>B2B Partner Status</strong></td><td><code>b2b_partner_status</code></td><td>Dropdown</td><td>Active, Inactive, Prospect</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ SECTION 8: TAGS ══════════════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">08 — Standard Tags</div>
+      <h2>Contact Tags to Standardize</h2>
+      <p>All tags below must exist in the sub-account with exact names. These drive automation branching and segmentation.</p>
+      <div class="tag-cloud">
+        <span class="tag-item">b2b-lead</span>
+        <span class="tag-item">b2b-referral</span>
+        <span class="tag-item">b2c-lead</span>
+        <span class="tag-item">presale-lead</span>
+        <span class="tag-item">presale-offer-sent</span>
+        <span class="tag-item">rx-received</span>
+        <span class="tag-item">appointment-confirmed</span>
+        <span class="tag-item">visit-complete</span>
+        <span class="tag-item">no-show</span>
+        <span class="tag-item">rescheduled</span>
+        <span class="tag-item">review-request</span>
+        <span class="tag-item">review-requested</span>
+        <span class="tag-item">member-new</span>
+        <span class="tag-item">member-active</span>
+        <span class="tag-item">member-renewed</span>
+        <span class="tag-item">member-lapsed</span>
+        <span class="tag-item">missed-call</span>
+        <span class="tag-item">post-visit-follow-up-sent</span>
+        <span class="tag-item">lang-korean</span>
+        <span class="tag-item">lang-english</span>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 9: API ACCESS ════════════════════════════════ -->
+    <div class="section">
+      <div class="section-label">09 — API Access</div>
+      <h2>GHL API Reference</h2>
+      <p>The Soleil Infusion sub-account has a location-scoped API key (JWT format). Full key is stored at:</p>
+      <p style="font-family:monospace;font-size:11px;background:var(--surface);padding:8px 12px;border-radius:6px;border:1px solid var(--rule);color:var(--ink-mid);">/Users/mac/Documents/projects/soleil-infusion/Soleil pharmacy API key _ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.pdf</p>
+
+      <div class="api-block">
+        <div class="api-label">API Configuration</div>
+        <div class="api-row">
+          <span class="api-key-label">Base URL</span>
+          <span class="api-val">https://services.leadconnectorhq.com</span>
+        </div>
+        <div class="api-row">
+          <span class="api-key-label">Auth Header</span>
+          <span class="api-val">Authorization: Bearer &lt;JWT from PDF&gt;</span>
+        </div>
+        <div class="api-row">
+          <span class="api-key-label">Version Header</span>
+          <span class="api-val">Version: 2021-07-28</span>
+        </div>
+        <div class="api-row">
+          <span class="api-key-label">App URL</span>
+          <span class="api-val">https://app.gohighlevel.com</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SECTION 10: EXECUTION CHECKLIST ══════════════════════ -->
+    <div class="section">
+      <div class="section-label">10 — Execution Checklist</div>
+      <h2>Session Task Order</h2>
+      <ul class="checklist">
+        <li><span class="check-box"></span>Read API key from PDF, set as shell variable, verify API access</li>
+        <li><span class="check-box"></span>Verify the 3 existing draft workflows (WF-1, WF-2, WF-3)</li>
+        <li><span class="check-box"></span>Verify / create all 5 pipelines</li>
+        <li><span class="check-box"></span>Verify / create all 6 custom fields</li>
+        <li><span class="check-box"></span>Verify / create all 20 standard tags</li>
+        <li><span class="check-box"></span>Build WF-4: New Patient Booking &amp; Pre-Visit</li>
+        <li><span class="check-box"></span>Build WF-5: Post-Infusion Follow-up &amp; Rebooking</li>
+        <li><span class="check-box"></span>Build WF-6: No-Show Recovery</li>
+        <li><span class="check-box"></span><strong>Build WF-7: Pre-Launch Package Sales — PRIORITY</strong></li>
+        <li><span class="check-box"></span>Build WF-8: B2C Lead Nurture</li>
+        <li><span class="check-box"></span>Build WF-9: Membership Enrollment &amp; Renewal</li>
+        <li><span class="check-box"></span>Build WF-10: Google Review Request</li>
+        <li><span class="check-box"></span>Build WF-11: Missed Call Text Back</li>
+        <li><span class="check-box"></span>Build WF-12: B2B Partner Referral Tracking</li>
+        <li><span class="check-box"></span>Publish WF-1, WF-2, WF-3 after verification</li>
+        <li><span class="check-box"></span>Test full patient journey with test contact</li>
+        <li><span class="check-box"></span>Deliver completion summary</li>
+      </ul>
+    </div>
+
+    <!-- ══ FOOTER ══════════════════════════════════════════════════ -->
+    <div class="doc-footer">
+      <div class="doc-footer-left">
+        <strong>Soleil Infusion — GHL Automation Reference</strong><br>
+        Prepared February 24, 2026 · Stone Systems<br>
+        For use with OpenClaw agent session
+      </div>
+      <div class="doc-footer-right">
+        Confidential<br>
+        v2.0
+      </div>
+    </div>
+
+  </div><!-- /body -->
+</div><!-- /page -->
+</body>
+</html>

@@ -3,19 +3,22 @@
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
 }
 
 :root {
-  --background: #ffffff;
+  --background: #FAFAFA;
   --foreground: #646464; /* Dove Gray */
-  --medical-blue: #A6C7E7; /* Regent St Blue */
-  --medical-dark-blue: #5b8bb0; /* Darker shade of Regent St Blue for text/contrast */
-  --medical-light-blue: #f0f7ff;
+  --primary: #004a99;    /* Medical Blue */
+  --secondary: #A6C7E7;  /* Regent St Blue */
+  --accent: #008B8B;     /* Teal used in Return Infusion calendar */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff; /* Force light mode for medical aesthetic consistency for now */
+    --background: #FAFAFA; /* Force light mode for medical aesthetic consistency */
     --foreground: #646464;
   }
 }
@@ -23,5 +26,41 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.premium-blur {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.brand-logo-frame {
+  --brand-logo-height: 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.brand-logo {
+  height: var(--brand-logo-height);
+  width: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 481px) {
+  .brand-logo-frame {
+    --brand-logo-height: 80px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .brand-logo-frame {
+    --brand-logo-height: 100px;
+  }
 }

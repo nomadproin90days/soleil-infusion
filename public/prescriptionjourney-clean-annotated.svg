@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2149" height="1200" viewBox="0 0 2149 1200">
+  <defs>
+    <marker id="arrow-red" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L14,7 L0,14 z" fill="#e03131" />
+    </marker>
+    <style>
+      .scribble { stroke:#e03131; stroke-width:10; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+      .scribble-thin { stroke:#e03131; stroke-width:7; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+      .scribble-text { fill:#e03131; font-family: "Marker Felt", "Comic Sans MS", cursive; font-weight:700; }
+    </style>
+  </defs>
+
+  <!-- Base clean image -->
+  <image href="/prescriptionjourney.png" x="0" y="0" width="2149" height="1200" preserveAspectRatio="xMidYMid meet" />
+
+  <!-- 1 callout (top-left intake) -->
+  <circle class="scribble" cx="118" cy="190" r="55" />
+  <text class="scribble-text" x="95" y="210" font-size="72">1</text>
+  <path class="scribble" d="M115 260 C95 320, 95 350, 110 385" marker-end="url(#arrow-red)" />
+
+  <!-- Diagonal strike hints on legacy intake items -->
+  <path class="scribble-thin" d="M260 315 L430 250" />
+  <path class="scribble-thin" d="M265 425 L470 335" />
+  <path class="scribble-thin" d="M275 840 L495 720" />
+  <path class="scribble-thin" d="M300 930 L510 850" />
+
+  <!-- 2 callout (prescriber portal) -->
+  <circle class="scribble" cx="110" cy="1040" r="55" />
+  <text class="scribble-text" x="90" y="1060" font-size="72">2</text>
+  <rect class="scribble" x="140" y="930" width="350" height="190" rx="22" />
+
+  <!-- Big strategic arrow from intake toward sterile/non-sterile decision -->
+  <path class="scribble" d="M395 210 C750 135, 1120 120, 1490 150" marker-end="url(#arrow-red)" />
+
+  <!-- Down arrow to highlight platform center -->
+  <path class="scribble" d="M930 120 C940 200, 945 240, 940 300" marker-end="url(#arrow-red)" />
+
+  <!-- Circle around sterile/non-sterile decision block -->
+  <ellipse class="scribble" cx="1495" cy="280" rx="185" ry="140" />
+  <ellipse class="scribble-thin" cx="1515" cy="338" rx="150" ry="100" />
+
+  <!-- Cross out old check/payment handoff -->
+  <path class="scribble" d="M1035 245 L1180 390" />
+  <path class="scribble" d="M1180 245 L1035 390" />
+
+  <!-- HealN note -->
+  <text class="scribble-text" x="1005" y="470" font-size="90" transform="rotate(-8 1005 470)">HealN</text>
+
+  <!-- Right-side downward arrow to point-of-sale/delivery -->
+  <path class="scribble" d="M1680 210 C1710 360, 1715 560, 1700 760" marker-end="url(#arrow-red)" />
+</svg>

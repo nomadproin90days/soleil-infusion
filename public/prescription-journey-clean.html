@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prescription Journey - Clean</title>
+  <style>
+    :root {
+      --bg: #eef6fd;
+      --card: #ffffff;
+      --ink: #113652;
+      --sub: #4f7596;
+      --line: #a6c7e7;
+      --blue: #5b8bb0;
+      --purple: #6d4db4;
+      --green: #2d7d4f;
+      --gold: #b0852a;
+      --soft: #f6fbff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: linear-gradient(165deg, #f6fbff 0%, #e9f3fc 100%);
+      padding: 28px;
+    }
+
+    .board {
+      max-width: 1600px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid #d7e7f6;
+      border-radius: 24px;
+      box-shadow: 0 18px 48px rgba(33, 82, 125, 0.12);
+      overflow: hidden;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: 1fr 330px;
+      gap: 24px;
+      padding: 28px 28px 18px;
+      border-bottom: 1px solid #deebf8;
+      background: linear-gradient(180deg, #f8fcff 0%, #f2f8ff 100%);
+    }
+
+    .brand {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--sub);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      line-height: 1.05;
+      font-size: clamp(36px, 5vw, 64px);
+      letter-spacing: -0.02em;
+      color: #0f3f6a;
+    }
+
+    .subtitle {
+      margin-top: 12px;
+      color: #3f6585;
+      font-size: 18px;
+      max-width: 980px;
+    }
+
+    .panel {
+      background: #ecf5ff;
+      border: 1px solid #cfe3f6;
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      color: #2f628f;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .panel ul {
+      margin: 0;
+      padding-left: 16px;
+      color: #2f587a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .canvas {
+      padding: 22px 22px 30px;
+      background: var(--bg);
+    }
+
+    .flow {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.1fr .75fr .95fr .95fr .9fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .flow::before {
+      content: "";
+      position: absolute;
+      left: 70px;
+      right: 100px;
+      top: 90px;
+      height: 8px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #b8d4ee 0%, #91bbdf 60%, #5b8bb0 100%);
+      z-index: 0;
+    }
+
+    .stage {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 180px;
+      padding: 14px;
+    }
+
+    .dot {
+      flex: 0 0 58px;
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      border: 3px solid var(--line);
+      background: #f4f9ff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--blue);
+      font-size: 22px;
+    }
+
+    .copy h4 {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .copy p {
+      margin: 6px 0 0;
+      color: #476b8b;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #2f628f;
+      background: #e8f2fc;
+      border: 1px solid #c8def2;
+    }
+
+    .blocks {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .block {
+      background: var(--card);
+      border: 1px solid #d7e7f6;
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .block h5 {
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 12px;
+      color: #4f7596;
+    }
+
+    .block ul {
+      margin: 0;
+      padding-left: 16px;
+      color: #2f587a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .accent-a { border-left: 5px solid var(--purple); }
+    .accent-b { border-left: 5px solid var(--green); }
+
+    .summary {
+      background: #f7fbff;
+      border: 1px solid #d9e9f8;
+      border-radius: 14px;
+      padding: 14px;
+      color: #315a7a;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 12px;
+      color: #527899;
+    }
+
+    .chip {
+      background: #eaf4fe;
+      border: 1px solid #cee3f7;
+      border-radius: 999px;
+      padding: 4px 10px;
+    }
+
+    @media (max-width: 1180px) {
+      .top { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+      .flow::before { display: none; }
+      .stage { min-height: auto; padding: 10px 6px; }
+      .blocks { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <header class="top">
+      <div>
+        <div class="brand">Voshell's Compounding Model • Adapted For Soleil Pharmacy</div>
+        <h1>PRESCRIPTION JOURNEY:<br/>FROM DOCTOR TO PATIENT</h1>
+        <p class="subtitle">Thuy's target operating model: "I cannot scale the business if all the doctors were calling." Build a portal-first, automation-supported workflow that reduces error, speeds onboarding, and scales.</p>
+      </div>
+      <aside class="panel">
+        <h3>Typical Timeframes</h3>
+        <ul>
+          <li>Electronic RX: 30-45 min</li>
+          <li>Fax RX: 15-30 min</li>
+          <li>Regular Fill: 15-30 min</li>
+          <li>Insurance issues: +1-2 hours</li>
+          <li>Compounding: 1-3 days</li>
+          <li>Out of stock: same-day order, next-day ready</li>
+        </ul>
+      </aside>
+    </header>
+
+    <section class="canvas">
+      <div class="summary" style="margin-bottom:12px;">
+        <strong>Voice of Thuy (Feb 19):</strong> "Give them only two options ... electronic and the prescriber portal." •
+        "Facts, old-fashioned way, don't even offer it." •
+        "Rana used AI ... decoding the handwriting." •
+        "Our job is translation ... the portal reduces margin of human error."
+      </div>
+
+      <div class="flow">
+        <article class="stage">
+          <div class="dot">1</div>
+          <div class="copy">
+            <h4>Channel Policy (Target)</h4>
+            <p>Primary channels: Electronic RX + Prescriber Portal only. Phone/fax/paper move to exception handling.</p>
+            <span class="tag">Intake Standardization</span>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="dot">2</div>
+          <div class="copy">
+            <h4>AI-Assisted Intake</h4>
+            <p>When paperwork arrives, OCR + bot extracts data; technicians verify the remaining 20%.</p>
+            <span class="tag">Less burden, less errors</span>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="dot">3</div>
+          <div class="copy">
+            <h4>Formula-ID Ordering</h4>
+            <p>Doctor selects exact formulary in portal; bot drops formula ID into label and work queue.</p>
+            <span class="tag">You chose it, not us</span>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="dot">4</div>
+          <div class="copy">
+            <h4>Pioneer-Centered Execution</h4>
+            <p>Orders flow directly into Pioneer; workflow and pharmacist verification remain controlled and auditable.</p>
+            <span class="tag">Status: Approved</span>
+          </div>
+        </article>
+
+        <article class="stage">
+          <div class="dot">5</div>
+          <div class="copy">
+            <h4>Payment + Close Loop</h4>
+            <p>Capture payment early, then reconcile Pioneer + GHL pipeline to mark first-RX close and conversion.</p>
+            <span class="tag">Cash flow + measurable wins</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="blocks">
+        <article class="block accent-a">
+          <h5>Compounding Path (Core SOP)</h5>
+          <ul>
+            <li>Decision point: Sterile vs Non-Sterile</li>
+            <li>Sterile examples: GIPS, Trimix, Injectables (24-72h)</li>
+            <li>Non-sterile examples: Creams, Troches, Capsules (24-72h)</li>
+            <li>Includes payment check, prep, label, pull, and accuracy verification</li>
+          </ul>
+        </article>
+
+        <article class="block accent-b">
+          <h5>Operational Fallbacks</h5>
+          <ul>
+            <li>For low-tech offices, accept fax/paper as temporary bridge</li>
+            <li>Run OCR extraction and push toward portal onboarding</li>
+            <li>SDR identifies office bottleneck and right-hand contact</li>
+            <li>Goal: move every account to standardized portal flow</li>
+          </ul>
+        </article>
+
+        <article class="block">
+          <h5>Control Tower Metrics</h5>
+          <ul>
+            <li>Portal signup → first prescription sent (true close)</li>
+            <li>Pioneer order volume by provider and formula</li>
+            <li>Intake channel mix (portal/eRX vs legacy channels)</li>
+            <li>Error/back-and-forth rate and cycle time by channel</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="summary">
+        <strong>Ideal business model Thuy is describing:</strong> Use a <em>clinical-partner</em> positioning, route providers into a free HIPAA-compliant prescriber portal, minimize manual translation errors through formula-ID ordering, keep Pioneer as the operational source of truth, reconcile with GHL for commercial reporting, and use AI/OCR only as a migration bridge for legacy paperwork. This is the scalable engine for Soleil and multi-state expansion.
+      </div>
+
+      <div class="legend">
+        <span class="chip">RX Received</span>
+        <span class="chip">Ready To Fill</span>
+        <span class="chip">To Be Checked</span>
+        <span class="chip">Approved</span>
+        <span class="chip">Finished</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
