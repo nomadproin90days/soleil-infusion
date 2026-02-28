@@ -35,18 +35,22 @@ export default function ReferralKit() {
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-[#111111] font-sans pb-32 selection:bg-[#004a99] selection:text-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-[100] border-b border-black/5">
-        <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <Image 
-              src="/soleil-logo.png" 
-              alt="Soleil Logo" 
-              width={35} 
-              height={35} 
-              className="object-contain"
-            />
-            <div className="flex items-center gap-2 font-bold text-lg">
-              <span className="text-[#004a99]">Soleil</span> Infusion
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-[100] border-b border-black/5 font-sans">
+        <div className="max-w-6xl mx-auto px-6 h-24 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-4 group">
+            <div className="relative w-[52px] h-[52px]">
+              <Image 
+                src="/soleil-logo.png" 
+                alt="Soleil Logo" 
+                fill
+                className="object-contain transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-bold text-xl tracking-tight text-[#111111] leading-none mb-1">
+                <span className="text-[#004a99]">SOLEIL</span> INFUSION
+              </span>
+              <span className="text-[10px] font-mono tracking-[0.3em] uppercase opacity-50">Partner Program</span>
             </div>
           </Link>
           <div className="flex items-center gap-6">

@@ -38,3 +38,29 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+.brand-logo-frame {
+  --brand-logo-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--brand-logo-height) * 0.5);
+}
+
+.brand-logo {
+  height: var(--brand-logo-height);
+  width: auto;
+  object-fit: contain;
+}
+
+@media (min-width: 481px) {
+  .brand-logo-frame {
+    --brand-logo-height: 48px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .brand-logo-frame {
+    --brand-logo-height: 60px;
+  }
+}
