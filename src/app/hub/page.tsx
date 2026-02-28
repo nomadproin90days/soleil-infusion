@@ -11,7 +11,6 @@ import {
   Calendar, 
   Activity, 
   Layout, 
-  BookOpen,
   ArrowUpRight,
   ShieldCheck,
   Smartphone,
@@ -192,15 +191,17 @@ export default function ResourceHub() {
         className="pt-20 pb-12 px-6 md:px-12 max-w-6xl mx-auto border-b border-black/5"
       >
         <div className="flex items-center justify-between mb-12 text-[#111111]">
-          <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-4 group">
             <BrandLogo alt="Soleil Logo" priority />
             <div className="flex flex-col">
-              <span className="font-bold text-xl tracking-tight leading-none mb-1 text-[#004a99]">SOLEIL</span>
+              <span className="font-bold text-xl tracking-tight leading-none mb-1 text-[#004a99] group-hover:text-[#003377] transition-colors">SOLEIL</span>
               <span className="font-bold text-xl tracking-tight leading-none">INFUSION</span>
             </div>
-          </div>
-          <div className="flex items-center gap-3">
+          </Link>
+          <div className="flex items-center gap-4">
             <LanguageSwitcher locale={lang} onChange={setLang} />
+            <Link href="/" className="hidden md:block text-xs font-mono uppercase tracking-widest text-[#646464] hover:text-[#111111] transition-colors">← Main Site</Link>
+            <Link href="/#book" className="bg-[#004a99] text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#003377] transition-colors">Book Now</Link>
             <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
             <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">{t.hubLabel}</span>
           </div>
