@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { 
   Search, 
@@ -166,9 +167,15 @@ export default function ResourceHub() {
         animate={{ opacity: 1, y: 0 }}
         className="pt-20 pb-12 px-6 md:px-12 max-w-6xl mx-auto border-b border-black/5"
       >
-        <div className="flex items-center gap-3 mb-6">
-          <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Soleil Resource Hub</span>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center gap-3 text-[#111111]">
+            <Image src="/soleil-logo.png" alt="Soleil Logo" width={40} height={40} />
+            <span className="font-bold text-lg tracking-tight">SOLEIL INFUSION</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
+            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Soleil Resource Hub</span>
+          </div>
         </div>
         <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-8 text-balance">
           All Project <span className="font-medium text-[#004a99]">Documents</span>

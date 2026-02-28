@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { 
   ShieldCheck, 
@@ -36,9 +37,18 @@ export default function ReferralKit() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-[100] border-b border-black/5">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-bold text-lg">
-            <span className="text-[#004a99]">Soleil</span> Infusion
-          </div>
+          <Link href="/" className="flex items-center gap-3">
+            <Image 
+              src="/soleil-logo.png" 
+              alt="Soleil Logo" 
+              width={35} 
+              height={35} 
+              className="object-contain"
+            />
+            <div className="flex items-center gap-2 font-bold text-lg">
+              <span className="text-[#004a99]">Soleil</span> Infusion
+            </div>
+          </Link>
           <div className="flex items-center gap-6">
             <Link href="/hub" className="text-xs font-mono uppercase tracking-widest text-[#646464] hover:text-[#111111] transition-colors">
               Partner Hub

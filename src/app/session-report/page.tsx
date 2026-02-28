@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { CheckCircle2, FileText, ArrowRight, ShieldCheck, Calendar, Send, Clock, BarChart3, Laptop } from "lucide-react";
 
@@ -30,9 +31,15 @@ export default function SessionReport() {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="pt-20 pb-12 px-6 md:px-12 max-w-6xl mx-auto border-b border-black/5"
       >
-        <div className="flex items-center gap-3 mb-6">
-          <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
-          <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Progress Report</span>
+        <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center gap-3">
+            <Image src="/soleil-logo.png" alt="Soleil Logo" width={40} height={40} />
+            <span className="font-bold text-lg tracking-tight text-[#111111]">SOLEIL INFUSION</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="h-2 w-2 rounded-full bg-[#004a99] animate-pulse" />
+            <span className="text-xs font-mono uppercase tracking-widest text-[#646464]">Progress Report</span>
+          </div>
         </div>
         <h1 className="text-5xl md:text-7xl font-light tracking-tight mb-6 text-balance">
           Session <span className="font-medium text-[#004a99]">Summary</span>
