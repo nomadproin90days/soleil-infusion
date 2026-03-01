@@ -322,9 +322,9 @@ export default function Home() {
                 transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
                 className="w-full h-full rounded-[6rem] border border-white/10 bg-[#111111] flex items-center justify-center p-12 overflow-hidden shadow-2xl shadow-blue-900/20 relative group"
               >
-                {/* IV Therapy / Clinical Wellness Background Image from Unsplash */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-30 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
-                <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/80 via-transparent to-[#004a99]/20 pointer-events-none" />
+                {/* Luxury Boutique Wellness Background Image from Unsplash */}
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-20 group-hover:scale-110 transition-transform duration-[3000ms] pointer-events-none mix-blend-luminosity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#111111]/90 via-transparent to-[#004a99]/10 pointer-events-none" />
 
                 <div className="text-center relative z-10">
                   <Droplets size={72} className="text-[#A6C7E7] mx-auto mb-6 opacity-25" />
