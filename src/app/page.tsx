@@ -166,7 +166,7 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-6 items-center">
-              <Link href="#book" className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-[2.5rem] text-lg font-medium hover:bg-black transition-all group shadow-xl shadow-black/10">
+              <Link href="#claim" className="w-full sm:w-auto flex items-center justify-center gap-3 bg-[#111111] text-white px-12 py-6 rounded-[2.5rem] text-lg font-medium hover:bg-black transition-all group shadow-xl shadow-black/10">
                 {t.ctaOffer}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </Link>
@@ -189,7 +189,9 @@ export default function Home() {
                   <p className="text-2xl font-medium text-[#111111] tracking-tight">{t.offerDetail}</p>
                 </div>
               </div>
-              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#004a99]/60 bg-white/50 px-4 py-2 rounded-full border border-[#004a99]/5">{t.limitedTime}</div>
+              <Link href="#claim" className="bg-[#004a99] text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10">
+                {t.ctaOffer}
+              </Link>
             </motion.div>
           </motion.div>
         </div>
@@ -197,6 +199,25 @@ export default function Home() {
         {/* Decorative elements */}
         <div className="absolute top-[20%] right-[-5%] w-[800px] h-[800px] rounded-full bg-gradient-to-br from-[#A6C7E7]/20 to-transparent blur-[120px] pointer-events-none" />
         <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-[#004a99]/5 to-transparent blur-[100px] pointer-events-none" />
+      </section>
+
+      {/* Claim Offer Section */}
+      <section id="claim" className="py-24 px-6 bg-white border-b border-black/5">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-[#FAFAFA] rounded-[4rem] border border-black/5 p-8 md:p-16 shadow-inner relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-5">
+              <Sparkles size={120} className="text-[#004a99]" />
+            </div>
+            
+            <div className="text-center mb-12 relative z-10">
+              <span className="text-[10px] font-mono uppercase tracking-[0.4em] text-[#004a99] mb-4 block font-bold">{t.claimLabel}</span>
+              <h2 className="text-4xl md:text-6xl font-light tracking-tighter text-[#111111] mb-6 leading-tight">{t.claimHeadline}</h2>
+              <p className="text-[#646464] text-lg font-light max-w-xl mx-auto">{t.claimSub}</p>
+            </div>
+
+            <GHLForm formId="TD6hYijKkRFiwxR39U9B" title="Claim Launch Offer" className="bg-white" />
+          </div>
+        </div>
       </section>
 
       {/* Trust Bar */}
