@@ -189,9 +189,7 @@ export default function Home() {
                   <p className="text-2xl font-medium text-[#111111] tracking-tight">{t.offerDetail}</p>
                 </div>
               </div>
-              <Link href="#claim" className="bg-[#004a99] text-white px-8 py-4 rounded-full text-sm font-bold uppercase tracking-widest hover:bg-[#003377] transition-all shadow-lg shadow-blue-900/10">
-                {t.ctaOffer}
-              </Link>
+              <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#004a99]/60 bg-white/50 px-4 py-2 rounded-full border border-[#004a99]/5">{t.limitedTime}</div>
             </motion.div>
           </motion.div>
         </div>
@@ -215,7 +213,7 @@ export default function Home() {
               <p className="text-[#646464] text-lg font-light max-w-xl mx-auto">{t.claimSub}</p>
             </div>
 
-            <GHLForm formId="TD6hYijKkRFiwxR39U9B" title="Claim Launch Offer" className="bg-white" />
+            <GHLForm formId="8c7tIeZhpGM0ULERcESp" title="Soleil IV Infusions - Copy" className="bg-white" height={1156} />
           </div>
         </div>
       </section>
